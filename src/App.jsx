@@ -196,6 +196,22 @@ const ImageModal = ({ src, onClose }) => {
   );
 };
 
+const SkillPill = ({ skill, index }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ delay: index * 0.05 }}
+    className="skill-pill"
+  >
+    {skill.name}
+    <div className="skill-tooltip">
+      {skill.desc}
+      <div className="tooltip-arrow"></div>
+    </div>
+  </motion.div>
+);
+
 const StackCard = ({ stack, index }) => {
   const Icon =
     stack.icon === "Layout"
@@ -400,7 +416,7 @@ const App = () => {
     portfolioData.projects[0].id,
   );
   const [lightboxImage, setLightboxImage] = useState(null);
-  const tabs = ["About me", "Stacks", "Projects", "Education"];
+  const tabs = ["About me", "Stacks", "Projects", "Education", "Skills"];
 
   // Get images for the currently selected project for the gallery
   const selectedProjectImages =
@@ -557,6 +573,24 @@ const App = () => {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </motion.div>
+        </section>
+
+        <section id="skills" className="page-view container section-padding">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="skills-wrapper">
+              <h2 className="section-title heading-dot">core competencies</h2>
+              <div className="skills-grid-pills" style={{ marginTop: "4rem" }}>
+                {portfolioData.skills.map((skill, index) => (
+                  <SkillPill key={skill.name} skill={skill} index={index} />
+                ))}
+              </div>
             </div>
           </motion.div>
         </section>
