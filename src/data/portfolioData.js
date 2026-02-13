@@ -46,7 +46,18 @@ export const portfolioData = {
       role: "Full Stack Developer",
       images: [
         "/images/qr.png",
-        "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?auto=format&fit=crop&q=80&w=800",
+        "/images/qrsystem/Screenshot 2026-02-13 093423.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093437.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093454.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093511.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093528.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093534.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093610.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093626.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093635.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093733.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093740.png",
+        "/images/qrsystem/Screenshot 2026-02-13 093753.png",
       ],
     },
     {
@@ -121,7 +132,7 @@ export const portfolioData = {
     {
       title: "Senior High School",
       degree: "Accountancy, Business, and Management",
-      period: "Graduated: June, 2020",
+      period: " 2018 - 2020",
     },
   ],
   skills: [

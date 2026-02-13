@@ -135,7 +135,7 @@ const ProjectCard = ({ project, index }) => (
   </motion.div>
 );
 
-const InfiniteMarquee = ({ images }) => {
+const InfiniteMarquee = ({ images, onImageClick }) => {
   // Duplicate images to ensure seamless scrolling
   // If we don't have enough images to fill screen, duplicate more
   const marqueeImages = [...images, ...images, ...images, ...images];
@@ -156,8 +156,29 @@ const InfiniteMarquee = ({ images }) => {
             src={src}
             alt="Project Screenshot"
             className="marquee-image"
+            onClick={() => onImageClick(src)}
+            style={{ cursor: "zoom-in" }}
+            title="Click to view full image"
           />
         ))}
+      </div>
+    </div>
+  );
+};
+
+const ImageModal = ({ src, onClose }) => {
+  if (!src) return null;
+
+  return (
+    <div className="lightbox-overlay" onClick={onClose}>
+      <div
+        className="lightbox-image-container"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="lightbox-close" onClick={onClose}>
+          <X size={24} />
+        </button>
+        <img src={src} alt="Full View" className="lightbox-image" />
       </div>
     </div>
   );
@@ -363,6 +384,7 @@ const App = () => {
   const [selectedGalleryProject, setSelectedGalleryProject] = useState(
     portfolioData.projects[0].id,
   );
+  const [lightboxImage, setLightboxImage] = useState(null);
   const tabs = ["About me", "Stacks", "Projects", "Education"];
 
   // Get images for the currently selected project for the gallery
@@ -477,7 +499,10 @@ const App = () => {
               </div>
 
               {selectedProjectImages.length > 0 ? (
-                <InfiniteMarquee images={selectedProjectImages} />
+                <InfiniteMarquee
+                  images={selectedProjectImages}
+                  onImageClick={(src) => setLightboxImage(src)}
+                />
               ) : (
                 <div className="empty-gallery">
                   <p>No gallery images available for this project yet.</p>
@@ -532,6 +557,22 @@ const App = () => {
       </footer>
 
       <PortfolioChatbot />
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <ImageModal
+              src={lightboxImage}
+              onClose={() => setLightboxImage(null)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
