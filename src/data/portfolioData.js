@@ -2,7 +2,7 @@ export const portfolioData = {
   about: {
     name: "Jay-Ron",
     role: "Software Engineer",
-    bio: "I build robust, scalable systems that solve real-world problems. Specializing in full-stack development with a focus on performance and intuitive user experiences.",
+    bio: "Full-stack Software Engineer dedicated to architecting scalable, high-performance systems. Passionate about engineering efficient solutions, optimizing backend logic, and crafting seamless user experiences through clean, maintainable code.",
     cvLink: "/files/CV_JAYRONJAVIER.pdf",
     socials: {
       github: "https://github.com/Jayronj0616",

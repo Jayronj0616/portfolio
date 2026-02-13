@@ -63,6 +63,10 @@ const Hero = ({ data }) => (
           <span className="name-highlight">{data.name}</span>
           <span className="accent-dot">.</span>
         </h1>
+        <div className="hero-role-container">
+          <span className="hero-role-text">{data.role}</span>
+          <div className="hero-role-line"></div>
+        </div>
         <p className="hero-bio">{data.bio}</p>
 
         <div className="hero-cta">

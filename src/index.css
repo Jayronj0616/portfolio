@@ -147,6 +147,29 @@ h4 {
   color: var(--accent);
 }
 
+.hero-role-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 1s ease-out;
+}
+
+.hero-role-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+}
+
+.hero-role-line {
+  height: 1px;
+  width: 60px;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
 .hero-bio {
   font-size: 1.4rem;
   color: var(--text-muted);
