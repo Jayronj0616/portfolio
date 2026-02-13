@@ -70,10 +70,18 @@ const Hero = ({ data }) => (
             Download CV <Download size={18} />
           </a>
           <div className="social-links">
-            <a href={data.socials.github}>
+            <a
+              href={data.socials.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Github size={22} />
             </a>
-            <a href={data.socials.linkedin}>
+            <a
+              href={data.socials.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Linkedin size={22} />
             </a>
             <a href={data.socials.email}>
@@ -294,7 +302,7 @@ const PortfolioChatbot = () => {
             botResponse = `Jay-Ron's toolkit is full of powerful tools! For websites, Jay-Ron uses ${frontend}. Jay-Ron also uses smart AI assistants like Antigravity to build things much faster.`;
             break;
           case "contact":
-            botResponse = `Jay-Ron would love to hear from you! You can send an email to jayronxjavier@gmail.com. Jay-Ron is always ready for new challenges!`;
+            botResponse = `Jay-Ron would love to hear from you! You can send an email to ${portfolioData.about.socials.email.replace("mailto:", "")}. You can also find Jay-Ron on LinkedIn and GitHub!`;
             break;
           default:
             botResponse =
@@ -553,7 +561,29 @@ const App = () => {
       <footer className="footer container">
         <div className="footer-line"></div>
         <div className="footer-content">
-          <p>Built with React by {portfolioData.about.name}</p>
+          <p>
+            © {new Date().getFullYear()} Built with React by{" "}
+            {portfolioData.about.name}
+          </p>
+          <div className="footer-social-icons">
+            <a
+              href={portfolioData.about.socials.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github size={20} />
+            </a>
+            <a
+              href={portfolioData.about.socials.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Linkedin size={20} />
+            </a>
+            <a href={portfolioData.about.socials.email}>
+              <Mail size={20} />
+            </a>
+          </div>
           <div className="footer-links">
             <a href="#">Privacy</a>
             <a href="#">Terms</a>

@@ -5,8 +5,8 @@ export const portfolioData = {
     bio: "I build robust, scalable systems that solve real-world problems. Specializing in full-stack development with a focus on performance and intuitive user experiences.",
     cvLink: "/files/CV_JAYRONJAVIER.pdf",
     socials: {
-      github: "https://github.com",
-      linkedin: "https://linkedin.com",
+      github: "https://github.com/Jayronj0616",
+      linkedin: "https://www.linkedin.com/in/jayronjavier/",
       email: "mailto:jayronxjavier@gmail.com",
     },
   },
