@@ -272,6 +272,9 @@ const PortfolioChatbot = () => {
           case "Caffeine Co.":
             botResponse = `Jay-Ron created Caffeine Co. as a premium coffee shop experience using the MERN stack. It features a stunning 'Artisan Cream & Espresso' design, interactive menu with filtering, and a full ordering system. Jay-Ron focused on visual excellence and smooth user interactions to create a premium feel.`;
             break;
+          case "Booking System":
+            botResponse = `Jay-Ron was responsible for enhancing and maintaining this scheduling platform. Jay-Ron focused on resolving high-priority booking conflicts and improving overall system stability to ensure consistent data across all user sessions.`;
+            break;
           default:
             botResponse = `Jay-Ron designed ${project.title} to address specific technical challenges. Jay-Ron utilized ${project.tags.join(", ")} to build a solution that focuses on ${project.description.toLowerCase()}`;
         }
@@ -476,26 +479,28 @@ const App = () => {
 
               {/* Gallery Filter Buttons */}
               <div className="gallery-controls">
-                {portfolioData.projects.map((project) => (
-                  <button
-                    key={project.id}
-                    className={`gallery-btn ${selectedGalleryProject === project.id ? "active" : ""}`}
-                    onClick={() => setSelectedGalleryProject(project.id)}
-                  >
-                    {selectedGalleryProject === project.id && (
-                      <motion.div
-                        layoutId="gallery-pill"
-                        className="gallery-pill-bg"
-                        transition={{
-                          type: "spring",
-                          duration: 0.6,
-                          bounce: 0.2,
-                        }}
-                      />
-                    )}
-                    <span className="btn-text">{project.title}</span>
-                  </button>
-                ))}
+                {portfolioData.projects
+                  .filter((p) => p.images && p.images.length > 0)
+                  .map((project) => (
+                    <button
+                      key={project.id}
+                      className={`gallery-btn ${selectedGalleryProject === project.id ? "active" : ""}`}
+                      onClick={() => setSelectedGalleryProject(project.id)}
+                    >
+                      {selectedGalleryProject === project.id && (
+                        <motion.div
+                          layoutId="gallery-pill"
+                          className="gallery-pill-bg"
+                          transition={{
+                            type: "spring",
+                            duration: 0.6,
+                            bounce: 0.2,
+                          }}
+                        />
+                      )}
+                      <span className="btn-text">{project.title}</span>
+                    </button>
+                  ))}
               </div>
 
               {selectedProjectImages.length > 0 ? (

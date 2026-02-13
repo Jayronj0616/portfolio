@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "Jay-Ron",
     role: "Software Engineer",
     bio: "I build robust, scalable systems that solve real-world problems. Specializing in full-stack development with a focus on performance and intuitive user experiences.",
-    cvLink: "/files/Resume_JayronJavierF.pdf",
+    cvLink: "/files/CV_JAYRONJAVIER.pdf",
     socials: {
       github: "https://github.com",
       linkedin: "https://linkedin.com",
@@ -76,6 +76,18 @@ export const portfolioData = {
         "/images/coffeeshop/Screenshot 2026-02-13 111157.png",
         "/images/coffeeshop/Screenshot 2026-02-13 111206.png",
       ],
+    },
+    {
+      id: "04",
+      title: "Booking System",
+      description:
+        "Enhanced and maintained an existing booking and scheduling system, ensuring data consistency. Improved system stability by debugging and fixing issues related to booking conflicts.",
+      tags: ["Legacy System", "Maintenance", "Debugging"],
+      link: "#",
+      github: "#",
+      company: "Phoenix Publishing House Inc.",
+      role: "Software Developer Intern",
+      images: [],
     },
   ],
   stacks: [
