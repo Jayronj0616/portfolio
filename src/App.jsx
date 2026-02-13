@@ -269,8 +269,8 @@ const PortfolioChatbot = () => {
           case "QR Pass System":
             botResponse = `Jay-Ron built this system to automate and enhance the security of residential subdivisions. It streamlines the entry and exit process for residents and visitors using dynamic QR codes, replacing manual logs with a faster, digital solution. Jay-Ron also integrated an offline-first scanner using IndexedDB to ensure security checks remain functional even without an internet connection.`;
             break;
-          case "Booking System":
-            botResponse = `Jay-Ron was responsible for enhancing and maintaining this scheduling platform. Jay-Ron focused on resolving high-priority booking conflicts and improving overall system stability to ensure consistent data across all user sessions.`;
+          case "Caffeine Co.":
+            botResponse = `Jay-Ron created Caffeine Co. as a premium coffee shop experience using the MERN stack. It features a stunning 'Artisan Cream & Espresso' design, interactive menu with filtering, and a full ordering system. Jay-Ron focused on visual excellence and smooth user interactions to create a premium feel.`;
             break;
           default:
             botResponse = `Jay-Ron designed ${project.title} to address specific technical challenges. Jay-Ron utilized ${project.tags.join(", ")} to build a solution that focuses on ${project.description.toLowerCase()}`;
