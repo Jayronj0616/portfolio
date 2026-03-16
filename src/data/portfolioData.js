@@ -16,7 +16,7 @@ export const portfolioData = {
       title: "Airline System",
       hoverImage: "/images/airlines/airline.png",
       description:
-        "Designed, developed, and deployed a full-stack airline booking and revenue management system simulating real-world airline operations. Implemented demand-based dynamic pricing, concurrency-safe seat inventory, and automated background jobs to optimize revenue and ensure data integrity.",
+        "Designed and developed a full-stack airline booking and revenue management system as a personal project to simulate real-world airline operations. Implemented demand-based dynamic pricing, concurrency-safe seat inventory, and automated background jobs to handle complex backend logic and ensure data integrity.",
       tags: ["React", "Node.js", "MongoDB", "Express"],
       link: "#",
       github: "#",
