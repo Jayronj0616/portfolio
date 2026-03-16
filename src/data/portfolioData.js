@@ -42,7 +42,7 @@ export const portfolioData = {
       tags: ["Laravel 10", "IndexedDB", "Role-Based Access"],
       link: "#",
       github: "#",
-      company: "Metro Jobs & Payment Solutions",
+      company: "Asian Land Strategies Corporation",
       role: "Full Stack Developer",
       images: [
         "/images/qr.png",
