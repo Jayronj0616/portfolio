@@ -5,432 +5,339 @@ import {
   Github,
   Linkedin,
   Mail,
-  Download,
+  Moon,
   Menu,
   X,
-  Layout,
-  Server,
-  Wrench,
-  Database,
-  MessageCircle,
+  Code2,
+  FileText,
+  Send
 } from "lucide-react";
+import { GitHubCalendar } from "react-github-calendar";
+import {
+  SiJavascript, SiReact, SiVuedotjs, SiTailwindcss, SiCanva, SiHtml5, SiCss,
+  SiPhp, SiLaravel, SiNodedotjs, SiExpress, SiPython, SiSpringboot,
+  SiMysql, SiMongodb, SiPostgresql,
+  SiDocker, SiGit, SiNextdotjs
+} from "react-icons/si";
+import { FaCode, FaJava } from "react-icons/fa";
 import { portfolioData } from "./data/portfolioData";
+import "./index.css";
+import "./dark-theme.css";
 
-const Navbar = ({ activeTab, onTabClick, tabs }) => {
+const Navbar = ({ activeTab, onTabClick, tabs, toggleTheme, isDark }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="nav-container">
-      <div className="pill-nav">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            className={`nav-link ${activeTab === tab ? "active" : ""}`}
-            onClick={() => onTabClick(tab)}
-          >
-            {activeTab === tab && (
-              <motion.div
-                layoutId="active-pill"
-                className="active-pill-bg"
-                transition={{ type: "spring", duration: 0.6, bounce: 0.2 }}
-              />
-            )}
-            <span className="nav-text">{tab}</span>
+    <nav className="nav-container-target">
+      <div className="nav-content-target">
+        <div className="nav-avatar">
+          <img src="/images/pogi.jpg" alt="Avatar" />
+        </div>
+        
+        <div className="nav-links-desktop">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`nav-link-target ${activeTab === tab.id ? "active" : ""}`}
+              onClick={() => onTabClick(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+          <div className="nav-divider"></div>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            <Moon size={18} fill={isDark ? "currentColor" : "none"} />
           </button>
-        ))}
+        </div>
+
+        <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
-      <div
-        className="mobile-menu-btn"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        {isMenuOpen ? <X /> : <Menu />}
-      </div>
+
+      {isMenuOpen && (
+        <div className="mobile-menu-dropdown">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className="nav-link-target"
+              onClick={() => {
+                onTabClick(tab.id);
+                setIsMenuOpen(false);
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+          <button className="nav-link-target" onClick={toggleTheme} style={{textAlign: 'left'}}>
+            Toggle Theme
+          </button>
+        </div>
+      )}
     </nav>
   );
 };
 
-const Hero = ({ data }) => (
-  <section id="about" className="hero-section container">
-    <div className="hero-content">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <h1 className="hero-greeting">
-          Hey! I am <br />
-          <span className="name-highlight">{data.name}</span>
-          <span className="accent-dot">.</span>
-        </h1>
-        <div className="hero-role-container">
-          <span className="hero-role-text">{data.role}</span>
-          <div className="hero-role-line"></div>
-        </div>
-        <p className="hero-bio">{data.bio}</p>
+const HeroTypewriter = () => {
+  const words = ["Full Stack Developer", "Software Engineer"];
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-        <div className="hero-cta">
-          <a href={data.cvLink} className="btn-primary" download>
-            Download CV <Download size={18} />
-          </a>
-          <div className="social-links">
-            <a
-              href={data.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github size={22} />
-            </a>
-            <a
-              href={data.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Linkedin size={22} />
-            </a>
-            <a href={data.socials.email}>
-              <Mail size={22} />
-            </a>
-          </div>
-        </div>
-      </motion.div>
+  useEffect(() => {
+    let timer;
+    const currentWord = words[wordIndex];
+
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setText(currentWord.substring(0, text.length - 1));
+        if (text.length === 0) {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }, 50);
+    } else {
+      timer = setTimeout(() => {
+        setText(currentWord.substring(0, text.length + 1));
+        if (text.length === currentWord.length) {
+          timer = setTimeout(() => setIsDeleting(true), 2000);
+        }
+      }, 100);
+    }
+
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, wordIndex]);
+
+  return (
+    <div className="hero-typewriter">
+      {text}
+      <span className="typewriter-cursor">_</span>
     </div>
+  );
+};
 
-    <div className="hero-visual">
-      <motion.div
-        className="image-stack"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }}
-      >
-        <div className="stack-card card-left"></div>
-        <div className="stack-card card-right"></div>
-        <div className="main-photo">
-          <img src="/images/pogi.jpg" alt="Profile" />
+const Hero = ({ data }) => (
+  <section id="hero" className="hero-section-target">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="hero-content-wrapper"
+    >
+      <div className="hero-avatar-large">
+        <img src="/images/pogi.jpg" alt="Profile" />
+      </div>
+
+      <h1 className="hero-title-target">
+        Hi, I'm {data.name.split('-')[0]}
+      </h1>
+      
+      <HeroTypewriter />
+      
+      <h2 className="hero-subtitle-target">
+        Building Scalable Solutions for the Modern Web.
+      </h2>
+      
+      <div className="hero-actions-target">
+        <a href={data.cvLink} className="target-btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }} download>
+          <FileText size={18} /> Resume / CV
+        </a>
+        <a href={data.socials.email} className="target-btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Send size={18} /> Get in touch
+        </a>
+      </div>
+
+      <div className="hero-socials">
+        <a href={data.socials.github} target="_blank" rel="noreferrer"><Github size={20} /></a>
+        <a href={data.socials.linkedin} target="_blank" rel="noreferrer"><Linkedin size={20} /></a>
+        <a href={data.socials.email}><Mail size={20} /></a>
+      </div>
+    </motion.div>
+  </section>
+);
+
+const ProjectCard = ({ project, index, onImageClick }) => {
+  const imgSrc = project.images?.[0] || '/placeholder.png';
+  return (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: index * 0.1 }}
+    className="project-card-target"
+  >
+    <div className="project-image-target" style={{ cursor: 'pointer', display: 'block' }} onClick={() => onImageClick(imgSrc)}>
+      <img 
+        src={imgSrc} 
+        alt={project.title} 
+      />
+    </div>
+    <div className="project-content-target">
+      <div className="project-header-target">
+        <h3>{project.title}</h3>
+        <div className="project-links-target">
+          <a href={project.link || "#"}><ArrowUpRight size={20} /></a>
+          <a href={project.github || "#"}><Github size={18} /></a>
         </div>
-      </motion.div>
+      </div>
+      <p className="project-desc-target">{project.description}</p>
+      
+      <div className="project-tech-target">
+        <span className="tech-label-target">TECHNOLOGIES</span>
+        <div className="tech-tags-target">
+          {project.tags.slice(0, 4).map(tag => (
+            <span key={tag} className="tech-tag-pill">{tag}</span>
+          ))}
+          {project.tags.length > 4 && (
+            <span className="tech-tag-pill">+{project.tags.length - 4}</span>
+          )}
+        </div>
+      </div>
+
+      <div className="project-footer-target">
+        <div className="status-indicator-target">
+          <span className="dot"></span> ALL SYSTEMS OPERATIONAL
+        </div>
+        <a href={project.link || "#"} className="view-details-target">
+          View Details <ArrowUpRight size={16} />
+        </a>
+      </div>
+    </div>
+  </motion.div>
+  );
+};
+
+const getSkillIcon = (name) => {
+  const iconMap = {
+    "JavaScript": <SiJavascript style={{color: '#f7df1e'}} />,
+    "React": <SiReact style={{color: '#61dafb'}} />,
+    "Next.js": <SiNextdotjs style={{color: '#ffffff'}} />,
+    "Vue.js": <SiVuedotjs style={{color: '#4fc08d'}} />,
+    "Blade Templates": <SiLaravel style={{color: '#ff2d20'}} />,
+    "Tailwind": <SiTailwindcss style={{color: '#38b2ac'}} />,
+    "Canva": <SiCanva style={{color: '#00c4cc'}} />,
+    "HTML5": <SiHtml5 style={{color: '#e34f26'}} />,
+    "CSS3": <SiCss style={{color: '#1572b6'}} />,
+    "PHP": <SiPhp style={{color: '#777bb4'}} />,
+    "C#": <FaCode style={{color: '#239120'}} />,
+    "Laravel": <SiLaravel style={{color: '#ff2d20'}} />,
+    "Node.js": <SiNodedotjs style={{color: '#339933'}} />,
+    "Java": <FaJava style={{color: '#f89820'}} />,
+    "Express": <SiExpress style={{color: '#808080'}} />,
+    "Python": <SiPython style={{color: '#3776ab'}} />,
+    "Spring Boot": <SiSpringboot style={{color: '#6db33f'}} />,
+    "MySQL": <SiMysql style={{color: '#4479a1'}} />,
+    "MongoDB": <SiMongodb style={{color: '#47a248'}} />,
+    "PostgreSQL": <SiPostgresql style={{color: '#336791'}} />,
+    "Docker": <SiDocker style={{color: '#2496ed'}} />,
+    "Git": <SiGit style={{color: '#f05032'}} />,
+    "VS Code": <FaCode style={{color: '#007acc'}} />
+  };
+  return iconMap[name] || <FaCode style={{color: '#a1a1aa'}} />;
+};
+
+const filterGitHubData = (contributions) => {
+  const firstActiveIndex = contributions.findIndex(d => d.count > 0);
+  if (firstActiveIndex === -1) return contributions.slice(-150); // Fallback if no contributions
+  
+  const firstDate = new Date(contributions[firstActiveIndex].date);
+  const startMonth = firstDate.getMonth();
+  const startYear = firstDate.getFullYear();
+  
+  return contributions.filter(d => {
+    const date = new Date(d.date);
+    return date.getFullYear() > startYear || (date.getFullYear() === startYear && date.getMonth() >= startMonth);
+  });
+};
+
+const SkillsSection = ({ stacks }) => (
+  <section id="skills" className="skills-section-target">
+    <div className="section-label-target">Featured</div>
+    <h2 className="section-title-target">Skills</h2>
+    
+    <div className="skills-container-target">
+      {stacks.map((stack, i) => (
+        <motion.div 
+          key={stack.name}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.1 }}
+          className="skill-group-target"
+        >
+          <h3 className="skill-category-title">{stack.name}</h3>
+          <div className="skill-tags-group">
+            {stack.items.map(item => (
+              <span key={item} className="skill-tag-target">
+                {getSkillIcon(item)}
+                {item}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      ))}
     </div>
   </section>
 );
 
-const ProjectCard = ({ project, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.1 }}
-    className="project-card"
-  >
-    <div className="project-header">
-      <div className="project-title-group">
-        <h3>{project.title}</h3>
-        {project.role && (
-          <p className="project-role">
-            {project.role} @ {project.company}
-          </p>
-        )}
-      </div>
-      <a href={project.link} className="arrow-link">
-        <ArrowUpRight className="arrow-icon" size={28} />
-      </a>
-    </div>
-    <p className="project-desc">{project.description}</p>
-    <div className="project-tags">
-      {project.tags.map((tag) => (
-        <span key={tag} className="tag-pill">
-          {tag}
-        </span>
-      ))}
-    </div>
-    <span className="project-number">{project.id}</span>
-  </motion.div>
-);
-
-const InfiniteMarquee = ({ images, onImageClick }) => {
-  // Duplicate images to ensure seamless scrolling
-  // If we don't have enough images to fill screen, duplicate more
-  const marqueeImages = [...images, ...images, ...images, ...images];
-
-  // Calculate duration based on image count to keep speed consistent
-  // If 2 images take 30s (speed user likes), then duration = images.length * 15
-  const duration = Math.max(images.length * 15, 20);
-
-  return (
-    <div className="marquee-container">
-      <div
-        className="marquee-track"
-        style={{ animationDuration: `${duration}s` }}
-      >
-        {marqueeImages.map((src, index) => (
-          <img
-            key={index}
-            src={src}
-            alt="Project Screenshot"
-            className="marquee-image"
-            onClick={() => onImageClick(src)}
-            style={{ cursor: "zoom-in" }}
-            title="Click to view full image"
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const ImageModal = ({ src, onClose }) => {
-  if (!src) return null;
-
-  return (
-    <div className="lightbox-overlay" onClick={onClose}>
-      <div
-        className="lightbox-image-container"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button className="lightbox-close" onClick={onClose}>
-          <X size={24} />
-        </button>
-        <img src={src} alt="Full View" className="lightbox-image" />
-      </div>
-    </div>
-  );
-};
-
-const SkillPill = ({ skill, index }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.05 }}
-    className="skill-pill"
-  >
-    {skill.name}
-    <div className="skill-tooltip">
-      {skill.desc}
-      <div className="tooltip-arrow"></div>
-    </div>
-  </motion.div>
-);
-
-const StackCard = ({ stack, index }) => {
-  const Icon =
-    stack.icon === "Layout"
-      ? Layout
-      : stack.icon === "Server"
-        ? Server
-        : stack.icon === "Database"
-          ? Database
-          : Wrench;
-
-  return (
+const AboutSection = ({ data }) => (
+  <section id="about" className="about-section-target">
+    <div className="section-label-target">About</div>
+    <h2 className="section-title-target">Me</h2>
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="stack-card-item"
+      className="about-content-target"
     >
-      <div className="stack-header">
-        <Icon className="stack-icon" size={32} />
-        <h3>{stack.name}</h3>
-      </div>
-      <div className="stack-tags">
-        {stack.items.map((item) => (
-          <span key={item} className="stack-pill">
-            {item}
-          </span>
-        ))}
-      </div>
+      <p>{data.bio}</p>
+      <p>My expertise lies in bridging the gap between modern web development and scalable backends. I focus on building responsive, high-performance web applications using robust logic and clean code architecture. </p>
     </motion.div>
-  );
-};
-
-const PortfolioChatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentMenu, setCurrentMenu] = useState("main"); // 'main' or 'projects'
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Hello! I'm Jay-Ron's portfolio assistant. How can I help you today?",
-      sender: "bot",
-    },
-  ]);
-
-  const mainQuestions = [
-    { id: "about", text: "Who is Jay-Ron?" },
-    { id: "experience", text: "Philosophy & Experience" },
-    { id: "projects_menu", text: "Explore Jay-Ron's Projects" },
-    { id: "stack", text: "Tech Stack & Tools" },
-    { id: "contact", text: "How to connect?" },
-  ];
-
-  const projectQuestions = [
-    ...portfolioData.projects.map((p) => ({
-      id: `project_${p.id}`,
-      text: p.title,
-      type: "project",
-      data: p,
-    })),
-    { id: "back", text: "← Back to Main Menu" },
-  ];
-
-  const handleQuestionClick = (question) => {
-    const userMsg = { id: Date.now(), text: question.text, sender: "user" };
-    setMessages((prev) => [...prev, userMsg]);
-
-    setTimeout(() => {
-      let botResponse = "";
-
-      if (question.id === "projects_menu") {
-        botResponse =
-          "Jay-Ron has built some really cool systems! Which one would you like Jay-Ron to explain to you?";
-        setCurrentMenu("projects");
-      } else if (question.id === "back") {
-        botResponse = "Sure! What else would you like to know about Jay-Ron?";
-        setCurrentMenu("main");
-      } else if (question.id.startsWith("project_")) {
-        const project = question.data;
-        switch (project.title) {
-          case "Airline System":
-            botResponse = `Jay-Ron developed this full-stack system to simulate real-world airline operations. It features demand-based dynamic pricing and concurrency-safe seat inventory. Jay-Ron also implemented automated background jobs to optimize revenue and ensure system-wide data integrity.`;
-            break;
-          case "QR Pass System":
-            botResponse = `Jay-Ron built this system to automate and enhance the security of residential subdivisions. It streamlines the entry and exit process for residents and visitors using dynamic QR codes, replacing manual logs with a faster, digital solution. Jay-Ron also integrated an offline-first scanner using IndexedDB to ensure security checks remain functional even without an internet connection.`;
-            break;
-          case "Caffeine Co.":
-            botResponse = `Jay-Ron created Caffeine Co. as a premium coffee shop experience using the MERN stack. It features a stunning 'Artisan Cream & Espresso' design, interactive menu with filtering, and a full ordering system. Jay-Ron focused on visual excellence and smooth user interactions to create a premium feel.`;
-            break;
-          case "Booking System":
-            botResponse = `Jay-Ron was responsible for enhancing and maintaining this scheduling platform. Jay-Ron focused on resolving high-priority booking conflicts and improving overall system stability to ensure consistent data across all user sessions.`;
-            break;
-          default:
-            botResponse = `Jay-Ron designed ${project.title} to address specific technical challenges. Jay-Ron utilized ${project.tags.join(", ")} to build a solution that focuses on ${project.description.toLowerCase()}`;
-        }
-      } else {
-        switch (question.id) {
-          case "about":
-            botResponse = `Jay-Ron is a dedicated Software Engineer who loves building robust, scalable systems. Jay-Ron focuses on making complex things simple and ensuring every system runs perfectly.`;
-            break;
-          case "experience":
-            botResponse = `Jay-Ron has worked with companies like Metro Jobs and Phoenix Publishing. Jay-Ron's philosophy centers on 'System Efficiency'—making sure everything stays organized and safe, even when thousands of people are using it at once!`;
-            break;
-          case "stack":
-            const frontend = portfolioData.stacks
-              .find((s) => s.name === "Frontend")
-              ?.items.slice(0, 3)
-              .join(", ");
-            botResponse = `Jay-Ron's toolkit is full of powerful tools! For websites, Jay-Ron uses ${frontend}. Jay-Ron also uses smart AI assistants like Antigravity to build things much faster.`;
-            break;
-          case "contact":
-            botResponse = `Jay-Ron would love to hear from you! You can send an email to ${portfolioData.about.socials.email.replace("mailto:", "")}. You can also find Jay-Ron on LinkedIn and GitHub!`;
-            break;
-          default:
-            botResponse =
-              "Jay-Ron isn't sure about that, but feel free to ask something else!";
-        }
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        { id: Date.now() + 1, text: botResponse, sender: "bot" },
-      ]);
-    }, 600);
-  };
-
-  const currentOptions =
-    currentMenu === "main" ? mainQuestions : projectQuestions;
-
-  return (
-    <div className="chatbot-container">
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="chat-window"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          >
-            <div className="chat-header">
-              <div className="header-info">
-                <div className="header-dot-online"></div>
-                <h4>Portfolio Assistant</h4>
-              </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  color: "#ccc",
-                }}
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            <div className="chat-messages">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`message-bubble ${msg.sender === "bot" ? "bot-msg" : "user-msg"}`}
-                >
-                  {msg.text}
-                </div>
-              ))}
-            </div>
-
-            <div className="chat-options">
-              {currentOptions.map((q) => (
-                <button
-                  key={q.id}
-                  className="option-pill"
-                  onClick={() => handleQuestionClick(q)}
-                >
-                  {q.text}
-                </button>
-              ))}
-            </div>
-
-            <div className="chat-window-footer">
-              Usually responds in seconds
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <motion.button
-        className="chat-toggle-btn"
-        onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {isOpen ? <X size={28} /> : <span>💬</span>}
-      </motion.button>
-    </div>
-  );
-};
+  </section>
+);
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState("About me");
-  const [selectedGalleryProject, setSelectedGalleryProject] = useState(
-    portfolioData.projects[0].id,
-  );
-  const [lightboxImage, setLightboxImage] = useState(null);
-  const tabs = ["About me", "Stacks", "Projects", "Education", "Skills"];
+  const [activeTab, setActiveTab] = useState("projects");
+  const [selectedImage, setSelectedImage] = useState(null);
+  
+  const tabs = [
+    { id: "projects", label: "Projects" },
+    { id: "skills", label: "Skills" },
+    { id: "about", label: "About" },
+  ];
 
-  // Get images for the currently selected project for the gallery
-  const selectedProjectImages =
-    portfolioData.projects.find((p) => p.id === selectedGalleryProject)
-      ?.images || [];
+  const [isDark, setIsDark] = useState(true);
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-    let id = tab.toLowerCase();
-    if (tab === "About me") id = "about";
+  useEffect(() => {
+    // Check locally saved theme, default to dark
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      setIsDark(false);
+      document.documentElement.classList.remove("dark");
+    } else {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
 
-    const element = document.getElementById(id);
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    if (isDark) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  };
+
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+    if (tabId === "hero") return;
+    const element = document.getElementById(tabId);
     if (element) {
-      const yOffset = -100; // Offset for fixed navbar
+      const yOffset = -120;
       const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
@@ -438,214 +345,107 @@ const App = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = tabs.map((tab) => {
-        let id = tab.toLowerCase();
-        if (tab === "About me") id = "about";
-        return document.getElementById(id);
-      });
-
-      const scrollPosition = window.scrollY + 200; // Offset to trigger earlier
+      const sections = ["hero", "projects", "skills", "about"].map((id) => document.getElementById(id));
+      const scrollPosition = window.scrollY + 150;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section && section.offsetTop <= scrollPosition) {
-          setActiveTab(tabs[i]);
+           // map hero to projects for nav
+          setActiveTab(section.id === "hero" ? "projects" : section.id);
           break;
         }
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [tabs]);
+  }, []);
 
   return (
-    <div className="portfolio-root">
-      <Navbar activeTab={activeTab} onTabClick={handleTabClick} tabs={tabs} />
+    <div className="portfolio-target-root">
+      <Navbar activeTab={activeTab} onTabClick={handleTabClick} tabs={tabs} toggleTheme={toggleTheme} isDark={isDark} />
 
-      <main className="main-content-area">
+      <main className="main-container-target">
         <Hero data={portfolioData.about} />
 
-        <section id="stacks" className="page-view container section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="section-title heading-dot">tech stack</h2>
-            <div className="stacks-grid">
-              {portfolioData.stacks.map((stack, index) => (
-                <StackCard key={stack.name} stack={stack} index={index} />
+        <section id="projects" className="projects-section-target">
+          <div className="section-label-target">Featured</div>
+          <h2 className="section-title-target">Projects</h2>
+          <div className="projects-grid-target">
+            {portfolioData.projects
+              .filter(project => project.title !== "Booking System")
+              .map((project, index) => (
+                <ProjectCard key={project.id} project={project} index={index} onImageClick={setSelectedImage} />
               ))}
-            </div>
-          </motion.div>
+          </div>
         </section>
 
-        <section id="projects" className="page-view container section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="section-title heading-dot">projects</h2>
-            <div className="projects-grid">
-              {portfolioData.projects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
-              ))}
-            </div>
-
-            {/* Infinite Marquee Gallery */}
-            <div style={{ marginTop: "6rem" }}>
-              <h3
-                className="section-title heading-dot"
-                style={{ fontSize: "3rem", marginBottom: "2rem" }}
-              >
-                project gallery
-              </h3>
-
-              {/* Gallery Filter Buttons */}
-              <div className="gallery-controls">
-                {portfolioData.projects
-                  .filter((p) => p.images && p.images.length > 0)
-                  .map((project) => (
-                    <button
-                      key={project.id}
-                      className={`gallery-btn ${selectedGalleryProject === project.id ? "active" : ""}`}
-                      onClick={() => setSelectedGalleryProject(project.id)}
-                    >
-                      {selectedGalleryProject === project.id && (
-                        <motion.div
-                          layoutId="gallery-pill"
-                          className="gallery-pill-bg"
-                          transition={{
-                            type: "spring",
-                            duration: 0.6,
-                            bounce: 0.2,
-                          }}
-                        />
-                      )}
-                      <span className="btn-text">{project.title}</span>
-                    </button>
-                  ))}
-              </div>
-
-              {selectedProjectImages.length > 0 ? (
-                <InfiniteMarquee
-                  images={selectedProjectImages}
-                  onImageClick={(src) => setLightboxImage(src)}
-                />
-              ) : (
-                <div className="empty-gallery">
-                  <p>No gallery images available for this project yet.</p>
-                </div>
-              )}
-            </div>
-          </motion.div>
+        <section id="github" className="github-activity-target">
+          <div className="section-label-target">Featured</div>
+          <h2 className="section-title-target">GitHub Activity</h2>
+          <div className="github-calendar-wrapper">
+            <GitHubCalendar 
+              username="Jayronj0616" 
+              colorScheme={isDark ? "dark" : "light"}
+              blockSize={14}
+              blockMargin={6}
+              fontSize={12}
+              transformData={filterGitHubData}
+            />
+          </div>
         </section>
 
-        <section id="education" className="page-view container section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="section-title heading-dot">education</h2>
-            <div className="education-grid">
-              {portfolioData.education.map((edu, index) => (
-                <motion.div
-                  key={edu.title}
-                  className="education-card"
-                  whileHover={{ y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="edu-content">
-                    <div className="edu-top">
-                      <h3>{edu.title}</h3>
-                      <p className="edu-degree">{edu.degree}</p>
-                    </div>
-                    <div className="edu-footer">
-                      <span className="edu-period">{edu.period}</span>
-                      <span className="edu-tag">Graduate</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
-        <section id="skills" className="page-view container section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="skills-wrapper">
-              <h2 className="section-title heading-dot">core competencies</h2>
-              <div className="skills-grid-pills" style={{ marginTop: "4rem" }}>
-                {portfolioData.skills.map((skill, index) => (
-                  <SkillPill key={skill.name} skill={skill} index={index} />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </section>
+        <SkillsSection stacks={portfolioData.stacks} />
+        
+        <AboutSection data={portfolioData.about} />
       </main>
 
-      <footer className="footer container">
-        <div className="footer-line"></div>
-        <div className="footer-content">
-          <p>
-            © {new Date().getFullYear()} Built with React by{" "}
-            {portfolioData.about.name}
-          </p>
-          <div className="footer-social-icons">
-            <a
-              href={portfolioData.about.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="image-modal-overlay"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button className="image-modal-close" onClick={() => setSelectedImage(null)}>
+              <X size={24} />
+            </button>
+            <motion.div 
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="image-modal-content"
+              onClick={e => e.stopPropagation()}
             >
+              <img src={selectedImage} alt="Expanded Preview" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <footer className="footer-target">
+        <div className="footer-content-target">
+          <div className="footer-left">
+            <span className="footer-logo">
+              <img src="/images/pogi.jpg" alt="Avatar" className="footer-avatar" />
+              {portfolioData.about.name}
+            </span>
+          </div>
+          <div className="footer-socials-target">
+            <a href={portfolioData.about.socials.github} target="_blank" rel="noreferrer">
               <Github size={20} />
             </a>
-            <a
-              href={portfolioData.about.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={portfolioData.about.socials.linkedin} target="_blank" rel="noreferrer">
               <Linkedin size={20} />
             </a>
             <a href={portfolioData.about.socials.email}>
               <Mail size={20} />
             </a>
           </div>
-          <div className="footer-links">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-          </div>
         </div>
       </footer>
-
-      <PortfolioChatbot />
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {lightboxImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <ImageModal
-              src={lightboxImage}
-              onClose={() => setLightboxImage(null)}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };

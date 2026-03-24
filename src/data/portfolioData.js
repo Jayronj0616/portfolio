@@ -1,6 +1,6 @@
 export const portfolioData = {
   about: {
-    name: "Jay-Ron",
+    name: "Jayron",
     role: "Software Engineer",
     bio: "Full-stack Software Engineer dedicated to architecting scalable, high-performance systems. Passionate about engineering efficient solutions, optimizing backend logic, and crafting seamless user experiences through clean, maintainable code.",
     cvLink: "/files/JayronJavier_CV.pdf",
@@ -45,7 +45,7 @@ export const portfolioData = {
       company: "Asian Land Strategies Corporation",
       role: "Full Stack Developer",
       images: [
-        "/images/qr.png",
+        "/images/qrsystem/main.png",
         "/images/qrsystem/Screenshot 2026-02-13 093423.png",
         "/images/qrsystem/Screenshot 2026-02-13 093437.png",
         "/images/qrsystem/Screenshot 2026-02-13 093454.png",
@@ -97,6 +97,7 @@ export const portfolioData = {
       items: [
         "JavaScript",
         "React",
+        "Next.js",
         "Vue.js",
         "Blade Templates",
         "Tailwind",
@@ -113,6 +114,7 @@ export const portfolioData = {
         "C#",
         "Laravel",
         "Node.js",
+        "Java",
         "Express",
         "Python",
         "Spring Boot",
