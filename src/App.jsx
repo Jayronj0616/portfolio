@@ -12,7 +12,6 @@ import {
   FileText,
   Send
 } from "lucide-react";
-import { GitHubCalendar } from "react-github-calendar";
 import {
   SiJavascript, SiReact, SiVuedotjs, SiTailwindcss, SiCanva, SiHtml5, SiCss,
   SiPhp, SiLaravel, SiNodedotjs, SiExpress, SiPython, SiSpringboot,
@@ -237,20 +236,6 @@ const getSkillIcon = (name) => {
   return iconMap[name] || <FaCode style={{color: '#a1a1aa'}} />;
 };
 
-const filterGitHubData = (contributions) => {
-  const firstActiveIndex = contributions.findIndex(d => d.count > 0);
-  if (firstActiveIndex === -1) return contributions.slice(-150); // Fallback if no contributions
-  
-  const firstDate = new Date(contributions[firstActiveIndex].date);
-  const startMonth = firstDate.getMonth();
-  const startYear = firstDate.getFullYear();
-  
-  return contributions.filter(d => {
-    const date = new Date(d.date);
-    return date.getFullYear() > startYear || (date.getFullYear() === startYear && date.getMonth() >= startMonth);
-  });
-};
-
 const SkillsSection = ({ stacks }) => (
   <section id="skills" className="skills-section-target">
     <div className="section-label-target">Featured</div>
@@ -377,21 +362,6 @@ const App = () => {
               .map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} onImageClick={setSelectedImage} />
               ))}
-          </div>
-        </section>
-
-        <section id="github" className="github-activity-target">
-          <div className="section-label-target">Featured</div>
-          <h2 className="section-title-target">GitHub Activity</h2>
-          <div className="github-calendar-wrapper">
-            <GitHubCalendar 
-              username="Jayronj0616" 
-              colorScheme={isDark ? "dark" : "light"}
-              blockSize={14}
-              blockMargin={6}
-              fontSize={12}
-              transformData={filterGitHubData}
-            />
           </div>
         </section>
 
