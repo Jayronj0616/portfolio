@@ -21,6 +21,7 @@ import {
 } from "react-icons/si";
 import { FaCode, FaJava } from "react-icons/fa";
 import { portfolioData } from "./data/portfolioData";
+import Scene3D from "./components/Scene3D";
 import "./index.css";
 import "./dark-theme.css";
 
@@ -118,6 +119,7 @@ const HeroTypewriter = () => {
 
 const Hero = ({ data }) => (
   <section id="hero" className="hero-section-target">
+    <Scene3D />
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -281,6 +283,52 @@ const SkillsSection = ({ stacks }) => (
   </section>
 );
 
+const ExperienceSection = ({ experience }) => (
+  <section id="experience" className="experience-section-target">
+    <div className="section-label-target">Featured</div>
+    <h2 className="section-title-target">Experience</h2>
+
+    <div className="experience-timeline">
+      {experience.map((exp, i) => (
+        <motion.div
+          key={`${exp.company}-${i}`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.1 }}
+          className="experience-item-target"
+        >
+          <span className={`experience-node ${exp.current ? "current" : ""}`}></span>
+          <div className="experience-card-target">
+            <div className="experience-header-target">
+              <div className="experience-role-company">
+                <span className="experience-role-target">
+                  {exp.role}
+                  {exp.current && (
+                    <span className="current-badge-target">
+                      <span className="dot"></span> CURRENT
+                    </span>
+                  )}
+                </span>
+                <span className="experience-company-target">{exp.company}</span>
+              </div>
+              <span className="experience-period-target">{exp.period}</span>
+            </div>
+            <p className="experience-desc-target">{exp.description}</p>
+            {exp.tech && exp.tech.length > 0 && (
+              <div className="experience-tech-target">
+                {exp.tech.map((t) => (
+                  <span key={t} className="tech-tag-pill">{t}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </section>
+);
+
 const AboutSection = ({ data }) => (
   <section id="about" className="about-section-target">
     <div className="section-label-target">About</div>
@@ -303,6 +351,7 @@ const App = () => {
   
   const tabs = [
     { id: "projects", label: "Projects" },
+    { id: "experience", label: "Experience" },
     { id: "skills", label: "Skills" },
     { id: "about", label: "About" },
   ];
@@ -345,7 +394,7 @@ const App = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "projects", "skills", "about"].map((id) => document.getElementById(id));
+      const sections = ["hero", "projects", "experience", "skills", "about"].map((id) => document.getElementById(id));
       const scrollPosition = window.scrollY + 150;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -394,6 +443,8 @@ const App = () => {
             />
           </div>
         </section>
+
+        <ExperienceSection experience={portfolioData.experience} />
 
         <SkillsSection stacks={portfolioData.stacks} />
         

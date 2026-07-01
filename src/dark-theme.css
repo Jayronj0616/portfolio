@@ -193,6 +193,15 @@ body {
 .hero-section-target {
   padding-top: 12rem;
   padding-bottom: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-canvas-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero-title-target {
@@ -494,6 +503,148 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+/* EXPERIENCE SECTION */
+.experience-section-target {
+  padding: 4rem 0;
+}
+
+.experience-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-left: 2rem;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--border-light);
+}
+
+.experience-item-target {
+  position: relative;
+}
+
+.experience-node {
+  position: absolute;
+  left: -2rem;
+  top: 4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  border: 2px solid var(--bg-page);
+}
+
+.experience-node.current {
+  background: var(--status-green);
+}
+
+.experience-node.current::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--status-green);
+  animation: pulse 2s infinite;
+}
+
+.experience-card-target {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  transition: all 0.2s ease;
+}
+
+.experience-card-target:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.experience-header-target {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.experience-role-company {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.experience-role-target {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.experience-company-target {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.experience-period-target {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--tag-bg);
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.current-badge-target {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--status-green);
+  background: var(--status-green-bg);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.current-badge-target .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--status-green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.experience-desc-target {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.experience-tech-target {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .experience-header-target {
+    flex-direction: column;
+  }
+}
+
 /* ABOUT SECTION */
 .about-section-target {
   padding: 4rem 0 6rem 0;
@@ -559,6 +710,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-avatar-large {
