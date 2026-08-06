@@ -14,7 +14,7 @@ export const portfolioData = {
     {
       company: "Accenture",
       role: "Packaged App Development Associate",
-      period: "FILL_IN_START_DATE - Present",
+      period: "April 2026 - Present",
       current: true,
       description:
         "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech). Currently pursuing Microsoft Azure AI Engineer Associate (AI-102) certification.",
@@ -23,7 +23,7 @@ export const portfolioData = {
     {
       company: "Asian Land Strategies Corporation",
       role: "Full Stack Developer",
-      period: "FILL_IN_START_DATE - FILL_IN_END_DATE",
+      period: "November 2025 - April 2026",
       current: false,
       description:
         "Developed a Laravel 10 QR Pass Management System with role-based access control, real-time dashboard updates, automated pass expiration, and an offline-first scanner using IndexedDB.",
@@ -32,7 +32,7 @@ export const portfolioData = {
     {
       company: "Phoenix Publishing House Inc.",
       role: "Software Developer Intern",
-      period: "FILL_IN_START_DATE - FILL_IN_END_DATE",
+      period: "February 2025 - May 2025",
       current: false,
       description:
         "Enhanced and maintained an existing booking and scheduling system, ensuring data consistency and improving stability by debugging and fixing booking-conflict issues.",
