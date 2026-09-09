@@ -29,11 +29,12 @@ export default function ContactSection() {
     <section id="contact" className="py-24">
       <div className="mx-auto grid max-w-5xl gap-12 px-6 lg:grid-cols-[1fr_1.2fr]">
         <div>
-          <span className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-muted">
+          <span className="flex w-fit items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-live">
+            <span className="h-1.5 w-1.5 rounded-full bg-live" />
             Available for new projects
           </span>
           <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-            Let&apos;s Build Something <span className="text-gradient">Together.</span>
+            Let&apos;s build something <span className="text-accent">together.</span>
           </h2>
           <p className="mt-4 text-muted">
             Have a role, a project, or an idea in mind? Send a message and
@@ -57,7 +58,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition hover:border-accent/60 hover:text-accent"
+                  className="flex h-10 w-10 items-center justify-center border border-border text-muted transition hover:border-accent/60 hover:text-accent"
                 >
                   <Icon size={16} />
                 </a>
@@ -73,14 +74,14 @@ export default function ContactSection() {
               name="name"
               placeholder="Your name"
               required
-              className="rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-accent/60"
+              className="border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-accent/60"
             />
             <input
               type="email"
               name="email"
               placeholder="Your email"
               required
-              className="rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-accent/60"
+              className="border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-accent/60"
             />
           </div>
           <textarea
@@ -88,13 +89,13 @@ export default function ContactSection() {
             placeholder="Tell me about your project..."
             required
             rows={5}
-            className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-accent/60"
+            className="w-full border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-accent/60"
           />
 
           <button
             type="submit"
             disabled={pending}
-            className="btn-primary flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+            className="btn-primary flex items-center gap-2 px-6 py-3 text-sm font-semibold text-black transition disabled:cursor-not-allowed disabled:opacity-60"
           >
             {pending ? "Sending..." : "Send Message"}
             <Send size={15} />

@@ -17,9 +17,9 @@ export default function Footer() {
   return (
     <footer className="border-t border-border py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center sm:flex-row sm:justify-between sm:text-left">
-        <p className="text-sm text-muted">
-          &copy; {new Date().getFullYear()} {about.name}. Built with Next.js
-          &amp; Supabase.
+        <p className="font-mono text-xs text-muted">
+          © {new Date().getFullYear()} {about.name} — built with Next.js &amp;
+          Supabase.
         </p>
 
         <div className="flex gap-4">

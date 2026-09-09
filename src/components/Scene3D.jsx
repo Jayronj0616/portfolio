@@ -22,13 +22,13 @@ const DistortedBlob = ({ mouse }) => {
   return (
     <Sphere ref={meshRef} args={[1.4, 64, 64]} position={[0.6, 0, 0]}>
       <MeshDistortMaterial
-        color="#3b82f6"
+        color="#f59e0b"
         attach="material"
         distort={0.45}
         speed={1.5}
         roughness={0.15}
         metalness={0.4}
-        opacity={0.35}
+        opacity={0.22}
         transparent
       />
     </Sphere>
@@ -81,7 +81,7 @@ export default function Scene3D() {
         gl={{ alpha: true, antialias: true }}
       >
         <ambientLight intensity={0.6} />
-        <pointLight position={[5, 5, 5]} intensity={1.4} color="#60a5fa" />
+        <pointLight position={[5, 5, 5]} intensity={1.4} color="#fbbf24" />
         <DistortedBlob mouse={mouse} />
       </Canvas>
     </div>

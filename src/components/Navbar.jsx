@@ -20,14 +20,14 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2 font-semibold">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-b from-accent to-accent-2 text-sm text-white">
+        <a href="#top" className="flex items-center gap-2 font-mono font-semibold">
+          <span className="flex h-8 w-8 items-center justify-center border border-accent text-sm text-accent">
             {initials}
           </span>
           <span>{about.name}</span>
         </a>
 
-        <div className="hidden items-center gap-8 text-sm text-muted md:flex">
+        <div className="hidden items-center gap-8 font-mono text-xs uppercase tracking-wide text-muted md:flex">
           {LINKS.map((link) => (
             <a key={link.href} href={link.href} className="transition hover:text-foreground">
               {link.label}
@@ -38,13 +38,13 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href={about.cvLink}
-            className="rounded-full border border-border px-4 py-2 text-sm transition hover:border-accent/60 hover:text-accent"
+            className="border border-border px-4 py-2 text-sm transition hover:border-accent/60 hover:text-accent"
           >
             Resume
           </a>
           <a
             href="#contact"
-            className="btn-primary rounded-full px-4 py-2 text-sm font-medium text-white shadow-lg shadow-accent/20 transition hover:brightness-110"
+            className="btn-primary px-4 py-2 text-sm font-semibold text-black transition"
           >
             Contact Me
           </a>
@@ -77,7 +77,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="btn-primary mt-2 rounded-full px-4 py-2 text-center text-sm font-medium text-white"
+              className="btn-primary mt-2 px-4 py-2 text-center text-sm font-semibold text-black"
             >
               Contact Me
             </a>

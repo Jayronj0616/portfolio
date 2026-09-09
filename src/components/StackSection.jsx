@@ -8,36 +8,31 @@ export default function StackSection() {
 
   return (
     <section id="stack" className="border-b border-border py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">
-            Tools &amp; <span className="text-gradient">Technologies</span>
-          </h2>
-          <p className="mt-3 text-muted">
-            A versatile, master-of-all toolkit across the stack.
-          </p>
-        </div>
+      <div className="mx-auto max-w-4xl px-6">
+        <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+          Toolkit
+        </span>
+        <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+          Tools &amp; technologies
+        </h2>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 divide-y divide-border border-t border-border">
           {stacks.map((group) => {
             const Icon = ICONS[group.icon] ?? Layout;
             return (
               <div
                 key={group.name}
-                className="rounded-2xl border border-border bg-surface p-6"
+                className="grid gap-3 py-6 sm:grid-cols-[180px_1fr] sm:items-baseline sm:gap-8"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent">
-                  <Icon size={18} />
+                <div className="flex items-center gap-2 text-accent">
+                  <Icon size={16} />
+                  <h3 className="font-mono text-xs uppercase tracking-wide">
+                    {group.name}
+                  </h3>
                 </div>
-                <h3 className="mt-4 font-semibold">{group.name}</h3>
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted">
                   {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-border px-2.5 py-1 text-xs text-muted"
-                    >
-                      {item}
-                    </span>
+                    <span key={item}>{item}</span>
                   ))}
                 </div>
               </div>
