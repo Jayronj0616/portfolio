@@ -8,6 +8,10 @@ export const portfolioData = {
       github: "https://github.com/Jayronj0616",
       linkedin: "https://www.linkedin.com/in/jayronjavier/",
       email: "mailto:jayronxjavier@gmail.com",
+      // TODO: fill these in -- ask Jayron for the real links/numbers.
+      whatsapp: null, // e.g. "https://wa.me/63XXXXXXXXXX"
+      viber: null, // e.g. "viber://chat?number=%2B63XXXXXXXXXX"
+      facebook: null, // e.g. "https://facebook.com/yourhandle"
     },
   },
   experience: [
@@ -37,86 +41,6 @@ export const portfolioData = {
       description:
         "Enhanced and maintained an existing booking and scheduling system, ensuring data consistency and improving stability by debugging and fixing booking-conflict issues.",
       tech: ["Legacy System", "Debugging"],
-    },
-  ],
-  projects: [
-    {
-      id: "01",
-      title: "Airline System",
-      hoverImage: "/images/airlines/airline.png",
-      description:
-        "Designed and developed a full-stack airline booking and revenue management system as a personal project to simulate real-world airline operations. Implemented demand-based dynamic pricing, concurrency-safe seat inventory, and automated background jobs to handle complex backend logic and ensure data integrity.",
-      tags: ["React", "Node.js", "MongoDB", "Express"],
-      link: "#",
-      github: "#",
-      images: [
-        "/images/airlines/airline.png",
-        "/images/airlines/Screenshot 2026-02-13 082108.png",
-        "/images/airlines/Screenshot 2026-02-13 082115.png",
-        "/images/airlines/Screenshot 2026-02-13 082123.png",
-        "/images/airlines/Screenshot 2026-02-13 082349.png",
-        "/images/airlines/Screenshot 2026-02-13 082407.png",
-        "/images/airlines/Screenshot 2026-02-13 082502.png",
-        "/images/airlines/Screenshot 2026-02-13 082512.png",
-        "/images/airlines/Screenshot 2026-02-13 082628.png",
-        "/images/airlines/Screenshot 2026-02-13 082636.png",
-        "/images/airlines/Screenshot 2026-02-13 082654.png",
-      ],
-    },
-    {
-      id: "02",
-      title: "QR Pass System",
-      description:
-        "Developed a Laravel 10 QR Pass Management System with role-based access control and real-time dashboard updates. Implemented automated pass expiration and offline-first scanner using IndexedDB.",
-      tags: ["Laravel 10", "IndexedDB", "Role-Based Access"],
-      link: "#",
-      github: "#",
-      company: "Asian Land Strategies Corporation",
-      role: "Full Stack Developer",
-      images: [
-        "/images/qrsystem/main.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093423.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093437.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093454.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093511.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093528.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093534.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093610.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093626.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093635.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093733.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093740.png",
-        "/images/qrsystem/Screenshot 2026-02-13 093753.png",
-      ],
-    },
-    {
-      id: "03",
-      title: "Caffeine Co.",
-      hoverImage: "/images/coffeeshop/Screenshot 2026-02-13 111127.png",
-      description:
-        "A premium MERN stack coffee shop application featuring a luxury 'Artisan Cream & Espresso' aesthetic. Built with React and Tailwind CSS for a seamless UI, and powered by an Express/MongoDB backend to manage an interactive menu with category filtering and ordering system.",
-      tags: ["MERN Stack", "React", "Node.js", "MongoDB", "Tailwind CSS"],
-      link: "#",
-      github: "#",
-      images: [
-        "/images/coffeeshop/Screenshot 2026-02-13 111127.png",
-        "/images/coffeeshop/Screenshot 2026-02-13 111134.png",
-        "/images/coffeeshop/Screenshot 2026-02-13 111144.png",
-        "/images/coffeeshop/Screenshot 2026-02-13 111157.png",
-        "/images/coffeeshop/Screenshot 2026-02-13 111206.png",
-      ],
-    },
-    {
-      id: "04",
-      title: "Booking System",
-      description:
-        "Enhanced and maintained an existing booking and scheduling system, ensuring data consistency. Improved system stability by debugging and fixing issues related to booking conflicts.",
-      tags: ["Legacy System", "Maintenance", "Debugging"],
-      link: "#",
-      github: "#",
-      company: "Phoenix Publishing House Inc.",
-      role: "Software Developer Intern",
-      images: [],
     },
   ],
   stacks: [

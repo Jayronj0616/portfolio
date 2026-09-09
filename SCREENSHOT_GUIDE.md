@@ -15,7 +15,6 @@ General rules:
 
 - [ ] Dashboard / client list overview
 - [ ] Add Client form
-- [ ] Payment Schedule page (weekly/bi-weekly/custom frequency selector)
 - [ ] Collections tracker (summary cards + due-today view)
 - [ ] Client Details page showing balance/payment history
 

@@ -1,4 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+"use client";
+
+import { useRef, useEffect, useSyncExternalStore } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, Sphere } from "@react-three/drei";
 
@@ -11,7 +13,6 @@ const DistortedBlob = ({ mouse }) => {
     meshRef.current.rotation.x = t * 0.08;
     meshRef.current.rotation.y = t * 0.12;
 
-    // subtle parallax toward cursor position
     const targetX = mouse.current.x * 0.4;
     const targetY = mouse.current.y * 0.4;
     meshRef.current.position.x += (targetX - meshRef.current.position.x) * 0.03;
@@ -34,16 +35,29 @@ const DistortedBlob = ({ mouse }) => {
   );
 };
 
-const Scene3D = () => {
+// No external event changes whether the blob is enabled after mount,
+// so the store never notifies -- it just exposes a stable client-only
+// snapshot via useSyncExternalStore (SSR-safe: server snapshot is
+// always `false`, avoiding a hydration mismatch).
+function subscribe() {
+  return () => {};
+}
+function getSnapshot() {
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  return !prefersReducedMotion && window.innerWidth >= 768;
+}
+function getServerSnapshot() {
+  return false;
+}
+
+export default function Scene3D() {
   const mouse = useRef({ x: 0, y: 0 });
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    const isSmallScreen = window.innerWidth < 768;
-    setEnabled(!prefersReducedMotion && !isSmallScreen);
+    if (!enabled) return;
 
     const handleMouseMove = (e) => {
       mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -52,12 +66,15 @@ const Scene3D = () => {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [enabled]);
 
   if (!enabled) return null;
 
   return (
-    <div className="hero-canvas-wrapper" aria-hidden="true">
+    <div
+      className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      aria-hidden="true"
+    >
       <Canvas
         camera={{ position: [0, 0, 4], fov: 45 }}
         dpr={[1, 1.5]}
@@ -69,6 +86,4 @@ const Scene3D = () => {
       </Canvas>
     </div>
   );
-};
-
-export default Scene3D;
+}

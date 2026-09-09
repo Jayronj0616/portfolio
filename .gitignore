@@ -8,6 +8,8 @@ coverage
 
 # production
 dist
+.next
+out
 
 # misc
 .DS_Store
@@ -36,3 +38,6 @@ yarn-error.log*
 *.sln
 *.sw?
 .vercel
+
+# provenly runtime state (the config at the root is tracked, this is not)
+.claude/.harness/
