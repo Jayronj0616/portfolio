@@ -6,10 +6,16 @@ import ExperienceSection from "@/components/ExperienceSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import MaintenancePage from "@/components/MaintenancePage";
 import { getProjects, getTestimonials } from "@/lib/data";
 import { logAnalyticsEvent } from "@/app/actions";
+import { MAINTENANCE_MODE } from "@/config/site";
 
 export default async function Home() {
+  if (MAINTENANCE_MODE) {
+    return <MaintenancePage />;
+  }
+
   const [projects, testimonials] = await Promise.all([
     getProjects(),
     getTestimonials(),
