@@ -1,10 +1,11 @@
 import ProjectCard from "@/components/ProjectCard";
+import Reveal from "@/components/Reveal";
 
 export default function ProjectsSection({ projects }) {
   return (
     <section id="work" className="border-b border-border py-24">
-      <div className="mx-auto max-w-4xl px-6">
-        <div className="flex items-end justify-between gap-4 border-b border-border pb-6">
+      <div className="mx-auto max-w-5xl px-6">
+        <Reveal className="flex items-end justify-between gap-4">
           <div>
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
               Selected work
@@ -15,11 +16,16 @@ export default function ProjectsSection({ projects }) {
             Full-stack systems built for real operational logic, not just
             demos.
           </p>
-        </div>
+        </Reveal>
 
-        <div>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+              featured={index === 0}
+            />
           ))}
         </div>
       </div>

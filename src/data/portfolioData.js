@@ -2,7 +2,7 @@ export const portfolioData = {
   about: {
     name: "Jayron",
     role: "Software Engineer",
-    bio: "Full-stack Software Engineer dedicated to architecting scalable, high-performance systems. Passionate about engineering efficient solutions, optimizing backend logic, and crafting seamless user experiences through clean, maintainable code.",
+    bio: "I design and ship full-stack systems end-to-end — from the database schema to a live deployment. Right now that means building AI-powered tools with Azure OpenAI at Accenture, and shipping SaaS products of my own as a freelancer: a multi-admin lending platform, a voice-driven payroll system, a real estate booking site. I care less about how a demo looks and more about whether it holds up once real people are using it.",
     cvLink: "/files/CV_JAYRONJAVIER.pdf",
     socials: {
       github: "https://github.com/Jayronj0616",

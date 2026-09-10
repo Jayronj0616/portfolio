@@ -22,16 +22,16 @@ export default function Footer() {
           Supabase.
         </p>
 
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           {socials.map(({ key, href, Icon }) => (
             <a
               key={key}
               href={href}
               target={href.startsWith("mailto:") ? undefined : "_blank"}
               rel="noopener noreferrer"
-              className="text-muted transition hover:text-accent"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-accent"
             >
-              <Icon size={17} />
+              <Icon size={16} />
             </a>
           ))}
         </div>

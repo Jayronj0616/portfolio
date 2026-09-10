@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import StackSection from "@/components/StackSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -28,6 +29,7 @@ export default async function Home() {
       <Navbar />
       <main>
         <Hero projectsCount={projects.length} />
+        <AboutSection />
         <ProjectsSection projects={projects} />
         <StackSection />
         <ExperienceSection />

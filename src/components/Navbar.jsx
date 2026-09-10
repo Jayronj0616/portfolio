@@ -18,18 +18,22 @@ export default function Navbar() {
   const initials = about.name.slice(0, 2).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2 font-mono font-semibold">
-          <span className="flex h-8 w-8 items-center justify-center border border-accent text-sm text-accent">
+    <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
+      <nav className="glass mx-auto flex max-w-5xl items-center justify-between rounded-2xl border border-border px-5 py-3 shadow-[0_8px_30px_-16px_rgba(15,15,35,0.25)]">
+        <a href="#top" className="flex items-center gap-2.5 font-semibold">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-2 text-sm text-white">
             {initials}
           </span>
           <span>{about.name}</span>
         </a>
 
-        <div className="hidden items-center gap-8 font-mono text-xs uppercase tracking-wide text-muted md:flex">
+        <div className="hidden items-center gap-1 text-sm font-medium text-muted md:flex">
           {LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="transition hover:text-foreground">
+            <a
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-3.5 py-1.5 transition hover:bg-surface-2 hover:text-foreground"
+            >
               {link.label}
             </a>
           ))}
@@ -38,13 +42,13 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href={about.cvLink}
-            className="border border-border px-4 py-2 text-sm transition hover:border-accent/60 hover:text-accent"
+            className="rounded-full border border-border px-4 py-2 text-sm font-medium transition hover:border-accent/40 hover:text-accent"
           >
             Resume
           </a>
           <a
             href="#contact"
-            className="btn-primary px-4 py-2 text-sm font-semibold text-black transition"
+            className="btn-primary rounded-full px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5"
           >
             Contact Me
           </a>
@@ -62,8 +66,8 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-border px-6 pb-6 md:hidden">
-          <div className="flex flex-col gap-4 pt-4 text-sm text-muted">
+        <div className="glass mx-auto mt-2 max-w-5xl rounded-2xl border border-border px-6 py-6 shadow-[0_8px_30px_-16px_rgba(15,15,35,0.25)] md:hidden">
+          <div className="flex flex-col gap-4 text-sm text-muted">
             {LINKS.map((link) => (
               <a
                 key={link.href}
@@ -77,7 +81,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="btn-primary mt-2 px-4 py-2 text-center text-sm font-semibold text-black"
+              className="btn-primary mt-2 rounded-full px-4 py-2 text-center text-sm font-semibold text-white"
             >
               Contact Me
             </a>
