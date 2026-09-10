@@ -75,17 +75,17 @@ create policy "Public can read projects" on projects
 create policy "Public can read testimonials" on testimonials
   for select using (true);
 
--- Seed data migrated from the previous static portfolioData.js.
--- Update live_url / github_url with your real deployed links.
+-- Seed data, kept in sync with src/data/fallbackProjects.js (the
+-- source of truth until this migrates -- see PROJECTS.md).
 insert into projects (slug, title, description, tags, live_url, github_url, cover_image, images, sort_order, status, company, role)
 values
   (
     'airline-system',
     'Airline System',
     'Designed and developed a full-stack airline booking and revenue management system as a personal project to simulate real-world airline operations. Implemented demand-based dynamic pricing, concurrency-safe seat inventory, and automated background jobs to handle complex backend logic and ensure data integrity.',
-    array['React', 'Node.js', 'MongoDB', 'Express'],
+    array['Laravel 10', 'PHP', 'MySQL', 'Tailwind CSS'],
     null,
-    null,
+    'https://github.com/Jayronj0616/airline-system',
     '/images/airlines/airline.png',
     array[
       '/images/airlines/airline.png',
@@ -102,6 +102,48 @@ values
     ],
     1,
     'building',
+    null,
+    null
+  ),
+  (
+    'lending-system',
+    'Lending System',
+    'A multi-admin SaaS platform for tracking client loans, payments, and investors. Each admin''s clients, balances, and collections are fully isolated from every other admin. Live dashboards surface outstanding balances, collection rate, and investor exposure in real time.',
+    array['React', 'Express', 'PostgreSQL', 'Supabase', 'JWT'],
+    'https://lending-system-three.vercel.app/',
+    null,
+    '/images/lending/dashboard.jpg',
+    array['/images/lending/dashboard.jpg', '/images/lending/landing.jpg'],
+    2,
+    'live',
+    null,
+    null
+  ),
+  (
+    'payrollpro',
+    'PayrollPro',
+    'A SaaS payroll platform for managing employees and running payroll without spreadsheets, including hands-free payroll entry via voice commands (Web Speech API). Each account keeps its own employees and payroll history, private by default. Ported 1:1 from an original Laravel system to Next.js.',
+    array['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
+    'https://payroll-system-beryl.vercel.app/',
+    null,
+    '/images/payroll/dashboard.jpg',
+    array['/images/payroll/dashboard.jpg', '/images/payroll/landing.jpg'],
+    3,
+    'live',
+    null,
+    null
+  ),
+  (
+    'agentpro',
+    'AgentPro',
+    'A productized real estate website system for licensed brokers and agents — property listing management with photos, pricing, and status, plus a booking system for buyers to request property viewings directly from the site. Each client gets their own branded instance with an admin dashboard.',
+    array['React', 'Vite', 'Supabase', 'Tailwind CSS'],
+    'https://agentpro-theta.vercel.app/',
+    'https://github.com/Jayronj0616/agentpro',
+    '/images/agentpro/landing.jpg',
+    array['/images/agentpro/landing.jpg'],
+    4,
+    'live',
     null,
     null
   ),
@@ -128,7 +170,7 @@ values
       '/images/qrsystem/Screenshot 2026-02-13 093740.png',
       '/images/qrsystem/Screenshot 2026-02-13 093753.png'
     ],
-    2,
+    5,
     'archived',
     'Asian Land Strategies Corporation',
     'Full Stack Developer'
@@ -136,10 +178,10 @@ values
   (
     'caffeine-co',
     'Caffeine Co.',
-    'A premium MERN stack coffee shop application featuring a luxury ''Artisan Cream & Espresso'' aesthetic. Built with React and Tailwind CSS for a seamless UI, and powered by an Express/MongoDB backend to manage an interactive menu with category filtering and ordering system.',
-    array['MERN Stack', 'React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
-    null,
-    null,
+    'A coffee shop ordering platform with a luxury ''Artisan Cream & Espresso'' aesthetic — customer ordering plus a full admin console (dashboard, POS, inventory, sales, accounts). Built with React and Tailwind CSS, backed directly by Supabase (Postgres, Auth, Storage) with no separate server.',
+    array['React', 'Vite', 'Supabase', 'Tailwind CSS'],
+    'https://caffeine-co-smoky.vercel.app/',
+    'https://github.com/Jayronj0616/caffeine_co',
     '/images/coffeeshop/Screenshot 2026-02-13 111127.png',
     array[
       '/images/coffeeshop/Screenshot 2026-02-13 111127.png',
@@ -148,8 +190,8 @@ values
       '/images/coffeeshop/Screenshot 2026-02-13 111157.png',
       '/images/coffeeshop/Screenshot 2026-02-13 111206.png'
     ],
-    3,
-    'building',
+    6,
+    'live',
     null,
     null
   )
