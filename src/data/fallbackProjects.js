@@ -8,9 +8,9 @@ export const fallbackProjects = [
     title: "Airline System",
     description:
       "Designed and developed a full-stack airline booking and revenue management system as a personal project to simulate real-world airline operations. Implemented demand-based dynamic pricing, concurrency-safe seat inventory, and automated background jobs to handle complex backend logic and ensure data integrity.",
-    tags: ["React", "Node.js", "MongoDB", "Express"],
+    tags: ["Laravel 10", "PHP", "MySQL", "Tailwind CSS"],
     live_url: null,
-    github_url: null,
+    github_url: "https://github.com/Jayronj0616/airline-system",
     cover_image: "/images/airlines/airline.png",
     status: "building",
   },
@@ -64,11 +64,11 @@ export const fallbackProjects = [
     slug: "caffeine-co",
     title: "Caffeine Co.",
     description:
-      "A premium MERN stack coffee shop application featuring a luxury 'Artisan Cream & Espresso' aesthetic. Built with React and Tailwind CSS for a seamless UI, and powered by an Express/MongoDB backend to manage an interactive menu with category filtering and ordering system.",
-    tags: ["MERN Stack", "React", "Node.js", "MongoDB", "Tailwind CSS"],
-    live_url: null,
-    github_url: null,
+      "A coffee shop ordering platform with a luxury 'Artisan Cream & Espresso' aesthetic — customer ordering plus a full admin console (dashboard, POS, inventory, sales, accounts). Built with React and Tailwind CSS, backed directly by Supabase (Postgres, Auth, Storage) with no separate server.",
+    tags: ["React", "Vite", "Supabase", "Tailwind CSS"],
+    live_url: "https://caffeine-co-smoky.vercel.app/",
+    github_url: "https://github.com/Jayronj0616/caffeine_co",
     cover_image: "/images/coffeeshop/Screenshot 2026-02-13 111127.png",
-    status: "building",
+    status: "live",
   },
 ];

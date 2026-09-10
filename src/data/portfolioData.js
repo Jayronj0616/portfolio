@@ -90,8 +90,8 @@ export const portfolioData = {
       period: '2020 - 2025',
     },
     {
-      title: 'Senior High School',
-      degree: 'Accountancy, Business, and Management',
+      title: 'Saint Dominic Academy of Pulilan Inc.',
+      degree: 'Senior High School — Accountancy, Business, and Management',
       period: ' 2018 - 2020',
     },
   ],
