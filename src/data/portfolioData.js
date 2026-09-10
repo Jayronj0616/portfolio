@@ -8,10 +8,9 @@ export const portfolioData = {
       github: "https://github.com/Jayronj0616",
       linkedin: "https://www.linkedin.com/in/jayronjavier/",
       email: "mailto:jayronxjavier@gmail.com",
-      // TODO: fill these in -- ask Jayron for the real links/numbers.
-      whatsapp: null, // e.g. "https://wa.me/63XXXXXXXXXX"
-      viber: null, // e.g. "viber://chat?number=%2B63XXXXXXXXXX"
-      facebook: null, // e.g. "https://facebook.com/yourhandle"
+      whatsapp: "https://wa.me/639496281120",
+      viber: "viber://chat?number=%2B639496281120",
+      facebook: "https://www.facebook.com/jyrnjvr6",
     },
   },
   experience: [

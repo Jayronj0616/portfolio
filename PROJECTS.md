@@ -24,4 +24,4 @@ status changes here.
 - [ ] Get live Vercel URL + GitHub repo link for Airline System, or confirm it stays "Building" for now.
 - [ ] Get GitHub repo link for Caffeine Co. (or confirm private/no public repo).
 - [ ] Supabase project not created yet — see `.env.local.example` and `supabase/schema.sql`.
-- [ ] Social links pending: WhatsApp, Viber, Facebook (see `src/data/portfolioData.js` `about.socials`).
+- [x] Social links pending: WhatsApp, Viber, Facebook (see `src/data/portfolioData.js` `about.socials`).
