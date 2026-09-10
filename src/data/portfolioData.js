@@ -24,6 +24,15 @@ export const portfolioData = {
       tech: ["Azure", "Azure Databricks", "Azure OpenAI", "Power BI"],
     },
     {
+      company: "Self-employed",
+      role: "Freelance Software Developer",
+      period: "November 2025 - Present",
+      current: true,
+      description:
+        "Independently designed and built multiple full-stack SaaS products end-to-end, from database schema to deployment: a multi-admin lending and loan tracking platform, a payroll system with voice-command entry, and a real estate listing platform with booking and admin dashboards. Each shipped to production with its own auth and database.",
+      tech: ["React", "Next.js", "Supabase", "PostgreSQL"],
+    },
+    {
       company: "Asian Land Strategies Corporation",
       role: "Full Stack Developer",
       period: "November 2025 - April 2026",

@@ -15,6 +15,39 @@ export const fallbackProjects = [
     status: "building",
   },
   {
+    slug: "lending-system",
+    title: "Lending System",
+    description:
+      "A multi-admin SaaS platform for tracking client loans, payments, and investors. Each admin's clients, balances, and collections are fully isolated from every other admin. Live dashboards surface outstanding balances, collection rate, and investor exposure in real time.",
+    tags: ["React", "Express", "PostgreSQL", "Supabase", "JWT"],
+    live_url: "https://lending-system-three.vercel.app/",
+    github_url: null,
+    cover_image: "/images/lending/dashboard.jpg",
+    status: "live",
+  },
+  {
+    slug: "payrollpro",
+    title: "PayrollPro",
+    description:
+      "A SaaS payroll platform for managing employees and running payroll without spreadsheets, including hands-free payroll entry via voice commands (Web Speech API). Each account keeps its own employees and payroll history, private by default. Ported 1:1 from an original Laravel system to Next.js.",
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+    live_url: "https://payroll-system-beryl.vercel.app/",
+    github_url: null,
+    cover_image: "/images/payroll/dashboard.jpg",
+    status: "live",
+  },
+  {
+    slug: "agentpro",
+    title: "AgentPro",
+    description:
+      "A productized real estate website system for licensed brokers and agents — property listing management with photos, pricing, and status, plus a booking system for buyers to request property viewings directly from the site. Each client gets their own branded instance with an admin dashboard.",
+    tags: ["React", "Vite", "Supabase", "Tailwind CSS"],
+    live_url: "https://agentpro-theta.vercel.app/",
+    github_url: "https://github.com/Jayronj0616/agentpro",
+    cover_image: "/images/agentpro/landing.jpg",
+    status: "live",
+  },
+  {
     slug: "qr-pass-system",
     title: "QR Pass System",
     description:

@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ExternalLink, Github, Code2, Lock } from "lucide-react";
+import { ExternalLink, Github, Code2, Lock, X, Expand } from "lucide-react";
 import { logAnalyticsEvent } from "@/app/actions";
 
 const STATUS_LABEL = {
@@ -14,10 +15,20 @@ export default function ProjectCard({ project, index }) {
   const isLive = project.status === "live" && project.live_url;
   const isArchived = project.status === "archived";
   const statusLabel = isLive ? STATUS_LABEL.live : STATUS_LABEL[project.status] ?? STATUS_LABEL.building;
+  const [isImageOpen, setIsImageOpen] = useState(false);
 
   const track = (eventType) => {
     logAnalyticsEvent(eventType, { projectSlug: project.slug });
   };
+
+  useEffect(() => {
+    if (!isImageOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setIsImageOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isImageOpen]);
 
   return (
     <article className="group grid gap-6 border-b border-border py-10 first:pt-0 sm:grid-cols-[auto_1fr_auto] sm:items-start sm:gap-8">
@@ -87,8 +98,13 @@ export default function ProjectCard({ project, index }) {
         </div>
       </div>
 
-      <div className="relative order-2 aspect-[4/3] w-full overflow-hidden border border-border bg-surface-2 sm:order-3 sm:w-40">
-        {project.cover_image ? (
+      {project.cover_image ? (
+        <button
+          type="button"
+          onClick={() => setIsImageOpen(true)}
+          aria-label={`View full screenshot of ${project.title}`}
+          className="group/img relative order-2 aspect-[4/3] w-full cursor-zoom-in overflow-hidden border border-border bg-surface-2 sm:order-3 sm:w-40"
+        >
           <Image
             src={project.cover_image}
             alt={project.title}
@@ -96,12 +112,38 @@ export default function ProjectCard({ project, index }) {
             sizes="(min-width: 640px) 160px, 100vw"
             className="object-cover object-top grayscale transition duration-500 group-hover:grayscale-0"
           />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-muted">
-            <Code2 size={24} />
-          </div>
-        )}
-      </div>
+          <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover/img:bg-black/30 group-hover/img:opacity-100">
+            <Expand className="text-white" size={20} />
+          </span>
+        </button>
+      ) : (
+        <div className="relative order-2 flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-border bg-surface-2 text-muted sm:order-3 sm:w-40">
+          <Code2 size={24} />
+        </div>
+      )}
+
+      {isImageOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-6"
+          onClick={() => setIsImageOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setIsImageOpen(false)}
+            aria-label="Close full screenshot"
+            className="absolute right-6 top-6 text-white/70 transition hover:text-white"
+          >
+            <X size={28} />
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.cover_image}
+            alt={project.title}
+            className="max-h-[90vh] max-w-[90vw] object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </article>
   );
 }

@@ -13,13 +13,13 @@ export default function MaintenancePage() {
   ].filter((l) => l.href);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0a] px-6 text-center text-white">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/15 text-sm font-semibold tracking-wide text-white/80">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#faf6f1] px-6 text-center text-[#2b211c]">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#2b211c]/12 text-sm font-semibold tracking-wide text-[#2b211c]/80">
         {initials}
       </div>
 
-      <span className="mt-6 flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-amber-400/90">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
+      <span className="mt-6 flex items-center gap-2 rounded-full border border-[#2b211c]/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-[#c2410c]/90">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#c2410c]" />
         Under construction
       </span>
 
@@ -27,7 +27,7 @@ export default function MaintenancePage() {
         {about.name}&apos;s portfolio is getting rebuilt.
       </h1>
 
-      <p className="mt-4 max-w-md text-sm leading-relaxed text-white/50">
+      <p className="mt-4 max-w-md text-sm leading-relaxed text-[#7c6b5d]">
         A new version is on the way. In the meantime, feel free to reach out
         directly below.
       </p>
@@ -41,7 +41,7 @@ export default function MaintenancePage() {
               target={href.startsWith("mailto:") ? undefined : "_blank"}
               rel="noopener noreferrer"
               aria-label={label}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white/60 transition hover:border-white/30 hover:text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#2b211c]/10 text-[#7c6b5d] transition hover:border-[#2b211c]/25 hover:text-[#2b211c]"
             >
               <Icon size={16} />
             </a>
