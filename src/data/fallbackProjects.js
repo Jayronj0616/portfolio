@@ -69,6 +69,6 @@ export const fallbackProjects = [
     live_url: "https://caffeine-co-smoky.vercel.app/",
     github_url: "https://github.com/Jayronj0616/caffeine_co",
     cover_image: "/images/coffeeshop/Screenshot 2026-02-13 111127.png",
-    status: "live",
+    status: "building",
   },
 ];
