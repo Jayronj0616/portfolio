@@ -203,7 +203,16 @@ values
     null,
     'https://github.com/Jayronj0616/iznahanyachay_trucking',
     '/images/trucking/landing.jpg',
-    array['/images/trucking/landing.jpg'],
+    array[
+      '/images/trucking/landing.jpg',
+      '/images/trucking/login-modal.jpg',
+      '/images/trucking/dashboard-overview.jpg',
+      '/images/trucking/timesheet.jpg',
+      '/images/trucking/payroll.jpg',
+      '/images/trucking/routes.jpg',
+      '/images/trucking/settings.jpg',
+      '/images/trucking/dashboard-overview-dark.jpg'
+    ],
     7,
     'building',
     null,
