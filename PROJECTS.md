@@ -13,7 +13,8 @@ status changes here.
 | PayrollPro | 🟢 Live | payroll-system-beryl.vercel.app | — (private) | SaaS payroll platform, ported from Laravel to Next.js. Freelance work. |
 | AgentPro | 🟢 Live | agentpro-theta.vercel.app | github.com/Jayronj0616/agentpro | Real estate website system, sold per-client. Freelance work. |
 | QR Pass System | ⚫ Archived | — (won't be linked) | — | Asian Land Strategies Corporation, in-house/company-owned system — can't be publicly deployed or linked. Shown via screenshots only. |
-| Caffeine Co. | 🟢 Live | caffeine-co-smoky.vercel.app | github.com/Jayronj0616/caffeine_co | Personal project. Rewritten since the original MERN prototype — now React + Vite + Supabase. |
+| Caffeine Co. | 🟡 Building | caffeine-co-smoky.vercel.app | github.com/Jayronj0616/caffeine_co | Personal project. Rewritten since the original MERN prototype — now React + Vite + Supabase. Marked in progress, not live. |
+| Trucking System | 🟡 Building | — | github.com/Jayronj0616/iznahanyachay_trucking | Freelance work — payroll/attendance system for a trucking fleet. PHP/MySQL, no framework. Not deployed publicly (client runs it in-house). |
 | ~~Booking System~~ | Removed | — | — | Phoenix Publishing House Inc. internship project — excluded from the portfolio entirely per Jayron's request. |
 
 ## Status legend

@@ -194,6 +194,20 @@ values
     'live',
     null,
     null
+  ),
+  (
+    'trucking-system',
+    'Trucking System',
+    'An internal payroll and attendance system for a trucking fleet — trip-based attendance tracking, driver and helper commission payroll, and admin-controlled employee accounts with an approval workflow. Built with plain PHP and MySQL for straightforward deployment on shared hosting.',
+    array['PHP', 'MySQL', 'Tailwind CSS'],
+    null,
+    'https://github.com/Jayronj0616/iznahanyachay_trucking',
+    '/images/trucking/landing.jpg',
+    array['/images/trucking/landing.jpg'],
+    7,
+    'building',
+    null,
+    null
   )
 on conflict (slug) do nothing;
 

@@ -71,4 +71,15 @@ export const fallbackProjects = [
     cover_image: "/images/coffeeshop/Screenshot 2026-02-13 111127.png",
     status: "building",
   },
+  {
+    slug: "trucking-system",
+    title: "Trucking System",
+    description:
+      "An internal payroll and attendance system for a trucking fleet — trip-based attendance tracking, driver and helper commission payroll, and admin-controlled employee accounts with an approval workflow. Built with plain PHP and MySQL for straightforward deployment on shared hosting.",
+    tags: ["PHP", "MySQL", "Tailwind CSS"],
+    live_url: null,
+    github_url: "https://github.com/Jayronj0616/iznahanyachay_trucking",
+    cover_image: "/images/trucking/landing.jpg",
+    status: "building",
+  },
 ];
