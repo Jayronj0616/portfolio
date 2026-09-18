@@ -22,7 +22,7 @@ export const fallbackProjects = [
     tags: ["React", "Express", "PostgreSQL", "Supabase", "JWT"],
     live_url: "https://lending-system-three.vercel.app/",
     github_url: null,
-    cover_image: "/images/lending/dashboard.jpg",
+    cover_image: "/images/lending/landing.jpg",
     status: "live",
   },
   {
@@ -33,7 +33,7 @@ export const fallbackProjects = [
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
     live_url: "https://payroll-system-beryl.vercel.app/",
     github_url: null,
-    cover_image: "/images/payroll/dashboard.jpg",
+    cover_image: "/images/payroll/landing.jpg",
     status: "live",
   },
   {
