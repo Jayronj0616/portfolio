@@ -58,6 +58,111 @@ create table if not exists analytics_events (
 create index if not exists analytics_events_type_idx on analytics_events (event_type, created_at desc);
 create index if not exists analytics_events_project_idx on analytics_events (project_slug);
 
+-- Site text (about, experience, education, tools/stacks) editable from
+-- /admin/site instead of redeploying with a portfolioData.js change.
+-- Single row, id is always 'main'.
+create table if not exists site_settings (
+  id text primary key default 'main',
+  about jsonb not null default '{}'::jsonb,
+  experience jsonb not null default '[]'::jsonb,
+  education jsonb not null default '[]'::jsonb,
+  stacks jsonb not null default '[]'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+alter table site_settings enable row level security;
+
+create policy "Public can read site settings" on site_settings
+  for select using (true);
+
+insert into site_settings (id, about, experience, education, stacks)
+values (
+  'main',
+  '{
+    "name": "Jayron",
+    "role": "Software Engineer",
+    "bio": "I design and ship full-stack systems end-to-end — from the database schema to a live deployment. Right now that means building AI-powered tools with Azure OpenAI at Accenture, and shipping SaaS products of my own as a freelancer: a multi-admin lending platform, a voice-driven payroll system, a real estate booking site. I care less about how a demo looks and more about whether it holds up once real people are using it.",
+    "cvLink": "/files/CV_JAYRONJAVIER.pdf",
+    "socials": {
+      "github": "https://github.com/Jayronj0616",
+      "linkedin": "https://www.linkedin.com/in/jayronjavier/",
+      "email": "mailto:jayronxjavier@gmail.com",
+      "whatsapp": "https://wa.me/639496281120",
+      "viber": "viber://chat?number=%2B639496281120",
+      "facebook": "https://www.facebook.com/jyrnjvr6"
+    }
+  }'::jsonb,
+  '[
+    {
+      "company": "Accenture",
+      "role": "Packaged App Development Associate",
+      "period": "April 2026 - Present",
+      "current": true,
+      "description": "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech). Currently pursuing Microsoft Azure AI Engineer Associate (AI-102) certification.",
+      "tech": ["Azure", "Azure Databricks", "Azure OpenAI", "Power BI"]
+    },
+    {
+      "company": "Self-employed",
+      "role": "Freelance Software Developer",
+      "period": "November 2025 - Present",
+      "current": true,
+      "description": "Independently designed and built multiple full-stack SaaS products end-to-end, from database schema to deployment: a multi-admin lending and loan tracking platform, a payroll system with voice-command entry, and a real estate listing platform with booking and admin dashboards. Each shipped to production with its own auth and database.",
+      "tech": ["React", "Next.js", "Supabase", "PostgreSQL"]
+    },
+    {
+      "company": "Asian Land Strategies Corporation",
+      "role": "Full Stack Developer",
+      "period": "November 2025 - April 2026",
+      "current": false,
+      "description": "Developed a Laravel 10 QR Pass Management System with role-based access control, real-time dashboard updates, automated pass expiration, and an offline-first scanner using IndexedDB.",
+      "tech": ["Laravel 10", "IndexedDB", "Role-Based Access"]
+    },
+    {
+      "company": "Phoenix Publishing House Inc.",
+      "role": "Software Developer Intern",
+      "period": "February 2025 - May 2025",
+      "current": false,
+      "description": "Enhanced and maintained an existing booking and scheduling system, ensuring data consistency and improving stability by debugging and fixing booking-conflict issues.",
+      "tech": ["Legacy System", "Debugging"]
+    }
+  ]'::jsonb,
+  '[
+    {
+      "title": "Bulacan State University",
+      "degree": "Bachelor of Science in Information Technology",
+      "period": "2020 - 2025"
+    },
+    {
+      "title": "Saint Dominic Academy of Pulilan Inc.",
+      "degree": "Senior High School — Accountancy, Business, and Management",
+      "period": "2018 - 2020"
+    }
+  ]'::jsonb,
+  '[
+    {
+      "name": "Frontend",
+      "icon": "Layout",
+      "items": ["JavaScript", "React", "Next.js", "Vue.js", "Blade Templates", "Tailwind", "Canva", "HTML5", "CSS3"]
+    },
+    {
+      "name": "Backend",
+      "icon": "Server",
+      "items": ["PHP", "C#", "Laravel", "Node.js", "Java", "Express", "Python", "Spring Boot"]
+    },
+    {
+      "name": "Database",
+      "icon": "Database",
+      "items": ["MySQL", "SQL", "MongoDB", "PostgreSQL"]
+    },
+    {
+      "name": "Tools & DevOps",
+      "icon": "Wrench",
+      "items": ["Docker", "Git", "Agile/Scrum", "VS Code", "Claude AI", "Antigravity", "Cursor AI"]
+    }
+  ]'::jsonb
+)
+on conflict (id) do nothing;
+
 -- Row Level Security: the public (anon) key may only READ projects and
 -- testimonials. Everything else -- writing contact messages, writing
 -- analytics, and any access to those two tables' write side -- goes
@@ -215,6 +320,24 @@ values
     ],
     7,
     'building',
+    null,
+    null
+  ),
+  (
+    'lapse',
+    'Lapse',
+    'Multi-tenant compliance document expiry monitoring — organizations upload permits, registrations, and insurance policies, and Lapse reads each one, works out when it expires, and chases the responsible person until it''s renewed. Uncertain AI extractions are gated into a human review queue rather than trusted blindly, and a self-monitoring daily sweep sends escalating reminders by email and in-app.',
+    array['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Inngest'],
+    'https://lapse-chi.vercel.app/',
+    'https://github.com/Jayronj0616/Lapse',
+    '/images/lapse/landing.jpg',
+    array[
+      '/images/lapse/landing.jpg',
+      '/images/lapse/dashboard.jpg',
+      '/images/lapse/documents.jpg'
+    ],
+    8,
+    'live',
     null,
     null
   )

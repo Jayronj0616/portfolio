@@ -72,6 +72,17 @@ export const fallbackProjects = [
     status: "building",
   },
   {
+    slug: "lapse",
+    title: "Lapse",
+    description:
+      "Multi-tenant compliance document expiry monitoring — organizations upload permits, registrations, and insurance policies, and Lapse reads each one, works out when it expires, and chases the responsible person until it's renewed. Uncertain AI extractions are gated into a human review queue rather than trusted blindly, and a self-monitoring daily sweep sends escalating reminders by email and in-app.",
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Inngest"],
+    live_url: "https://lapse-chi.vercel.app/",
+    github_url: "https://github.com/Jayronj0616/Lapse",
+    cover_image: "/images/lapse/landing.jpg",
+    status: "live",
+  },
+  {
     slug: "trucking-system",
     title: "Trucking System",
     description:

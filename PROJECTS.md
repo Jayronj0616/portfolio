@@ -16,6 +16,7 @@ status changes here.
 | Caffeine Co. | 🟡 Building | caffeine-co-smoky.vercel.app | github.com/Jayronj0616/caffeine_co | Personal project. Rewritten since the original MERN prototype — now React + Vite + Supabase. Marked in progress, not live. |
 | Trucking System | 🟡 Building | — | github.com/Jayronj0616/iznahanyachay_trucking | Freelance work — payroll/attendance system for a trucking fleet. PHP/MySQL, no framework. Not deployed publicly (client runs it in-house). |
 | ~~Booking System~~ | Removed | — | — | Phoenix Publishing House Inc. internship project — excluded from the portfolio entirely per Jayron's request. |
+| Lapse | 🟢 Live | lapse-chi.vercel.app | github.com/Jayronj0616/Lapse | Personal project. Multi-tenant compliance document expiry monitoring — AI extraction with a human review gate, daily reminder sweep. Public demo on the landing page. Cover/gallery images pending — Jayron is capturing his own screenshots (paths reserved at `/images/lapse/{landing,dashboard,documents}.jpg`). |
 
 ## Status legend
 
