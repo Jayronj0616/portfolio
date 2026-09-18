@@ -23,7 +23,7 @@ export default function AdminLoginPage() {
         </div>
         <h1 className="mt-3 text-2xl font-bold">Sign in</h1>
         <p className="mt-2 text-sm text-muted">
-          Enter the admin password to view contact form inquiries.
+          Enter the admin password to continue.
         </p>
 
         <form action={formAction} className="mt-6 space-y-4">

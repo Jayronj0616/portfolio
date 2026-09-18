@@ -1,9 +1,6 @@
-import { portfolioData } from "@/data/portfolioData";
 import Reveal from "@/components/Reveal";
 
-export default function ExperienceSection() {
-  const { experience, education } = portfolioData;
-
+export default function ExperienceSection({ experience, education }) {
   return (
     <section id="experience" className="border-b border-border py-24">
       <div className="mx-auto max-w-5xl px-6">

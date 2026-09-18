@@ -2,10 +2,15 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Scene3D from "@/components/Scene3D";
 import HeroReveal from "@/components/HeroReveal";
-import { portfolioData } from "@/data/portfolioData";
 
-export default function Hero({ projectsCount }) {
-  const { about, experience } = portfolioData;
+const DEFAULT_AVATAR = "/images/pogi.jpg";
+
+export default function Hero({ about, experience, projectsCount }) {
+  const avatar = about.avatar || DEFAULT_AVATAR;
+  // The default photo's framing needs a manual zoom/crop to look right;
+  // a custom-uploaded photo gets a plain centered cover instead, since
+  // this tuning is specific to that one image.
+  const isDefaultAvatar = avatar === DEFAULT_AVATAR;
 
   return (
     <section id="top" className="relative overflow-hidden bg-mesh">
@@ -64,13 +69,13 @@ export default function Hero({ projectsCount }) {
               aria-hidden="true"
             />
             <Image
-              src="/images/pogi.jpg"
+              src={avatar}
               alt={about.name}
               fill
               sizes="280px"
               priority
-              className="scale-[2.4] object-cover"
-              style={{ transformOrigin: "41% 30%" }}
+              className={isDefaultAvatar ? "scale-[2.4] object-cover" : "object-cover"}
+              style={isDefaultAvatar ? { transformOrigin: "41% 30%" } : undefined}
             />
           </div>
           <p className="mt-3 text-center font-mono text-xs text-muted lg:text-right">

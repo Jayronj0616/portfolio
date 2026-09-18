@@ -1,10 +1,8 @@
 import { FaGithub, FaLinkedin, FaWhatsapp, FaFacebook } from "react-icons/fa";
 import { SiViber } from "react-icons/si";
 import { Mail } from "lucide-react";
-import { portfolioData } from "@/data/portfolioData";
 
-export default function Footer() {
-  const { about } = portfolioData;
+export default function Footer({ about }) {
   const socials = [
     { key: "github", href: about.socials.github, Icon: FaGithub },
     { key: "linkedin", href: about.socials.linkedin, Icon: FaLinkedin },

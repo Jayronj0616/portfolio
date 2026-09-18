@@ -22,7 +22,7 @@ export async function adminLogin(_prevState, formData) {
   }
 
   await createAdminSession();
-  redirect("/admin/messages");
+  redirect("/admin/overview");
 }
 
 export async function adminLogout() {

@@ -1,8 +1,6 @@
 import Reveal from "@/components/Reveal";
-import { portfolioData } from "@/data/portfolioData";
 
-export default function AboutSection() {
-  const { about, experience } = portfolioData;
+export default function AboutSection({ about, experience }) {
   const current = experience.find((job) => job.current) ?? experience[0];
 
   return (

@@ -1,5 +1,6 @@
 import { getSupabase } from "@/lib/supabase/server";
 import { fallbackProjects } from "@/data/fallbackProjects";
+import { fallbackSiteContent } from "@/data/fallbackSiteContent";
 
 export async function getProjects() {
   const supabase = getSupabase();
@@ -25,4 +26,28 @@ export async function getTestimonials() {
 
   if (error || !data) return [];
   return data;
+}
+
+export async function getSiteContent() {
+  const supabase = getSupabase();
+  if (!supabase) return fallbackSiteContent;
+
+  const { data, error } = await supabase
+    .from("site_settings")
+    .select("about, experience, education, stacks")
+    .eq("id", "main")
+    .maybeSingle();
+
+  if (error || !data) return fallbackSiteContent;
+
+  return {
+    about: data.about ?? fallbackSiteContent.about,
+    experience: data.experience?.length
+      ? data.experience
+      : fallbackSiteContent.experience,
+    education: data.education?.length
+      ? data.education
+      : fallbackSiteContent.education,
+    stacks: data.stacks?.length ? data.stacks : fallbackSiteContent.stacks,
+  };
 }

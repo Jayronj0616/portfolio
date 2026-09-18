@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { ExternalLink, Github, Code2, Lock, X, Expand, ChevronLeft, ChevronRight } from "lucide-react";
@@ -18,8 +18,13 @@ export default function ProjectCard({ project, index, featured = false }) {
   const isArchived = project.status === "archived";
   const statusLabel = isLive ? STATUS_LABEL.live : STATUS_LABEL[project.status] ?? STATUS_LABEL.building;
   const [isImageOpen, setIsImageOpen] = useState(false);
-  const gallery = project.images?.length ? project.images : project.cover_image ? [project.cover_image] : [];
+  // Multi-image swipe gallery is disabled for now -- only show the cover
+  // image. project.images still holds the full set in the DB; switch
+  // this back to `project.images?.length ? project.images : ...` to
+  // re-enable the gallery.
+  const gallery = project.cover_image ? [project.cover_image] : [];
   const [activeIndex, setActiveIndex] = useState(0);
+  const scrollerRef = useRef(null);
 
   const track = (eventType) => {
     logAnalyticsEvent(eventType, { projectSlug: project.slug });
@@ -48,6 +53,40 @@ export default function ProjectCard({ project, index, featured = false }) {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isImageOpen, gallery.length, showPrev, showNext]);
+
+  // Keep the scroll position in sync when activeIndex changes via the
+  // arrow buttons or a thumbnail click (jumps instantly on open, then
+  // animates for later changes).
+  useEffect(() => {
+    if (!isImageOpen) return;
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollTo({
+      left: activeIndex * el.clientWidth,
+      behavior: "smooth",
+    });
+  }, [isImageOpen, activeIndex]);
+
+  // Swiping/scrolling the track by hand should update activeIndex too,
+  // so the counter and thumbnail strip stay accurate.
+  useEffect(() => {
+    if (!isImageOpen) return;
+    const el = scrollerRef.current;
+    if (!el) return;
+    let timeout;
+    const onScroll = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        const nextIndex = Math.round(el.scrollLeft / el.clientWidth);
+        setActiveIndex((current) => (current === nextIndex ? current : nextIndex));
+      }, 100);
+    };
+    el.addEventListener("scroll", onScroll);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      clearTimeout(timeout);
+    };
+  }, [isImageOpen]);
 
   return (
     <Reveal
@@ -190,13 +229,22 @@ export default function ProjectCard({ project, index, featured = false }) {
                 </button>
               )}
 
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={gallery[activeIndex]}
-                alt={`${project.title} screenshot ${activeIndex + 1} of ${gallery.length}`}
-                className="max-h-[75vh] max-w-full rounded-lg object-contain shadow-2xl"
+              <div
+                ref={scrollerRef}
+                className="flex h-full max-h-[75vh] w-full snap-x snap-mandatory overflow-x-auto [&::-webkit-scrollbar]:hidden"
+                style={{ scrollbarWidth: "none" }}
                 onClick={(e) => e.stopPropagation()}
-              />
+              >
+                {gallery.map((src, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={src}
+                    src={src}
+                    alt={`${project.title} screenshot ${i + 1} of ${gallery.length}`}
+                    className="h-full w-full shrink-0 snap-center rounded-lg object-contain shadow-2xl"
+                  />
+                ))}
+              </div>
 
               {gallery.length > 1 && (
                 <button

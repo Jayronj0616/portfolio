@@ -8,8 +8,8 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import MaintenancePage from "@/components/MaintenancePage";
-import { getProjects, getTestimonials } from "@/lib/data";
-import { logAnalyticsEvent } from "@/app/actions";
+import PageViewTracker from "@/components/PageViewTracker";
+import { getProjects, getTestimonials, getSiteContent } from "@/lib/data";
 import { MAINTENANCE_MODE } from "@/config/site";
 
 export default async function Home() {
@@ -17,26 +17,27 @@ export default async function Home() {
     return <MaintenancePage />;
   }
 
-  const [projects, testimonials] = await Promise.all([
+  const [projects, testimonials, site] = await Promise.all([
     getProjects(),
     getTestimonials(),
+    getSiteContent(),
   ]);
-
-  await logAnalyticsEvent("page_view", { path: "/" });
+  const { about, experience, education, stacks } = site;
 
   return (
     <>
-      <Navbar />
+      <PageViewTracker path="/" />
+      <Navbar about={about} />
       <main>
-        <Hero projectsCount={projects.length} />
-        <AboutSection />
+        <Hero about={about} experience={experience} projectsCount={projects.length} />
+        <AboutSection about={about} experience={experience} />
         <ProjectsSection projects={projects} />
-        <StackSection />
-        <ExperienceSection />
+        <StackSection stacks={stacks} />
+        <ExperienceSection experience={experience} education={education} />
         <TestimonialsSection testimonials={testimonials} />
-        <ContactSection />
+        <ContactSection about={about} />
       </main>
-      <Footer />
+      <Footer about={about} />
     </>
   );
 }

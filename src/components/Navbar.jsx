@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { portfolioData } from "@/data/portfolioData";
 
 const LINKS = [
   { href: "#about", label: "About" },
@@ -12,9 +11,8 @@ const LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ about }) {
   const [open, setOpen] = useState(false);
-  const { about } = portfolioData;
   const initials = about.name.slice(0, 2).toUpperCase();
 
   return (

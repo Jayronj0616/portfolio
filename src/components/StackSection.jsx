@@ -1,12 +1,9 @@
 import { Layout, Server, Database, Wrench } from "lucide-react";
-import { portfolioData } from "@/data/portfolioData";
 import Reveal from "@/components/Reveal";
 
 const ICONS = { Layout, Server, Database, Wrench };
 
-export default function StackSection() {
-  const { stacks } = portfolioData;
-
+export default function StackSection({ stacks }) {
   return (
     <section id="stack" className="border-b border-border py-24">
       <div className="mx-auto max-w-5xl px-6">

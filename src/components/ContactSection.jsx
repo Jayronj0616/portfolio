@@ -5,7 +5,6 @@ import { Mail, Send } from "lucide-react";
 import { FaGithub, FaLinkedin, FaWhatsapp, FaFacebook } from "react-icons/fa";
 import { SiViber } from "react-icons/si";
 import { submitContactMessage } from "@/app/actions";
-import { portfolioData } from "@/data/portfolioData";
 import Reveal from "@/components/Reveal";
 
 const initialState = { status: "idle" };
@@ -18,12 +17,11 @@ const SOCIAL_LINKS = (socials) => [
   { key: "facebook", href: socials.facebook, label: "Facebook", Icon: FaFacebook },
 ];
 
-export default function ContactSection() {
+export default function ContactSection({ about }) {
   const [state, formAction, pending] = useActionState(
     submitContactMessage,
     initialState
   );
-  const { about } = portfolioData;
   const links = SOCIAL_LINKS(about.socials).filter((l) => l.href);
 
   return (
