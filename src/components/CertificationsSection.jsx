@@ -37,6 +37,10 @@ export default function CertificationsSection({ certifications }) {
                     <img
                       src={cert.badge}
                       alt=""
+                      width={56}
+                      height={56}
+                      loading="lazy"
+                      decoding="async"
                       className={`h-14 w-14 shrink-0 object-contain ${
                         inProgress ? "opacity-40 grayscale" : ""
                       }`}
