@@ -25,6 +25,8 @@ export default function ProjectCard({ project, index, featured = false }) {
   const gallery = project.cover_image ? [project.cover_image] : [];
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollerRef = useRef(null);
+  const dialogRef = useRef(null);
+  const triggerRef = useRef(null);
 
   const track = (eventType) => {
     logAnalyticsEvent(eventType, { projectSlug: project.slug });
@@ -46,13 +48,53 @@ export default function ProjectCard({ project, index, featured = false }) {
   useEffect(() => {
     if (!isImageOpen) return;
     const onKeyDown = (e) => {
-      if (e.key === "Escape") setIsImageOpen(false);
+      if (e.key === "Escape") {
+        setIsImageOpen(false);
+        return;
+      }
+      // Keep Tab inside the overlay. Without this the focus ring walks
+      // out into the page behind it, which is invisible to a sighted
+      // keyboard user and incomprehensible to a screen reader one.
+      if (e.key === "Tab") {
+        const focusable = dialogRef.current?.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable?.length) {
+          e.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+        return;
+      }
       if (e.key === "ArrowLeft" && gallery.length > 1) showPrev();
       if (e.key === "ArrowRight" && gallery.length > 1) showNext();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isImageOpen, gallery.length, showPrev, showNext]);
+
+  // Move focus into the overlay on open and hand it back to whatever
+  // opened it on close, and stop the page behind from scrolling while
+  // it is up.
+  useEffect(() => {
+    if (!isImageOpen) return;
+    const previouslyFocused = triggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
+    };
+  }, [isImageOpen]);
 
   // Keep the scroll position in sync when activeIndex changes via the
   // arrow buttons or a thumbnail click (jumps instantly on open, then
@@ -97,6 +139,7 @@ export default function ProjectCard({ project, index, featured = false }) {
         <div className={`relative w-full ${featured ? "aspect-[21/9]" : "aspect-[16/10]"}`}>
           {project.cover_image ? (
             <button
+              ref={triggerRef}
               type="button"
               onClick={() => openGallery(0)}
               aria-label={`View screenshots of ${project.title}`}
@@ -113,7 +156,7 @@ export default function ProjectCard({ project, index, featured = false }) {
                 <Expand className="text-white" size={20} />
               </span>
               {gallery.length > 1 && (
-                <span className="glass absolute bottom-2 right-2 rounded-full border border-border px-2 py-0.5 font-mono text-[11px] text-foreground">
+                <span className="glass absolute bottom-2 right-2 rounded-full border border-border px-2 py-0.5 font-mono text-xs text-foreground">
                   1/{gallery.length}
                 </span>
               )}
@@ -125,7 +168,7 @@ export default function ProjectCard({ project, index, featured = false }) {
           )}
 
           <span
-            className={`glass absolute right-3 top-3 flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide ${
+            className={`glass absolute right-3 top-3 flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 font-mono text-xs uppercase tracking-wide ${
               isLive ? "text-live" : "text-muted"
             }`}
           >
@@ -135,15 +178,15 @@ export default function ProjectCard({ project, index, featured = false }) {
         </div>
 
         <div className="flex flex-1 flex-col p-6">
-          <h3 className="text-lg font-semibold">{project.title}</h3>
+          <h3 className="break-words text-lg font-semibold">{project.title}</h3>
 
           {project.company && (
-            <p className="mt-1 text-xs text-muted">
+            <p className="mt-1 break-words text-xs text-muted">
               {project.role} · {project.company}
             </p>
           )}
 
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
+          <p className="mt-3 flex-1 break-words text-sm leading-relaxed text-muted">
             {project.description}
           </p>
 
@@ -151,14 +194,14 @@ export default function ProjectCard({ project, index, featured = false }) {
             {(project.tags ?? []).slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                className="max-w-full break-all rounded-full bg-surface-2 px-2.5 py-1 font-mono text-xs text-muted"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="mt-5 flex items-center gap-5 border-t border-border pt-4 text-sm">
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border pt-4 text-sm">
             {project.live_url ? (
               <a
                 href={project.live_url}
@@ -170,8 +213,8 @@ export default function ProjectCard({ project, index, featured = false }) {
                 Live site <ExternalLink size={14} />
               </a>
             ) : isArchived ? (
-              <span className="flex items-center gap-1.5 text-muted">
-                <Lock size={14} /> In-house project — screenshots only
+              <span className="flex min-w-0 items-center gap-1.5 text-muted">
+                <Lock size={14} className="shrink-0" /> In-house project — screenshots only
               </span>
             ) : (
               <span className="text-muted">Not deployed yet</span>
@@ -196,7 +239,12 @@ export default function ProjectCard({ project, index, featured = false }) {
         typeof document !== "undefined" &&
         createPortal(
           <div
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/85 p-6"
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Screenshots of ${project.title}`}
+            tabIndex={-1}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/85 p-6 outline-none"
             onClick={() => setIsImageOpen(false)}
           >
             <button

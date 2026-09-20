@@ -37,6 +37,10 @@ export default function CertificationsSection({ certifications }) {
                     <img
                       src={cert.badge}
                       alt=""
+                      width={56}
+                      height={56}
+                      loading="lazy"
+                      decoding="async"
                       className={`h-14 w-14 shrink-0 object-contain ${
                         inProgress ? "opacity-40 grayscale" : ""
                       }`}
@@ -48,18 +52,18 @@ export default function CertificationsSection({ certifications }) {
                   )}
 
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-base font-semibold leading-snug">
+                    <h3 className="break-words text-base font-semibold leading-snug">
                       {cert.name}
                     </h3>
-                    <p className="mt-1 text-sm text-accent">{cert.issuer}</p>
+                    <p className="mt-1 break-words text-sm text-accent">{cert.issuer}</p>
                     <div className="mt-2 flex flex-wrap items-center gap-2">
                       {cert.date && (
-                        <span className="font-mono text-[11px] text-muted">
+                        <span className="font-mono text-xs text-muted">
                           {inProgress ? "Expected" : "Issued"} {cert.date}
                         </span>
                       )}
                       {inProgress && (
-                        <span className="rounded-full bg-surface-2 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wide text-muted">
+                        <span className="rounded-full bg-surface-2 px-2.5 py-0.5 font-mono text-xs uppercase tracking-wide text-muted">
                           In progress
                         </span>
                       )}
@@ -72,7 +76,7 @@ export default function CertificationsSection({ certifications }) {
                     {cert.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                        className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-xs text-muted"
                       >
                         {skill}
                       </span>
@@ -86,7 +90,7 @@ export default function CertificationsSection({ certifications }) {
                       href={cert.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 font-medium text-accent transition hover:brightness-125"
+                      className="flex shrink-0 items-center gap-1.5 font-medium text-accent transition hover:brightness-125"
                     >
                       Verify <ExternalLink size={14} />
                     </a>
@@ -97,7 +101,7 @@ export default function CertificationsSection({ certifications }) {
                   )}
 
                   {cert.credentialId && (
-                    <span className="truncate font-mono text-[11px] text-muted">
+                    <span className="min-w-0 truncate font-mono text-xs text-muted">
                       ID {cert.credentialId}
                     </span>
                   )}

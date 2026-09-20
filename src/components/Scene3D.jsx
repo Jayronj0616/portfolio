@@ -1,39 +1,17 @@
 "use client";
 
 import { useRef, useEffect, useSyncExternalStore } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshDistortMaterial, Sphere } from "@react-three/drei";
+import dynamic from "next/dynamic";
 
-const DistortedBlob = ({ mouse }) => {
-  const meshRef = useRef();
-
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    const t = state.clock.getElapsedTime();
-    meshRef.current.rotation.x = t * 0.08;
-    meshRef.current.rotation.y = t * 0.12;
-
-    const targetX = mouse.current.x * 0.4;
-    const targetY = mouse.current.y * 0.4;
-    meshRef.current.position.x += (targetX - meshRef.current.position.x) * 0.03;
-    meshRef.current.position.y += (targetY - meshRef.current.position.y) * 0.03;
-  });
-
-  return (
-    <Sphere ref={meshRef} args={[1.4, 64, 64]} position={[0.6, 0, 0]}>
-      <MeshDistortMaterial
-        color="#6d5ef0"
-        attach="material"
-        distort={0.45}
-        speed={1.5}
-        roughness={0.1}
-        metalness={0.3}
-        opacity={0.28}
-        transparent
-      />
-    </Sphere>
-  );
-};
+// three.js, @react-three/fiber and drei are ~860KB of client JavaScript
+// -- more than half the bundle -- for a decorative background. The
+// runtime gate below already refuses to render the blob on mobile or
+// under reduced motion, but a static import ships the library to those
+// visitors anyway. Loading it here means the chunk is fetched only once
+// we know it is going to be used.
+const Scene3DCanvas = dynamic(() => import("@/components/Scene3DCanvas"), {
+  ssr: false,
+});
 
 // No external event changes whether the blob is enabled after mount,
 // so the store never notifies -- it just exposes a stable client-only
@@ -75,15 +53,7 @@ export default function Scene3D() {
       className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       aria-hidden="true"
     >
-      <Canvas
-        camera={{ position: [0, 0, 4], fov: 45 }}
-        dpr={[1, 1.5]}
-        gl={{ alpha: true, antialias: true }}
-      >
-        <ambientLight intensity={0.6} />
-        <pointLight position={[5, 5, 5]} intensity={1.4} color="#a78bfa" />
-        <DistortedBlob mouse={mouse} />
-      </Canvas>
+      <Scene3DCanvas mouse={mouse} />
     </div>
   );
 }

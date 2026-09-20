@@ -17,7 +17,7 @@ export default function Navbar({ about }) {
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
-      <nav className="glass mx-auto flex max-w-5xl items-center justify-between rounded-2xl border border-border px-5 py-3 shadow-[0_8px_30px_-16px_rgba(15,15,35,0.25)]">
+      <nav className="glass shadow-panel mx-auto flex max-w-5xl items-center justify-between rounded-2xl border border-border px-5 py-3">
         <a href="#top" className="flex items-center gap-2.5 font-semibold">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-2 text-sm text-white">
             {initials}
@@ -55,7 +55,7 @@ export default function Navbar({ about }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="text-foreground md:hidden"
+          className="-mr-2 flex h-11 w-11 items-center justify-center text-foreground md:hidden"
           aria-label="Toggle navigation menu"
           aria-expanded={open}
         >
@@ -64,22 +64,29 @@ export default function Navbar({ about }) {
       </nav>
 
       {open && (
-        <div className="glass mx-auto mt-2 max-w-5xl rounded-2xl border border-border px-6 py-6 shadow-[0_8px_30px_-16px_rgba(15,15,35,0.25)] md:hidden">
-          <div className="flex flex-col gap-4 text-sm text-muted">
+        <div className="glass shadow-panel mx-auto mt-2 max-w-5xl rounded-2xl border border-border px-6 py-6 md:hidden">
+          <div className="flex flex-col gap-1 text-sm text-muted">
             {LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="transition hover:text-foreground"
+                className="-mx-2 flex min-h-11 items-center rounded-lg px-2 transition hover:bg-surface-2 hover:text-foreground"
               >
                 {link.label}
               </a>
             ))}
             <a
+              href={about.cvLink}
+              onClick={() => setOpen(false)}
+              className="-mx-2 flex min-h-11 items-center rounded-lg px-2 transition hover:bg-surface-2 hover:text-foreground"
+            >
+              Resume
+            </a>
+            <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="btn-primary mt-2 rounded-full px-4 py-2 text-center text-sm font-semibold text-white"
+              className="btn-primary mt-3 flex min-h-11 items-center justify-center rounded-full px-4 text-center text-sm font-semibold text-white"
             >
               Contact Me
             </a>

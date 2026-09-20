@@ -25,22 +25,22 @@ export default function ExperienceSection({ experience, education }) {
                 <div className="flex flex-wrap items-center gap-3">
                   <p className="font-mono text-xs text-muted">{job.period}</p>
                   {job.current && (
-                    <span className="flex items-center gap-1.5 rounded-full bg-live/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wide text-live">
+                    <span className="flex items-center gap-1.5 rounded-full bg-live/10 px-2.5 py-0.5 font-mono text-xs uppercase tracking-wide text-live">
                       <span className="h-1.5 w-1.5 rounded-full bg-live" />
                       Current
                     </span>
                   )}
                 </div>
-                <h3 className="mt-2 text-lg font-semibold">{job.role}</h3>
-                <p className="text-sm text-accent">{job.company}</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
+                <h3 className="mt-2 break-words text-lg font-semibold">{job.role}</h3>
+                <p className="break-words text-sm text-accent">{job.company}</p>
+                <p className="mt-3 break-words text-sm leading-relaxed text-muted">
                   {job.description}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {job.tech.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                      className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-xs text-muted"
                     >
                       {t}
                     </span>
@@ -62,8 +62,8 @@ export default function ExperienceSection({ experience, education }) {
                   className="card-hover rounded-2xl border border-border bg-surface p-5"
                 >
                   <p className="font-mono text-xs text-muted">{edu.period}</p>
-                  <h4 className="mt-1 font-semibold">{edu.title}</h4>
-                  <p className="text-sm text-muted">{edu.degree}</p>
+                  <h4 className="mt-1 break-words font-semibold">{edu.title}</h4>
+                  <p className="break-words text-sm text-muted">{edu.degree}</p>
                 </Reveal>
               ))}
             </div>

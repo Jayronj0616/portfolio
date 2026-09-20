@@ -122,7 +122,7 @@ export default function ImageListEditor({ name, initial }) {
                 type="button"
                 onClick={() => remove(index)}
                 aria-label="Remove image"
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-muted transition hover:bg-red-500/10 hover:text-red-500"
+                className="flex h-7 w-7 items-center justify-center rounded-lg text-muted transition hover:bg-danger/10 hover:text-danger"
               >
                 <X size={15} />
               </button>
@@ -172,7 +172,7 @@ export default function ImageListEditor({ name, initial }) {
           Add
         </button>
       </div>
-      {uploadError && <p className="mt-1.5 text-xs text-red-500">{uploadError}</p>}
+      {uploadError && <p className="mt-1.5 text-xs text-danger">{uploadError}</p>}
       <p className="mt-1.5 text-xs text-muted">
         First image is used as the cover. Drag isn&apos;t supported — use the
         arrows to reorder.

@@ -16,7 +16,7 @@ export default function AboutSection({ about, experience }) {
         </Reveal>
 
         <Reveal className="card-hover mt-10 rounded-2xl border border-border bg-surface p-6 sm:p-8">
-          <p className="text-sm leading-relaxed text-muted sm:text-base">
+          <p className="max-w-[68ch] text-base leading-relaxed text-muted">
             {about.bio}
           </p>
           {current && (

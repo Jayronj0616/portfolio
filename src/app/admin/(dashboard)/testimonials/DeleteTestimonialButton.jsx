@@ -17,7 +17,7 @@ export default function DeleteTestimonialButton({ id, name }) {
       <button
         type="submit"
         aria-label={`Delete testimonial from ${name}`}
-        className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-red-500/10 hover:text-red-500"
+        className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-danger/10 hover:text-danger"
       >
         <Trash2 size={15} />
       </button>

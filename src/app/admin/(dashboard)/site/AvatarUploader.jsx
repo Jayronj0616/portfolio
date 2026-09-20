@@ -38,7 +38,7 @@ export default function AvatarUploader({ initialUrl }) {
           </label>
         </form>
         {state.status === "error" && (
-          <p className="mt-1.5 text-xs text-red-500">{state.error}</p>
+          <p className="mt-1.5 text-xs text-danger">{state.error}</p>
         )}
         {state.status === "success" && (
           <p className="mt-1.5 text-xs text-live">Updated — live now.</p>

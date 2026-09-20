@@ -84,7 +84,7 @@ export default async function AdminMessagesPage() {
         </Reveal>
 
         {error && (
-          <p className="mt-8 rounded-2xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-500">
+          <p className="mt-8 rounded-2xl border border-danger/20 bg-danger/5 px-4 py-3 text-sm text-danger">
             Couldn&apos;t load messages: {error}
           </p>
         )}
