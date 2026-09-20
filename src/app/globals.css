@@ -86,6 +86,22 @@ body {
   box-shadow: 0 24px 48px -24px rgba(15, 15, 35, 0.25);
 }
 
+/* Reduced motion removes spatial movement only. The colour, border and
+   shadow changes stay, because those are what confirm a hover actually
+   landed -- switching every transition off would cost real feedback. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card-hover:hover,
+  .btn-primary:hover,
+  a:hover {
+    transform: none;
+    translate: none;
+  }
+}
+
 ::selection {
   background: var(--accent);
   color: white;
