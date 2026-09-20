@@ -1,41 +1,43 @@
 # AGENTS.md
 
 ## What this is
-Jayron's personal portfolio site, built to attract freelance clients alongside his day job (Accenture, Cloud First Platforms / Microsoft, DnA practice). Dark-theme, single-page React app with animated hero, experience timeline, project showcase, and a GitHub contribution calendar.
+Jayron's personal portfolio: a single-page public site plus a password-gated admin dashboard at
+`/admin` for editing its content without a redeploy. It exists to attract freelance clients alongside
+his day job at Accenture (Cloud First Platforms / Microsoft, DnA practice).
 
-## Stack
-- React 18 + Vite 5
-- Framer Motion (animations/transitions)
-- @react-three/fiber + @react-three/drei + three.js (animated 3D blob hero background — `Scene3D.jsx`)
-- react-github-calendar (GitHub contribution graph embed)
-- lucide-react + react-icons (icons)
-- No CSS framework — hand-written `dark-theme.css` + `index.css`
-- Deployed via Vercel (`vercel.json` present)
+## Start here
+**`CONVENTIONS.md` is the current, verified description of this codebase** — stack, commands, where
+each layer lives, and the traps that have already cost time. Read it before planning or editing
+anything. This file does not repeat it; the two drifting apart is how the previous version of this
+file ended up describing a stack that no longer existed.
 
-## Structure
-- `src/App.jsx` — single file containing all sections/components (Navbar, hero, experience, projects, skills, etc.) plus the `Navbar` subcomponent
-- `src/components/Scene3D.jsx` — the Three.js hero background
-- `src/data/portfolioData.js` — **the single source of truth** for all content: about, experience, projects, stacks, education, skills
-- `src/data/projects.js` — **dead code, not imported anywhere.** Do not edit this thinking it affects the site. Should eventually be deleted, pending confirmation.
+`PROJECTS.md` tracks the per-project status behind the "Featured Projects" section — which are live,
+which are still building, and which are deliberately unlinked.
 
-## Current state (as of this doc's creation)
-- Hero, experience, projects, skills, stacks, education sections are built and rendering from `portfolioData.js`
-- 3 experience entries (Accenture, Asian Land Strategies Corporation, Phoenix Publishing House) — **all have `period: "FILL_IN_START_DATE..."` placeholders still unresolved**
-- 4 project entries (Airline System, QR Pass System, Caffeine Co., Booking System) — **all have `link: "#"` and `github: "#"` placeholders.** Real repo/live links have not been added yet.
-- GitHub contribution calendar is wired in via `react-github-calendar`
+## Stack, in one line
+Next.js 16 App Router on React 19, **plain JavaScript, not TypeScript**, Tailwind v4, Supabase
+(Postgres + Storage), deployed on Vercel. Server Actions for every write. See `CONVENTIONS.md` for
+the rest.
 
-## Next up
-- Add real `github` / `link` URLs to each project entry in `portfolioData.js` (do not fabricate URLs — ask the user for them)
-- Resolve `FILL_IN_START_DATE` / `FILL_IN_END_DATE` placeholders in `experience[]`
-- Decide fate of `src/data/projects.js` (likely delete — confirm with user first)
-- User wants to add more (even simple/basic) projects to maximize GitHub contribution activity — additional project entries may be added to `portfolioData.js` over time, each needing a real repo link
+## Current state
+The public homepage composes ten sections in `src/app/page.js`: Navbar, Hero, About, Projects, Stack,
+Certifications, Experience, Testimonials, Contact, Footer. All content is read from Supabase through
+`src/lib/data.js`, with `src/data/fallback*.js` used only when the Supabase env vars are absent.
 
-## Known gotchas
-- Two project data files exist (`portfolioData.js` and `projects.js`) — only `portfolioData.js` is live. Confirm which file you're editing.
-- Don't invent placeholder links (`#`) for new entries — a live portfolio with dead links looks worse than an omitted button. If no real link exists yet, omit the `github`/`link` key rather than defaulting to `#` (may require a small conditional-render change in `App.jsx` if not already handled).
+The admin dashboard under `src/app/admin/(dashboard)/` covers overview, projects, testimonials,
+messages and site content, behind a single shared password.
+
+## Working agreements
+- **Do not commit the `impeccable` skill's files.** The third-party design skill installed at
+  `.claude/skills/impeccable/` and its `.claude/agents/impeccable-*.md` agents are personal tooling,
+  not part of the site. The binary and `.claude/settings.local.json` are gitignored; the rest is
+  deliberately left untracked. Skip them when staging.
+- **Do not invent placeholder links.** If a project has no real repo or live URL yet, omit the key
+  rather than defaulting to `#`. A live portfolio with dead links looks worse than an omitted button.
+- Commit conventions, including why the history is split into logical units, are in `CONVENTIONS.md`.
 
 ## Do not touch
-- Nothing flagged as fragile/intentional yet. Update this section as it comes up.
+- The `nextjs-agent-rules` block below — `next dev` rewrites it. See the note inside it.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
