@@ -131,7 +131,7 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
 
 ## Git
 
-- **Split a large change into one commit per logical unit, then push.** Not one squashed commit.
+- **Split a large change into one commit per logical unit, then push the branch.** Not one squashed commit.
   This is deliberate and it is not a style preference: the contribution graph on Jayron's GitHub
   profile is part of what this repo is *for* — it is the portfolio he points freelance clients at,
   so visible commit activity is a deliverable, not a side effect. Split along real seams — assets,
@@ -139,8 +139,13 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
   still stands on its own and leaves the tree building. Where one file holds two separate concerns it
   is fine to commit the intermediate state. Do **not** manufacture empty or no-op commits to inflate
   the count; the history has to be readable by someone who was not there.
-- **Work lands on `master` directly.** There is no PR flow here, and a commit on a side branch that
-  never merges does not count toward the contribution graph at all, which defeats the point above.
+- **Commit to a branch; Jayron merges it after reviewing.** Never commit to `master` directly and
+  never merge your own branch. Work goes on a side branch — ad-hoc names are fine, there is no naming
+  scheme — and Jayron checks the UI and the changes himself before anything reaches `master`.
+  Finishing the work is not the same as it being approved: stop at the branch, say what is ready, and
+  wait. This costs the contribution graph nothing, because commits on a branch count as soon as it is
+  merged into the default branch. What *does* cost it is a branch that is never merged at all, so
+  approved work should not be left sitting on one.
 - **Commit message format:** imperative subject in sentence case, no prefix or ticket ID, blank line,
   a wrapped body explaining *why*, and a `Co-Authored-By` trailer. `git log -20` is the real
   convention — read it before writing the first one.
