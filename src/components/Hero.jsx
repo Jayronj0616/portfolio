@@ -63,7 +63,7 @@ export default function Hero({ about, experience, projectsCount }) {
         </HeroReveal>
 
         <HeroReveal delay={0.15} className="relative mx-auto w-full max-w-[280px] lg:mx-0 lg:ml-auto">
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border shadow-[0_24px_60px_-24px_rgba(79,70,229,0.35)]">
+          <div className="shadow-glow relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border">
             <div
               className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-br from-accent/25 to-accent-2/25 blur-2xl"
               aria-hidden="true"

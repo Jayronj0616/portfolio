@@ -9,11 +9,10 @@
   --muted: #64687a;
   --accent: #4f46e5;
   --accent-2: #7c3aed;
-  --accent-soft: rgba(79, 70, 229, 0.08);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, transparent);
   --live: #136b31;
   --danger: #c81e1e;
   --glass: rgba(255, 255, 255, 0.7);
-  --ring: rgba(79, 70, 229, 0.35);
 }
 
 @theme inline {
@@ -27,6 +26,7 @@
   --color-accent-2: var(--accent-2);
   --color-live: var(--live);
   --color-danger: var(--danger);
+  --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -47,8 +47,8 @@ body {
 
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(15, 15, 35, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 15, 35, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) 5%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
@@ -76,6 +76,14 @@ body {
   box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--accent) 65%, transparent);
 }
 
+.shadow-panel {
+  box-shadow: 0 8px 30px -16px color-mix(in srgb, var(--foreground) 25%, transparent);
+}
+
+.shadow-glow {
+  box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
 .card-hover {
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
 }
@@ -83,7 +91,7 @@ body {
 .card-hover:hover {
   transform: translateY(-4px);
   border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-  box-shadow: 0 24px 48px -24px rgba(15, 15, 35, 0.25);
+  box-shadow: 0 24px 48px -24px color-mix(in srgb, var(--foreground) 25%, transparent);
 }
 
 /* Reduced motion removes spatial movement only. The colour, border and
