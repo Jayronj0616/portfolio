@@ -7,14 +7,15 @@ import SiteForm from "./SiteForm";
 export const dynamic = "force-dynamic";
 
 export default async function AdminSitePage() {
-  const { about, experience, education, stacks } = await getSiteContent();
+  const { about, experience, education, stacks, certifications } =
+    await getSiteContent();
 
   return (
     <div>
       <AdminPageHeader
         icon={FileText}
         title="Site text"
-        description="Edits here update the About, Experience, Education, and Toolkit sections on the live site — no redeploy needed."
+        description="Edits here update the About, Experience, Education, Certifications, and Toolkit sections on the live site — no redeploy needed."
       />
 
       <div className="mt-8 rounded-2xl border border-border bg-surface p-6">
@@ -35,6 +36,7 @@ export default async function AdminSitePage() {
         experience={experience}
         education={education}
         stacks={stacks}
+        certifications={certifications}
       />
     </div>
   );

@@ -11,7 +11,13 @@ const inputClass =
 const labelClass = "text-xs font-medium text-muted";
 const jsonClass = `${inputClass} font-mono text-xs`;
 
-export default function SiteForm({ about, experience, education, stacks }) {
+export default function SiteForm({
+  about,
+  experience,
+  education,
+  stacks,
+  certifications,
+}) {
   const [state, formAction, pending] = useActionState(
     saveSiteContent,
     initialState
@@ -148,6 +154,33 @@ export default function SiteForm({ about, experience, education, stacks }) {
           name="education"
           defaultValue={JSON.stringify(education, null, 2)}
           rows={8}
+          spellCheck={false}
+          className={jsonClass}
+        />
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+          Certifications (JSON)
+        </h2>
+        <p className="text-xs text-muted">
+          Array of{" "}
+          {"{ name, issuer, date, credentialId, url, badge, skills[], status }"}
+          . Only <code className="text-foreground">name</code>,{" "}
+          <code className="text-foreground">issuer</code> and{" "}
+          <code className="text-foreground">status</code> are required —
+          everything else is optional and its row is simply omitted.{" "}
+          <code className="text-foreground">status</code> is{" "}
+          <code className="text-foreground">&quot;earned&quot;</code> or{" "}
+          <code className="text-foreground">&quot;in-progress&quot;</code>.{" "}
+          <code className="text-foreground">badge</code> is a path under{" "}
+          <code className="text-foreground">/public</code> or an uploaded image
+          URL. An empty array hides the section entirely.
+        </p>
+        <textarea
+          name="certifications"
+          defaultValue={JSON.stringify(certifications, null, 2)}
+          rows={16}
           spellCheck={false}
           className={jsonClass}
         />

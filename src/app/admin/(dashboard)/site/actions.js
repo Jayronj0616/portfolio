@@ -54,10 +54,15 @@ export async function saveSiteContent(_prevState, formData) {
   let experience;
   let education;
   let stacks;
+  let certifications;
   try {
     experience = parseJsonArray(formData.get("experience"), "Experience");
     education = parseJsonArray(formData.get("education"), "Education");
     stacks = parseJsonArray(formData.get("stacks"), "Stacks");
+    certifications = parseJsonArray(
+      formData.get("certifications"),
+      "Certifications"
+    );
   } catch (err) {
     return { status: "error", error: err.message };
   }
@@ -68,6 +73,7 @@ export async function saveSiteContent(_prevState, formData) {
     experience,
     education,
     stacks,
+    certifications,
     updated_at: new Date().toISOString(),
   });
   if (error) return { status: "error", error: error.message };
