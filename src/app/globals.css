@@ -10,7 +10,8 @@
   --accent: #4f46e5;
   --accent-2: #7c3aed;
   --accent-soft: rgba(79, 70, 229, 0.08);
-  --live: #16a34a;
+  --live: #136b31;
+  --danger: #c81e1e;
   --glass: rgba(255, 255, 255, 0.7);
   --ring: rgba(79, 70, 229, 0.35);
 }
@@ -25,6 +26,7 @@
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
   --color-live: var(--live);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

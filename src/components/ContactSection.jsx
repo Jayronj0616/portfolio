@@ -143,7 +143,7 @@ export default function ContactSection({ about }) {
                 )}
               </div>
               {state.status === "error" && (
-                <p role="alert" className="text-sm text-red-500">
+                <p role="alert" className="text-sm text-danger">
                   {state.error}
                 </p>
               )}
