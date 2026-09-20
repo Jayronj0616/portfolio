@@ -67,8 +67,14 @@ create table if not exists site_settings (
   experience jsonb not null default '[]'::jsonb,
   education jsonb not null default '[]'::jsonb,
   stacks jsonb not null default '[]'::jsonb,
+  certifications jsonb not null default '[]'::jsonb,
   updated_at timestamptz not null default now()
 );
+
+-- Added after the first release, so existing databases need the column
+-- backfilled rather than getting it from the create above.
+alter table site_settings
+  add column if not exists certifications jsonb not null default '[]'::jsonb;
 
 alter table site_settings enable row level security;
 
@@ -98,7 +104,7 @@ values (
       "role": "Packaged App Development Associate",
       "period": "April 2026 - Present",
       "current": true,
-      "description": "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech). Currently pursuing Microsoft Azure AI Engineer Associate (AI-102) certification.",
+      "description": "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech).",
       "tech": ["Azure", "Azure Databricks", "Azure OpenAI", "Power BI"]
     },
     {
@@ -162,6 +168,39 @@ values (
   ]'::jsonb
 )
 on conflict (id) do nothing;
+
+-- Seeds the certifications list, but only while it is still empty, so
+-- re-running this file never clobbers edits made from /admin/site.
+update site_settings
+set certifications = '[
+  {
+    "name": "Microsoft Certified: Azure AI Fundamentals",
+    "issuer": "Microsoft",
+    "date": "August 2026",
+    "credentialId": "BC4B39739FA0D49",
+    "url": "https://learn.microsoft.com/en-us/users/JavierJayRonR-9034/credentials/BC4B39739FA0D49",
+    "badge": "/images/certs/azure-ai-fundamentals.svg",
+    "skills": ["AI concepts", "Microsoft Foundry"],
+    "status": "earned"
+  },
+  {
+    "name": "Reinvention with Agentic AI",
+    "issuer": "Accenture",
+    "date": "July 2026",
+    "url": "https://www.credly.com/badges/e00611bd-ffe0-491b-9358-8599fc7c0d72/public_url",
+    "badge": "/images/certs/reinvention-with-agentic-ai.png",
+    "skills": ["AI Agents", "AI Agents & Workflow Integration", "Artificial Intelligence"],
+    "status": "earned"
+  },
+  {
+    "name": "Microsoft Certified: Azure AI Engineer Associate (AI-102)",
+    "issuer": "Microsoft",
+    "skills": ["Azure AI Services", "Generative AI solutions"],
+    "status": "in-progress"
+  }
+]'::jsonb
+where id = 'main'
+  and (certifications is null or certifications = '[]'::jsonb);
 
 -- Row Level Security: the public (anon) key may only READ projects and
 -- testimonials. Everything else -- writing contact messages, writing
