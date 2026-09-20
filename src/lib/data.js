@@ -54,5 +54,8 @@ export async function getSiteContent() {
       ? data.education
       : fallbackSiteContent.education,
     stacks: data.stacks?.length ? data.stacks : fallbackSiteContent.stacks,
+    // No fallback: an empty list is a legitimate state here (the section
+    // hides itself), and falling back would resurrect deleted rows.
+    certifications: data.certifications ?? [],
   };
 }
