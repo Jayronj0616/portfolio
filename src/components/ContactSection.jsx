@@ -44,13 +44,17 @@ export default function ContactSection({ about }) {
               I&apos;ll get back to you, or reach out directly below.
             </p>
 
-            <a
-              href={about.socials.email}
-              className="mt-6 flex w-fit items-center gap-2 text-sm text-accent transition hover:brightness-125"
-            >
-              <Mail size={16} />
-              {about.socials.email.replace("mailto:", "")}
-            </a>
+            {about.socials.email && (
+              <a
+                href={about.socials.email}
+                className="mt-6 flex w-fit items-center gap-2 text-sm text-accent transition hover:brightness-125"
+              >
+                <Mail size={16} />
+                <span className="break-all">
+                  {about.socials.email.replace("mailto:", "")}
+                </span>
+              </a>
+            )}
 
             {links.length > 0 && (
               <div className="mt-8 flex flex-wrap gap-3">
@@ -73,28 +77,54 @@ export default function ContactSection({ about }) {
           <Reveal delay={0.08}>
             <form action={formAction} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your name"
+                <div>
+                  <label htmlFor="contact-name" className="sr-only">
+                    Your name
+                  </label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    placeholder="Your name"
+                    required
+                    maxLength={100}
+                    defaultValue={state.values?.name ?? ""}
+                    className="w-full rounded-xl border border-border bg-surface-2 px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-email" className="sr-only">
+                    Your email
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="Your email"
+                    required
+                    maxLength={200}
+                    defaultValue={state.values?.email ?? ""}
+                    className="w-full rounded-xl border border-border bg-surface-2 px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="contact-message" className="sr-only">
+                  Tell me about your project
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  placeholder="Tell me about your project..."
                   required
-                  className="rounded-xl border border-border bg-surface-2 px-4 py-3 text-sm outline-none transition focus:border-accent/50 focus:ring-2 focus:ring-accent/20"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your email"
-                  required
-                  className="rounded-xl border border-border bg-surface-2 px-4 py-3 text-sm outline-none transition focus:border-accent/50 focus:ring-2 focus:ring-accent/20"
+                  rows={5}
+                  maxLength={4000}
+                  defaultValue={state.values?.message ?? ""}
+                  className="w-full rounded-xl border border-border bg-surface-2 px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent"
                 />
               </div>
-              <textarea
-                name="message"
-                placeholder="Tell me about your project..."
-                required
-                rows={5}
-                className="w-full rounded-xl border border-border bg-surface-2 px-4 py-3 text-sm outline-none transition focus:border-accent/50 focus:ring-2 focus:ring-accent/20"
-              />
 
               <button
                 type="submit"
@@ -105,13 +135,17 @@ export default function ContactSection({ about }) {
                 <Send size={15} />
               </button>
 
-              {state.status === "success" && (
-                <p className="text-sm text-live">
-                  Thanks! Your message is in &mdash; I&apos;ll reply soon.
-                </p>
-              )}
+              <div aria-live="polite" role="status">
+                {state.status === "success" && (
+                  <p className="text-sm text-live">
+                    Thanks! Your message is in &mdash; I&apos;ll reply soon.
+                  </p>
+                )}
+              </div>
               {state.status === "error" && (
-                <p className="text-sm text-red-500">{state.error}</p>
+                <p role="alert" className="text-sm text-red-500">
+                  {state.error}
+                </p>
               )}
             </form>
           </Reveal>

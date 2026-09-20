@@ -13,14 +13,19 @@ export async function submitContactMessage(_prevState, formData) {
   const email = String(formData.get("email") || "").trim();
   const message = String(formData.get("message") || "").trim();
 
+  // Handed back with every failure so the form can refill itself -- a
+  // visitor who mistypes their email should not lose the message they
+  // just wrote.
+  const values = { name, email, message };
+
   if (!name || !email || !message) {
-    return { status: "error", error: "Please fill in every field." };
+    return { status: "error", error: "Please fill in every field.", values };
   }
   if (!EMAIL_RE.test(email)) {
-    return { status: "error", error: "That email address doesn't look right." };
+    return { status: "error", error: "That email address doesn't look right.", values };
   }
   if (message.length > 4000) {
-    return { status: "error", error: "Message is too long (4000 characters max)." };
+    return { status: "error", error: "Message is too long (4000 characters max).", values };
   }
 
   const supabase = getSupabaseAdmin();
@@ -30,6 +35,7 @@ export async function submitContactMessage(_prevState, formData) {
     return {
       status: "error",
       error: "The contact form isn't connected to a database yet. Please email me directly instead.",
+      values,
     };
   }
 
@@ -38,7 +44,7 @@ export async function submitContactMessage(_prevState, formData) {
     .insert({ name, email, message });
 
   if (error) {
-    return { status: "error", error: "Something went wrong sending your message. Please try again." };
+    return { status: "error", error: "Something went wrong sending your message. Please try again.", values };
   }
 
   return { status: "success" };
