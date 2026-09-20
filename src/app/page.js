@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import StackSection from "@/components/StackSection";
+import CertificationsSection from "@/components/CertificationsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
@@ -22,7 +23,7 @@ export default async function Home() {
     getTestimonials(),
     getSiteContent(),
   ]);
-  const { about, experience, education, stacks } = site;
+  const { about, experience, education, stacks, certifications } = site;
 
   return (
     <>
@@ -33,6 +34,7 @@ export default async function Home() {
         <AboutSection about={about} experience={experience} />
         <ProjectsSection projects={projects} />
         <StackSection stacks={stacks} />
+        <CertificationsSection certifications={certifications} />
         <ExperienceSection experience={experience} education={education} />
         <TestimonialsSection testimonials={testimonials} />
         <ContactSection about={about} />
