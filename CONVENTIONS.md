@@ -92,6 +92,24 @@ local database. Used by ~20 operations staff._
 
 ---
 
+## Git
+
+- **Split a large change into one commit per logical unit, then push.** Not one squashed commit.
+  This is deliberate and it is not a style preference: the contribution graph on Jayron's GitHub
+  profile is part of what this repo is *for* — it is the portfolio he points freelance clients at,
+  so visible commit activity is a deliverable, not a side effect. Split along real seams — assets,
+  then a component, then its data, then the schema, then the wiring that renders it — so each commit
+  still stands on its own and leaves the tree building. Where one file holds two separate concerns it
+  is fine to commit the intermediate state. Do **not** manufacture empty or no-op commits to inflate
+  the count; the history has to be readable by someone who was not there.
+- **Work lands on `master` directly.** There is no PR flow here, and a commit on a side branch that
+  never merges does not count toward the contribution graph at all, which defeats the point above.
+- **Commit message format:** imperative subject in sentence case, no prefix or ticket ID, blank line,
+  a wrapped body explaining *why*, and a `Co-Authored-By` trailer. `git log -20` is the real
+  convention — read it before writing the first one.
+
+---
+
 <!-- ────────────────────────────────────────────────────────────────────────────────────────────────
      OPTIONAL — add a heading below only when you have something real to put under it. Each one earns
      its place on a bigger or older codebase and is noise on a small one.
