@@ -32,7 +32,7 @@ export default function Footer({ about }) {
                 target={isExternal ? "_blank" : undefined}
                 rel="noopener noreferrer"
                 aria-label={isExternal ? `${label} (opens in a new tab)` : label}
-                className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-accent"
               >
                 <Icon size={16} aria-hidden="true" />
               </a>

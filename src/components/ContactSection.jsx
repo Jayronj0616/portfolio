@@ -65,7 +65,7 @@ export default function ContactSection({ about }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition hover:border-accent/40 hover:text-accent"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-muted transition hover:border-accent/40 hover:text-accent"
                   >
                     <Icon size={16} />
                   </a>
