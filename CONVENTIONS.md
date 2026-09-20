@@ -91,8 +91,6 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
   already drifted from `fallbackSiteContent.js` — do not read them as current or copy them as precedent.
 - **`MAINTENANCE_MODE` in `src/config/site.js` replaces the entire homepage** with `MaintenancePage`
   when true. If the site renders as a holding page for no apparent reason, check this first.
-- **`react-github-calendar`, `clsx` and `tailwind-merge` are in `package.json` but imported nowhere** —
-  leftovers from the pre-Next.js version of this site. Not precedent.
 
 ---
 
