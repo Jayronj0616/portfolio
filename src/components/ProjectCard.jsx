@@ -178,15 +178,15 @@ export default function ProjectCard({ project, index, featured = false }) {
         </div>
 
         <div className="flex flex-1 flex-col p-6">
-          <h3 className="text-lg font-semibold">{project.title}</h3>
+          <h3 className="break-words text-lg font-semibold">{project.title}</h3>
 
           {project.company && (
-            <p className="mt-1 text-xs text-muted">
+            <p className="mt-1 break-words text-xs text-muted">
               {project.role} · {project.company}
             </p>
           )}
 
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
+          <p className="mt-3 flex-1 break-words text-sm leading-relaxed text-muted">
             {project.description}
           </p>
 
@@ -194,14 +194,14 @@ export default function ProjectCard({ project, index, featured = false }) {
             {(project.tags ?? []).slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                className="max-w-full break-all rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="mt-5 flex items-center gap-5 border-t border-border pt-4 text-sm">
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border pt-4 text-sm">
             {project.live_url ? (
               <a
                 href={project.live_url}
@@ -213,8 +213,8 @@ export default function ProjectCard({ project, index, featured = false }) {
                 Live site <ExternalLink size={14} />
               </a>
             ) : isArchived ? (
-              <span className="flex items-center gap-1.5 text-muted">
-                <Lock size={14} /> In-house project — screenshots only
+              <span className="flex min-w-0 items-center gap-1.5 text-muted">
+                <Lock size={14} className="shrink-0" /> In-house project — screenshots only
               </span>
             ) : (
               <span className="text-muted">Not deployed yet</span>

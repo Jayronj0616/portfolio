@@ -31,9 +31,9 @@ export default function ExperienceSection({ experience, education }) {
                     </span>
                   )}
                 </div>
-                <h3 className="mt-2 text-lg font-semibold">{job.role}</h3>
-                <p className="text-sm text-accent">{job.company}</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
+                <h3 className="mt-2 break-words text-lg font-semibold">{job.role}</h3>
+                <p className="break-words text-sm text-accent">{job.company}</p>
+                <p className="mt-3 break-words text-sm leading-relaxed text-muted">
                   {job.description}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -62,8 +62,8 @@ export default function ExperienceSection({ experience, education }) {
                   className="card-hover rounded-2xl border border-border bg-surface p-5"
                 >
                   <p className="font-mono text-xs text-muted">{edu.period}</p>
-                  <h4 className="mt-1 font-semibold">{edu.title}</h4>
-                  <p className="text-sm text-muted">{edu.degree}</p>
+                  <h4 className="mt-1 break-words font-semibold">{edu.title}</h4>
+                  <p className="break-words text-sm text-muted">{edu.degree}</p>
                 </Reveal>
               ))}
             </div>

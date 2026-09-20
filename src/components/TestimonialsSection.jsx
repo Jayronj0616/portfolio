@@ -23,10 +23,10 @@ export default function TestimonialsSection({ testimonials }) {
               {/* figcaption is only an attribution when it sits inside a
                   figure -- on its own it is just text next to a quote. */}
               <figure className="flex h-full flex-col">
-                <blockquote className="flex-1 text-sm leading-relaxed text-muted">
+                <blockquote className="flex-1 break-words text-sm leading-relaxed text-muted">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <figcaption className="mt-4 font-mono text-xs">
+                <figcaption className="mt-4 break-words font-mono text-xs">
                   <span className="text-foreground">{t.name}</span>
                   {(t.role || t.company) && (
                     <span className="text-muted">
