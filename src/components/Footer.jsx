@@ -3,13 +3,15 @@ import { SiViber } from "react-icons/si";
 import { Mail } from "lucide-react";
 
 export default function Footer({ about }) {
+  // Every entry carries a label: these render as icons only, so the
+  // label is the sole accessible name the link has.
   const socials = [
-    { key: "github", href: about.socials.github, Icon: FaGithub },
-    { key: "linkedin", href: about.socials.linkedin, Icon: FaLinkedin },
-    { key: "email", href: about.socials.email, Icon: Mail },
-    { key: "whatsapp", href: about.socials.whatsapp, Icon: FaWhatsapp },
-    { key: "viber", href: about.socials.viber, Icon: SiViber },
-    { key: "facebook", href: about.socials.facebook, Icon: FaFacebook },
+    { key: "github", href: about.socials.github, label: "GitHub", Icon: FaGithub },
+    { key: "linkedin", href: about.socials.linkedin, label: "LinkedIn", Icon: FaLinkedin },
+    { key: "email", href: about.socials.email, label: "Email", Icon: Mail },
+    { key: "whatsapp", href: about.socials.whatsapp, label: "WhatsApp", Icon: FaWhatsapp },
+    { key: "viber", href: about.socials.viber, label: "Viber", Icon: SiViber },
+    { key: "facebook", href: about.socials.facebook, label: "Facebook", Icon: FaFacebook },
   ].filter((s) => s.href);
 
   return (
@@ -20,19 +22,23 @@ export default function Footer({ about }) {
           Supabase.
         </p>
 
-        <div className="flex gap-2">
-          {socials.map(({ key, href, Icon }) => (
-            <a
-              key={key}
-              href={href}
-              target={href.startsWith("mailto:") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-accent"
-            >
-              <Icon size={16} />
-            </a>
-          ))}
-        </div>
+        <nav aria-label="Social links" className="flex gap-2">
+          {socials.map(({ key, href, label, Icon }) => {
+            const isExternal = !href.startsWith("mailto:");
+            return (
+              <a
+                key={key}
+                href={href}
+                target={isExternal ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                aria-label={isExternal ? `${label} (opens in a new tab)` : label}
+                className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-accent"
+              >
+                <Icon size={16} aria-hidden="true" />
+              </a>
+            );
+          })}
+        </nav>
       </div>
     </footer>
   );
