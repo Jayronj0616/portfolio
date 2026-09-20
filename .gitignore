@@ -41,3 +41,8 @@ yarn-error.log*
 
 # provenly runtime state (the config at the root is tracked, this is not)
 .claude/.harness/
+
+# impeccable: platform-specific binary, re-downloaded by the installer
+.claude/skills/impeccable/scripts/bin/
+# personal harness settings
+.claude/settings.local.json
