@@ -156,7 +156,7 @@ export default function ProjectCard({ project, index, featured = false }) {
                 <Expand className="text-white" size={20} />
               </span>
               {gallery.length > 1 && (
-                <span className="glass absolute bottom-2 right-2 rounded-full border border-border px-2 py-0.5 font-mono text-[11px] text-foreground">
+                <span className="glass absolute bottom-2 right-2 rounded-full border border-border px-2 py-0.5 font-mono text-xs text-foreground">
                   1/{gallery.length}
                 </span>
               )}
@@ -168,7 +168,7 @@ export default function ProjectCard({ project, index, featured = false }) {
           )}
 
           <span
-            className={`glass absolute right-3 top-3 flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide ${
+            className={`glass absolute right-3 top-3 flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 font-mono text-xs uppercase tracking-wide ${
               isLive ? "text-live" : "text-muted"
             }`}
           >
@@ -194,7 +194,7 @@ export default function ProjectCard({ project, index, featured = false }) {
             {(project.tags ?? []).slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="max-w-full break-all rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                className="max-w-full break-all rounded-full bg-surface-2 px-2.5 py-1 font-mono text-xs text-muted"
               >
                 {tag}
               </span>

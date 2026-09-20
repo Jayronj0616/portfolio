@@ -25,7 +25,7 @@ export default function ExperienceSection({ experience, education }) {
                 <div className="flex flex-wrap items-center gap-3">
                   <p className="font-mono text-xs text-muted">{job.period}</p>
                   {job.current && (
-                    <span className="flex items-center gap-1.5 rounded-full bg-live/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wide text-live">
+                    <span className="flex items-center gap-1.5 rounded-full bg-live/10 px-2.5 py-0.5 font-mono text-xs uppercase tracking-wide text-live">
                       <span className="h-1.5 w-1.5 rounded-full bg-live" />
                       Current
                     </span>
@@ -40,7 +40,7 @@ export default function ExperienceSection({ experience, education }) {
                   {job.tech.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                      className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-xs text-muted"
                     >
                       {t}
                     </span>

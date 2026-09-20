@@ -58,12 +58,12 @@ export default function CertificationsSection({ certifications }) {
                     <p className="mt-1 break-words text-sm text-accent">{cert.issuer}</p>
                     <div className="mt-2 flex flex-wrap items-center gap-2">
                       {cert.date && (
-                        <span className="font-mono text-[11px] text-muted">
+                        <span className="font-mono text-xs text-muted">
                           {inProgress ? "Expected" : "Issued"} {cert.date}
                         </span>
                       )}
                       {inProgress && (
-                        <span className="rounded-full bg-surface-2 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wide text-muted">
+                        <span className="rounded-full bg-surface-2 px-2.5 py-0.5 font-mono text-xs uppercase tracking-wide text-muted">
                           In progress
                         </span>
                       )}
@@ -76,7 +76,7 @@ export default function CertificationsSection({ certifications }) {
                     {cert.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                        className="rounded-full bg-surface-2 px-2.5 py-1 font-mono text-xs text-muted"
                       >
                         {skill}
                       </span>
@@ -101,7 +101,7 @@ export default function CertificationsSection({ certifications }) {
                   )}
 
                   {cert.credentialId && (
-                    <span className="min-w-0 truncate font-mono text-[11px] text-muted">
+                    <span className="min-w-0 truncate font-mono text-xs text-muted">
                       ID {cert.credentialId}
                     </span>
                   )}
