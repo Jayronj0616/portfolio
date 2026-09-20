@@ -14,6 +14,10 @@ file ended up describing a stack that no longer existed.
 `PROJECTS.md` tracks the per-project status behind the "Featured Projects" section — which are live,
 which are still building, and which are deliberately unlinked.
 
+`PRODUCT.md` records the product truth behind every design decision — who the site has to convince,
+what claim it makes, and which proof is real. Its "Evidence on Hand" section lists what must never be
+fabricated to fill a gap; read it before writing any copy or adding any section.
+
 ## Stack, in one line
 Next.js 16 App Router on React 19, **plain JavaScript, not TypeScript**, Tailwind v4, Supabase
 (Postgres + Storage), deployed on Vercel. Server Actions for every write. See `CONVENTIONS.md` for
