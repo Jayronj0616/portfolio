@@ -213,7 +213,7 @@ export default function SiteForm({
           {pending ? "Saving..." : "Save site text"}
         </button>
         {state.status === "error" && (
-          <p className="text-sm text-red-500">{state.error}</p>
+          <p className="text-sm text-danger">{state.error}</p>
         )}
       </div>
     </form>

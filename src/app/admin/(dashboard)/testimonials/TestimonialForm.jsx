@@ -82,7 +82,7 @@ export default function TestimonialForm({ action, testimonial }) {
           {pending ? "Saving..." : "Save testimonial"}
         </button>
         {state.status === "error" && (
-          <p className="text-sm text-red-500">{state.error}</p>
+          <p className="text-sm text-danger">{state.error}</p>
         )}
       </div>
     </form>

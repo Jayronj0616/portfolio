@@ -134,7 +134,7 @@ export default function ProjectForm({ action, project }) {
           {pending ? "Saving..." : "Save project"}
         </button>
         {state.status === "error" && (
-          <p className="text-sm text-red-500">{state.error}</p>
+          <p className="text-sm text-danger">{state.error}</p>
         )}
       </div>
     </form>
