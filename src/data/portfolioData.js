@@ -20,7 +20,7 @@ export const portfolioData = {
       period: "April 2026 - Present",
       current: true,
       description:
-        "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech). Currently pursuing Microsoft Azure AI Engineer Associate (AI-102) certification.",
+        "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech).",
       tech: ["Azure", "Azure Databricks", "Azure OpenAI", "Power BI"],
     },
     {

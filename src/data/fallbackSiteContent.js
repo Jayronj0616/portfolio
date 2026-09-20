@@ -28,7 +28,7 @@ export const fallbackSiteContent = {
       period: "April 2026 - Present",
       current: true,
       description:
-        "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech). Currently pursuing Microsoft Azure AI Engineer Associate (AI-102) certification.",
+        "Cloud First Platforms (Microsoft) practice. Completed the Data & AI bootcamp, delivering a full-stack analytics dashboard (Azure Databricks, Azure OpenAI, Azure Speech).",
       tech: ["Azure", "Azure Databricks", "Azure OpenAI", "Power BI"],
     },
     {
@@ -69,6 +69,33 @@ export const fallbackSiteContent = {
       title: "Saint Dominic Academy of Pulilan Inc.",
       degree: "Senior High School — Accountancy, Business, and Management",
       period: "2018 - 2020",
+    },
+  ],
+  certifications: [
+    {
+      name: "Microsoft Certified: Azure AI Fundamentals",
+      issuer: "Microsoft",
+      date: "August 2026",
+      credentialId: "BC4B39739FA0D49",
+      url: "https://learn.microsoft.com/en-us/users/JavierJayRonR-9034/credentials/BC4B39739FA0D49",
+      badge: "/images/certs/azure-ai-fundamentals.svg",
+      skills: ["AI concepts", "Microsoft Foundry"],
+      status: "earned",
+    },
+    {
+      name: "Reinvention with Agentic AI",
+      issuer: "Accenture",
+      date: "July 2026",
+      url: "https://www.credly.com/badges/e00611bd-ffe0-491b-9358-8599fc7c0d72/public_url",
+      badge: "/images/certs/reinvention-with-agentic-ai.png",
+      skills: ["AI Agents", "AI Agents & Workflow Integration", "Artificial Intelligence"],
+      status: "earned",
+    },
+    {
+      name: "Microsoft Certified: Azure AI Engineer Associate (AI-102)",
+      issuer: "Microsoft",
+      skills: ["Azure AI Services", "Generative AI solutions"],
+      status: "in-progress",
     },
   ],
   stacks: [
