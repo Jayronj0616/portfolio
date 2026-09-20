@@ -1,22 +1,13 @@
-"use client";
+import Reveal from "@/components/Reveal";
 
-import { motion, useReducedMotion } from "framer-motion";
-
+// The hero sits above the fold, so the observer marks it revealed on its
+// first pass and this reads as an on-load animation rather than a scroll
+// one. Kept as its own component so the hero can carry a longer travel
+// than the sections below it.
 export default function HeroReveal({ children, delay = 0, className }) {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: reduceMotion ? 0.2 : 0.7,
-        delay: reduceMotion ? 0 : delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className={className}
-    >
+    <Reveal delay={delay} className={className} y={20}>
       {children}
-    </motion.div>
+    </Reveal>
   );
 }

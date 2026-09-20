@@ -1,26 +1,18 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-
+// Server component. The reveal is driven entirely by the inline bootstrap
+// in layout.js -- no client JavaScript, no framer-motion, and no hidden
+// initial state in the server HTML. See the `.reveal` rules in globals.css
+// for why the visible state is the default.
 export default function Reveal({ children, delay = 0, className, y = 16 }) {
-  // Reduced motion drops the travel and the stagger -- both are pure
-  // choreography -- but keeps a short fade, so content still reads as
-  // arriving rather than appearing out of nowhere.
-  const reduceMotion = useReducedMotion();
+  const style = {};
+  if (delay) style["--reveal-delay"] = `${delay}s`;
+  if (y !== 16) style["--reveal-y"] = `${y}px`;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: reduceMotion ? 0 : y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration: reduceMotion ? 0.2 : 0.6,
-        delay: reduceMotion ? 0 : delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className={className}
+    <div
+      className={className ? `reveal ${className}` : "reveal"}
+      style={Object.keys(style).length ? style : undefined}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

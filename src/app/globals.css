@@ -94,12 +94,46 @@ body {
   box-shadow: 0 24px 48px -24px color-mix(in srgb, var(--foreground) 25%, transparent);
 }
 
+/* Scroll reveals.
+
+   The visible state is the default and the hidden state is opt-in, applied
+   only once the inline bootstrap in layout.js has confirmed it is running.
+   The previous implementation had this the wrong way round: the server HTML
+   carried inline opacity:0 on 31 elements, so any failure to run JavaScript
+   left the whole page blank rather than merely unanimated.
+
+   The bootstrap owns both halves -- adding .js and revealing on scroll -- so
+   there is no state where one has happened without the other. */
+.reveal {
+  opacity: 1;
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 16px));
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s);
+}
+
+.js .reveal[data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
 /* Reduced motion removes spatial movement only. The colour, border and
    shadow changes stay, because those are what confirm a hover actually
    landed -- switching every transition off would cost real feedback. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* Travel and stagger are choreography; the fade still reads as content
+     arriving, so it stays. */
+  .js .reveal {
+    transform: none;
+    transition: opacity 0.2s linear 0s;
   }
 
   .card-hover:hover,
