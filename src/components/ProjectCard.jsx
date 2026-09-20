@@ -25,6 +25,8 @@ export default function ProjectCard({ project, index, featured = false }) {
   const gallery = project.cover_image ? [project.cover_image] : [];
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollerRef = useRef(null);
+  const dialogRef = useRef(null);
+  const triggerRef = useRef(null);
 
   const track = (eventType) => {
     logAnalyticsEvent(eventType, { projectSlug: project.slug });
@@ -46,13 +48,53 @@ export default function ProjectCard({ project, index, featured = false }) {
   useEffect(() => {
     if (!isImageOpen) return;
     const onKeyDown = (e) => {
-      if (e.key === "Escape") setIsImageOpen(false);
+      if (e.key === "Escape") {
+        setIsImageOpen(false);
+        return;
+      }
+      // Keep Tab inside the overlay. Without this the focus ring walks
+      // out into the page behind it, which is invisible to a sighted
+      // keyboard user and incomprehensible to a screen reader one.
+      if (e.key === "Tab") {
+        const focusable = dialogRef.current?.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable?.length) {
+          e.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+        return;
+      }
       if (e.key === "ArrowLeft" && gallery.length > 1) showPrev();
       if (e.key === "ArrowRight" && gallery.length > 1) showNext();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isImageOpen, gallery.length, showPrev, showNext]);
+
+  // Move focus into the overlay on open and hand it back to whatever
+  // opened it on close, and stop the page behind from scrolling while
+  // it is up.
+  useEffect(() => {
+    if (!isImageOpen) return;
+    const previouslyFocused = triggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
+    };
+  }, [isImageOpen]);
 
   // Keep the scroll position in sync when activeIndex changes via the
   // arrow buttons or a thumbnail click (jumps instantly on open, then
@@ -97,6 +139,7 @@ export default function ProjectCard({ project, index, featured = false }) {
         <div className={`relative w-full ${featured ? "aspect-[21/9]" : "aspect-[16/10]"}`}>
           {project.cover_image ? (
             <button
+              ref={triggerRef}
               type="button"
               onClick={() => openGallery(0)}
               aria-label={`View screenshots of ${project.title}`}
@@ -196,7 +239,12 @@ export default function ProjectCard({ project, index, featured = false }) {
         typeof document !== "undefined" &&
         createPortal(
           <div
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/85 p-6"
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Screenshots of ${project.title}`}
+            tabIndex={-1}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/85 p-6 outline-none"
             onClick={() => setIsImageOpen(false)}
           >
             <button
