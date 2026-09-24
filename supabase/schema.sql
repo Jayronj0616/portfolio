@@ -379,6 +379,34 @@ values
     'live',
     null,
     null
+  ),
+  (
+    'bugs-auto-quality-cars',
+    'BUGS Auto Quality Cars',
+    'A dealership platform built for a real automotive client: a public storefront for browsing inventory, estimating monthly payments, and sending inquiries, plus an admin dashboard for vehicles, photos, financing, and leads. Live in production with the dealership''s actual inventory -- Postgres RLS is the final word on every row, so anonymous visitors can read published vehicles but can''t write to anything, and every customer submission is validated and rate-limited server-side before it reaches the CRM.',
+    array['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
+    'https://bugs-auto-quality-cars.vercel.app',
+    'https://github.com/Jayronj0616/bugs-auto-quality-cars',
+    null,
+    array[]::text[],
+    9,
+    'live',
+    null,
+    null
+  ),
+  (
+    'attendflow-ai',
+    'AttendFlow AI',
+    'An HR tool for correcting attendance records: employees describe a correction in plain language, and deterministic business rules -- never the AI -- decide whether to apply it automatically or escalate it to HR, with every decision fully audited. Live in production for sign-in, corrections, and the HR review queue; natural-language parsing currently runs on a documented placeholder pending an LLM key, with its output already validated at the boundary so swapping it in changes nothing downstream.',
+    array['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
+    'https://attendflow-ai.vercel.app',
+    'https://github.com/Jayronj0616/AttendFlow_Ai',
+    null,
+    array[]::text[],
+    10,
+    'live',
+    null,
+    null
   )
 on conflict (slug) do nothing;
 
