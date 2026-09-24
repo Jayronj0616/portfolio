@@ -93,4 +93,30 @@ export const fallbackProjects = [
     cover_image: "/images/trucking/landing.jpg",
     status: "building",
   },
+  {
+    slug: "bugs-auto-quality-cars",
+    title: "BUGS Auto Quality Cars",
+    description:
+      "A dealership platform built for a real automotive client: a public storefront for browsing inventory, estimating monthly payments, and sending inquiries, plus an admin dashboard for vehicles, photos, financing, and leads. Live in production with the dealership's actual inventory — Postgres RLS is the final word on every row, so anonymous visitors can read published vehicles but can't write to anything, and every customer submission is validated and rate-limited server-side before it reaches the CRM.",
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+    live_url: "https://bugs-auto-quality-cars.vercel.app",
+    github_url: "https://github.com/Jayronj0616/bugs-auto-quality-cars",
+    // Cover image pending -- Jayron is capturing his own screenshots. Left
+    // null rather than pointed at a path that doesn't exist yet: the card
+    // falls back to a plain icon instead of a broken image.
+    cover_image: null,
+    status: "live",
+  },
+  {
+    slug: "attendflow-ai",
+    title: "AttendFlow AI",
+    description:
+      "An HR tool for correcting attendance records: employees describe a correction in plain language, and deterministic business rules — never the AI — decide whether to apply it automatically or escalate it to HR, with every decision fully audited. Live in production for sign-in, corrections, and the HR review queue; natural-language parsing currently runs on a documented placeholder pending an LLM key, with its output already validated at the boundary so swapping it in changes nothing downstream.",
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+    live_url: "https://attendflow-ai.vercel.app",
+    github_url: "https://github.com/Jayronj0616/AttendFlow_Ai",
+    // Same as above -- screenshots pending.
+    cover_image: null,
+    status: "live",
+  },
 ];
