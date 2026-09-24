@@ -404,11 +404,19 @@ values
     null,
     array[]::text[],
     10,
-    'live',
+    'archived',
     null,
     null
   )
 on conflict (slug) do nothing;
+
+-- AttendFlow AI shipped as 'live' in the seed above, then was reset to
+-- 'archived' after the fact: the deployment is real, but the natural-
+-- language extraction step is still a placeholder pending an LLM key.
+-- `on conflict do nothing` means the insert above never touches an
+-- existing row, so this update is what actually applies the status on
+-- a database that already has it.
+update projects set status = 'archived' where slug = 'attendflow-ai';
 
 -- If schema.sql already ran once with the old seed (which included a
 -- "booking-system" row), remove it -- it's excluded from the portfolio.

@@ -117,6 +117,10 @@ export const fallbackProjects = [
     github_url: "https://github.com/Jayronj0616/AttendFlow_Ai",
     // Same as above -- screenshots pending.
     cover_image: null,
-    status: "live",
+    // Deployed and reachable, but the natural-language extraction step is
+    // still a placeholder (see the description) -- marked archived rather
+    // than live until that's real. live_url is still set, so the card
+    // keeps its working "Live site" link; only the badge changes.
+    status: "archived",
   },
 ];
