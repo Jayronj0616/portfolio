@@ -193,14 +193,48 @@ set certifications = '[
     "status": "earned"
   },
   {
-    "name": "Microsoft Certified: Azure AI Engineer Associate (AI-102)",
-    "issuer": "Microsoft",
-    "skills": ["Azure AI Services", "Generative AI solutions"],
-    "status": "in-progress"
+    "name": "OpenAI Cyber Solutions Practitioner",
+    "issuer": "OpenAI",
+    "date": "September 2026",
+    "expires": "September 2027",
+    "credentialId": "112278645",
+    "url": null,
+    "badge": null,
+    "status": "earned"
   }
 ]'::jsonb
 where id = 'main'
   and (certifications is null or certifications = '[]'::jsonb);
+
+-- The seed above only ever applies to an empty list, and by the time this
+-- ran once the certifications list was no longer empty -- so the AI-102
+-- in-progress entry it originally seeded needs to be pulled out explicitly
+-- here, and the OpenAI entry added the same way, rather than relying on
+-- the seed being re-applied.
+update site_settings
+set certifications = (
+  select jsonb_agg(cert)
+  from jsonb_array_elements(certifications) as cert
+  where cert ->> 'name' != 'Microsoft Certified: Azure AI Engineer Associate (AI-102)'
+)
+where id = 'main';
+
+update site_settings
+set certifications = certifications || '[{
+  "name": "OpenAI Cyber Solutions Practitioner",
+  "issuer": "OpenAI",
+  "date": "September 2026",
+  "expires": "September 2027",
+  "credentialId": "112278645",
+  "url": null,
+  "badge": null,
+  "status": "earned"
+}]'::jsonb
+where id = 'main'
+  and not exists (
+    select 1 from jsonb_array_elements(certifications) as cert
+    where cert ->> 'name' = 'OpenAI Cyber Solutions Practitioner'
+  );
 
 -- Row Level Security: the public (anon) key may only READ projects and
 -- testimonials. Everything else -- writing contact messages, writing

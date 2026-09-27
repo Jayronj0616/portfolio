@@ -92,10 +92,16 @@ export const fallbackSiteContent = {
       status: "earned",
     },
     {
-      name: "Microsoft Certified: Azure AI Engineer Associate (AI-102)",
-      issuer: "Microsoft",
-      skills: ["Azure AI Services", "Generative AI solutions"],
-      status: "in-progress",
+      name: "OpenAI Cyber Solutions Practitioner",
+      issuer: "OpenAI",
+      date: "September 2026",
+      expires: "September 2027",
+      credentialId: "112278645",
+      // No public verify link or badge image yet -- Jayron didn't have one
+      // on hand. Both are optional fields; add them once he does.
+      url: null,
+      badge: null,
+      status: "earned",
     },
   ],
   stacks: [
