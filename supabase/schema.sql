@@ -387,8 +387,8 @@ values
     array['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
     'https://bugs-auto-quality-cars.vercel.app',
     'https://github.com/Jayronj0616/bugs-auto-quality-cars',
-    null,
-    array[]::text[],
+    '/images/bugs-auto/BUGS.png',
+    array['/images/bugs-auto/BUGS.png'],
     9,
     'live',
     null,
@@ -401,8 +401,8 @@ values
     array['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
     'https://attendflow-ai.vercel.app',
     'https://github.com/Jayronj0616/AttendFlow_Ai',
-    null,
-    array[]::text[],
+    '/images/attendflow/Screenshot 2026-09-27 210927.png',
+    array['/images/attendflow/Screenshot 2026-09-27 210927.png'],
     10,
     'archived',
     null,
@@ -417,6 +417,19 @@ on conflict (slug) do nothing;
 -- existing row, so this update is what actually applies the status on
 -- a database that already has it.
 update projects set status = 'archived' where slug = 'attendflow-ai';
+
+-- Same reasoning as above: cover_image/images were seeded null/empty
+-- because the screenshots didn't exist yet. Now that they do, apply them
+-- directly rather than relying on the insert re-running.
+update projects
+set cover_image = '/images/bugs-auto/BUGS.png',
+    images = array['/images/bugs-auto/BUGS.png']
+where slug = 'bugs-auto-quality-cars' and cover_image is null;
+
+update projects
+set cover_image = '/images/attendflow/Screenshot 2026-09-27 210927.png',
+    images = array['/images/attendflow/Screenshot 2026-09-27 210927.png']
+where slug = 'attendflow-ai' and cover_image is null;
 
 -- If schema.sql already ran once with the old seed (which included a
 -- "booking-system" row), remove it -- it's excluded from the portfolio.

@@ -101,10 +101,7 @@ export const fallbackProjects = [
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
     live_url: "https://bugs-auto-quality-cars.vercel.app",
     github_url: "https://github.com/Jayronj0616/bugs-auto-quality-cars",
-    // Cover image pending -- Jayron is capturing his own screenshots. Left
-    // null rather than pointed at a path that doesn't exist yet: the card
-    // falls back to a plain icon instead of a broken image.
-    cover_image: null,
+    cover_image: "/images/bugs-auto/BUGS.png",
     status: "live",
   },
   {
@@ -115,8 +112,7 @@ export const fallbackProjects = [
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
     live_url: "https://attendflow-ai.vercel.app",
     github_url: "https://github.com/Jayronj0616/AttendFlow_Ai",
-    // Same as above -- screenshots pending.
-    cover_image: null,
+    cover_image: "/images/attendflow/Screenshot 2026-09-27 210927.png",
     // Deployed and reachable, but the natural-language extraction step is
     // still a placeholder (see the description) -- marked archived rather
     // than live until that's real. live_url is still set, so the card
