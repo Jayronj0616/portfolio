@@ -60,6 +60,7 @@ export default function CertificationsSection({ certifications }) {
                       {cert.date && (
                         <span className="font-mono text-xs text-muted">
                           {inProgress ? "Expected" : "Issued"} {cert.date}
+                          {cert.expires && ` · Expires ${cert.expires}`}
                         </span>
                       )}
                       {inProgress && (
