@@ -278,7 +278,7 @@ values
       '/images/airlines/Screenshot 2026-02-13 082636.png',
       '/images/airlines/Screenshot 2026-02-13 082654.png'
     ],
-    1,
+    4,
     'building',
     null,
     null
@@ -292,7 +292,7 @@ values
     null,
     '/images/lending/landing.jpg',
     array['/images/lending/landing.jpg', '/images/lending/dashboard.jpg'],
-    2,
+    5,
     'live',
     null,
     null
@@ -306,7 +306,7 @@ values
     null,
     '/images/payroll/landing.jpg',
     array['/images/payroll/landing.jpg', '/images/payroll/dashboard.jpg', '/images/payroll/payroll.jpg', '/images/payroll/payroll-groups.jpg'],
-    3,
+    6,
     'live',
     null,
     null
@@ -320,7 +320,7 @@ values
     'https://github.com/Jayronj0616/agentpro',
     '/images/agentpro/landing.jpg',
     array['/images/agentpro/landing.jpg', '/images/agentpro/listings.jpg', '/images/agentpro/about.jpg'],
-    4,
+    7,
     'live',
     null,
     null
@@ -348,7 +348,7 @@ values
       '/images/qrsystem/Screenshot 2026-02-13 093740.png',
       '/images/qrsystem/Screenshot 2026-02-13 093753.png'
     ],
-    5,
+    3,
     'archived',
     'Asian Land Strategies Corporation',
     'Full Stack Developer'
@@ -368,7 +368,7 @@ values
       '/images/coffeeshop/Screenshot 2026-02-13 111157.png',
       '/images/coffeeshop/Screenshot 2026-02-13 111206.png'
     ],
-    6,
+    8,
     'live',
     null,
     null
@@ -391,7 +391,7 @@ values
       '/images/trucking/settings.jpg',
       '/images/trucking/dashboard-overview-dark.jpg'
     ],
-    7,
+    9,
     'building',
     null,
     null
@@ -409,7 +409,7 @@ values
       '/images/lapse/dashboard.jpg',
       '/images/lapse/documents.jpg'
     ],
-    8,
+    10,
     'live',
     null,
     null
@@ -423,7 +423,7 @@ values
     'https://github.com/Jayronj0616/bugs-auto-quality-cars',
     '/images/bugs-auto/BUGS.png',
     array['/images/bugs-auto/BUGS.png'],
-    9,
+    2,
     'live',
     null,
     null
@@ -437,7 +437,7 @@ values
     'https://github.com/Jayronj0616/AttendFlow_Ai',
     '/images/attendflow/Screenshot 2026-09-27 210927.png',
     array['/images/attendflow/Screenshot 2026-09-27 210927.png'],
-    10,
+    1,
     'archived',
     null,
     null
@@ -464,6 +464,30 @@ update projects
 set cover_image = '/images/attendflow/Screenshot 2026-09-27 210927.png',
     images = array['/images/attendflow/Screenshot 2026-09-27 210927.png']
 where slug = 'attendflow-ai' and cover_image is null;
+
+-- The homepage now shows only the first HOMEPAGE_LIMIT projects by
+-- sort_order (see ProjectsSection.jsx) with a /projects page for the
+-- rest, so sort_order picks the homepage's top 3, not just a display
+-- order. The insert above seeded the original order; these `update`s
+-- are what actually reorder it on a database that already has these
+-- ten rows -- `on conflict do nothing` never touches them.
+update projects set sort_order = case slug
+  when 'attendflow-ai' then 1
+  when 'bugs-auto-quality-cars' then 2
+  when 'qr-pass-system' then 3
+  when 'airline-system' then 4
+  when 'lending-system' then 5
+  when 'payrollpro' then 6
+  when 'agentpro' then 7
+  when 'caffeine-co' then 8
+  when 'trucking-system' then 9
+  when 'lapse' then 10
+end
+where slug in (
+  'attendflow-ai', 'bugs-auto-quality-cars', 'qr-pass-system',
+  'airline-system', 'lending-system', 'payrollpro', 'agentpro',
+  'caffeine-co', 'trucking-system', 'lapse'
+);
 
 -- If schema.sql already ran once with the old seed (which included a
 -- "booking-system" row), remove it -- it's excluded from the portfolio.
