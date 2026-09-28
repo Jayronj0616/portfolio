@@ -27,14 +27,18 @@ export default function ProjectsSection({ projects }) {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* grid-cols-1 -> sm:grid-cols-3 (no 2-column step): with exactly
+            HOMEPAGE_LIMIT (3) cards, a 2-column stage strands the third
+            card alone in its own row with a large empty gap next to it.
+            Jumping straight to 3 columns keeps every row full. Revisit
+            this if HOMEPAGE_LIMIT ever changes to something that isn't 3. */}
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {featured.map((project, index) => (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-              index={index}
-              featured={index === 0}
-            />
+            // No `featured` (wide) card here -- these are already a curated
+            // top 3, and spanning one of them across 2 of the 3 columns
+            // recreates the same orphaned-card problem the grid fix above
+            // solves. The full /projects grid still uses it.
+            <ProjectCard key={project.slug} project={project} index={index} />
           ))}
         </div>
 
