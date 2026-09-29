@@ -86,7 +86,7 @@ values (
   'main',
   '{
     "name": "Jayron",
-    "role": "Software Engineer",
+    "role": "AI Engineer",
     "bio": "I design and ship full-stack systems end-to-end — from the database schema to a live deployment. Right now that means building AI-powered tools with Azure OpenAI at Accenture, and shipping SaaS products of my own as a freelancer: a multi-admin lending platform, a voice-driven payroll system, a real estate booking site. I care less about how a demo looks and more about whether it holds up once real people are using it.",
     "cvLink": "/files/CV_JAYRONJAVIER.pdf",
     "socials": {
