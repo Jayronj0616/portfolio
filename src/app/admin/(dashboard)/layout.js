@@ -5,6 +5,8 @@ import AdminSidebar from "./AdminSidebar";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = { robots: { index: false, follow: false } };
+
 export default async function AdminDashboardLayout({ children }) {
   const authed = await isAdminAuthenticated();
   if (!authed) redirect("/admin/login");
