@@ -12,7 +12,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Node 24 ships npm 11, the npm that wrote package-lock.json. Node 22
+          # ships npm 10, whose `npm ci` rejects that lockfile with "Missing:
+          # @emnapi/runtime ... from lock file" -- which is why this job failed
+          # at the install step on every push before this was changed.
+          node-version: 24
           cache: npm
       - run: npm ci
 
