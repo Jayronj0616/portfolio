@@ -79,6 +79,7 @@ export async function saveSiteContent(_prevState, formData) {
   if (error) return { status: "error", error: error.message };
 
   revalidatePath("/");
+  revalidatePath("/projects");
   revalidatePath("/admin/site");
   redirect("/admin/site");
 }
@@ -115,6 +116,7 @@ export async function uploadAvatar(_prevState, formData) {
   if (error) return { status: "error", error: error.message };
 
   revalidatePath("/");
+  revalidatePath("/projects");
   revalidatePath("/admin/site");
   return { status: "success", url };
 }

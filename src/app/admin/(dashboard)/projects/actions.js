@@ -65,6 +65,7 @@ export async function createProject(_prevState, formData) {
   if (error) return { status: "error", error: error.message };
 
   revalidatePath("/");
+  revalidatePath("/projects");
   revalidatePath("/admin/projects");
   redirect("/admin/projects");
 }
@@ -94,6 +95,7 @@ export async function updateProject(id, _prevState, formData) {
   if (error) return { status: "error", error: error.message };
 
   revalidatePath("/");
+  revalidatePath("/projects");
   revalidatePath("/admin/projects");
   redirect("/admin/projects");
 }
@@ -110,6 +112,7 @@ export async function deleteProject(formData) {
   await supabase.from("projects").delete().eq("id", id);
 
   revalidatePath("/");
+  revalidatePath("/projects");
   revalidatePath("/admin/projects");
   redirect("/admin/projects");
 }
