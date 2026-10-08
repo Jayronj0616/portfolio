@@ -103,14 +103,17 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
   `.reveal` nodes added later by client-side navigation. If a page renders blank until reload, check that
   first. Test navigation between pages by clicking links, not only by loading each URL directly — a direct
   load always works.
-- **Which branch Vercel Production follows is unverified — read it from the dashboard** (Vercel → Project →
-  Settings → Git → Production Branch) and record the answer here. What was measured on 2026-10-08:
-  GitHub's default branch is `master`; between 2026-09-28 and 2026-10-08 `main` sat unchanged at `2095a66`
-  while GitHub recorded `Production` deployments of newer commits that were on `master` only (`c20f4e0` on
-  10-07, `81d4d02` on 10-08), which points to `master`. That cannot be re-checked from git now: `main` was
-  fast-forwarded to `81d4d02` on 2026-10-08, so the two branches are identical. A `master_backup` snapshot
-  branch also exists. Until the dashboard setting is recorded, assume a push to either branch can go live,
-  and keep the Git section below in step with whatever is settled.
+- **Vercel Production deploys `master`. A push to `main` only builds a Preview.** Confirmed by Jayron from the
+  dashboard on 2026-10-08, and reproducible from GitHub's deployment records: `81d4d02` pushed to `master`
+  (00:42Z) produced a `Production` deployment 91 seconds later; the same commit pushed to `main` (12:40Z)
+  produced a `Preview` 36 seconds later. GitHub's default branch is `master` too. `main` and `master_backup`
+  are leftovers; `main` was fast-forwarded to match `master` on 2026-10-08 and does nothing by itself, so do
+  not push to it expecting a deploy. Merging to `master` goes live immediately, so the Git section below
+  applies to `master`.
+- **CI must run on the Node version whose npm wrote `package-lock.json` (Node 24 / npm 11).** On Node 22 the
+  npm 10 that ships with it fails `npm ci` with `Missing: @emnapi/runtime ... from lock file`, before any code
+  is checked. That is why every CI run failed until `.github/workflows/ci.yml` was moved to Node 24. If the
+  lockfile is ever regenerated with a different npm major, re-check this.
 
 ---
 
