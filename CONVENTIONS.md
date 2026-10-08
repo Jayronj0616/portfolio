@@ -103,10 +103,14 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
   `.reveal` nodes added later by client-side navigation. If a page renders blank until reload, check that
   first. Test navigation between pages by clicking links, not only by loading each URL directly — a direct
   load always works.
-- **Vercel Production deploys `master`, not `main`** (measured 2026-10-08: GitHub deployment records mark
-  commits that exist only on `master` as `Production`, and a push to `master` is what shipped them).
-  GitHub's default branch is also `master`; `main` is a stale duplicate and `master_backup` is a snapshot.
-  If that is ever changed, update this line and the Git section above together.
+- **Which branch Vercel Production follows is unverified — read it from the dashboard** (Vercel → Project →
+  Settings → Git → Production Branch) and record the answer here. What was measured on 2026-10-08:
+  GitHub's default branch is `master`; between 2026-09-28 and 2026-10-08 `main` sat unchanged at `2095a66`
+  while GitHub recorded `Production` deployments of newer commits that were on `master` only (`c20f4e0` on
+  10-07, `81d4d02` on 10-08), which points to `master`. That cannot be re-checked from git now: `main` was
+  fast-forwarded to `81d4d02` on 2026-10-08, so the two branches are identical. A `master_backup` snapshot
+  branch also exists. Until the dashboard setting is recorded, assume a push to either branch can go live,
+  and keep the Git section below in step with whatever is settled.
 
 ---
 
