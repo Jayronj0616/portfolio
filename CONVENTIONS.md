@@ -110,10 +110,13 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
   are leftovers; `main` was fast-forwarded to match `master` on 2026-10-08 and does nothing by itself, so do
   not push to it expecting a deploy. Merging to `master` goes live immediately, so the Git section below
   applies to `master`.
-- **CI must run on the Node version whose npm wrote `package-lock.json` (Node 24 / npm 11).** On Node 22 the
-  npm 10 that ships with it fails `npm ci` with `Missing: @emnapi/runtime ... from lock file`, before any code
-  is checked. That is why every CI run failed until `.github/workflows/ci.yml` was moved to Node 24. If the
-  lockfile is ever regenerated with a different npm major, re-check this.
+- **`package-lock.json` must be written by a current npm, and passing `npm ci` on your own machine proves
+  nothing about CI.** An old npm (11.6.2) wrote a lockfile missing two entries (`@emnapi/core`,
+  `@emnapi/runtime`) that every newer npm requires, including the 10.9.9 that Node 22 ships: `npm ci` stops
+  with `Missing: @emnapi/runtime ... from lock file`. CI failed at that step on every push until the lockfile
+  was regenerated with npm 11.21.0 (2026-10-08). After any dependency change, check the lockfile the way CI
+  will see it: `npx npm@latest ci --dry-run --os=linux --cpu=x64 --libc=glibc` (and again with `npm@10`).
+  Changing CI's Node version does not fix this; it was tried and did not.
 
 ---
 
