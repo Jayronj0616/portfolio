@@ -18,8 +18,47 @@ const geistMono = Geist_Mono({
 // Inline and self-contained on purpose -- if it never runs, nothing is
 // hidden and the page renders without animation. Nothing here depends on
 // the app bundle, so a bundle that fails to load cannot blank the page.
-const REVEAL_BOOTSTRAP =
-  "(function(){var d=document.documentElement;d.classList.add(\"js\");function init(){var els=document.querySelectorAll(\".reveal\");if(!(\"IntersectionObserver\" in window)){for(var i=0;i<els.length;i++){els[i].setAttribute(\"data-revealed\",\"\");}return;}var io=new IntersectionObserver(function(entries){for(var i=0;i<entries.length;i++){var e=entries[i];if(e.isIntersecting){e.target.setAttribute(\"data-revealed\",\"\");io.unobserve(e.target);}}},{rootMargin:\"-80px\"});for(var j=0;j<els.length;j++){io.observe(els[j]);}}if(document.readyState===\"loading\"){document.addEventListener(\"DOMContentLoaded\",init);}else{init();}})();";
+//
+// The script itself only ever runs once per full document load, but the
+// App Router swaps pages without reloading the document (every next/link,
+// e.g. Home -> /projects -> Back to home). The `.js` class stays on <html>
+// while the new page's `.reveal` nodes are brand new, so a one-shot
+// querySelectorAll left them hidden forever -- a blank page until the
+// visitor hit reload. The MutationObserver below keeps watching for
+// `.reveal` nodes added after load and hands them to the same observer.
+const REVEAL_BOOTSTRAP = [
+  "(function(){",
+  'var d=document.documentElement;d.classList.add("js");',
+  "var io=null;",
+  'function show(el){el.setAttribute("data-revealed","");}',
+  "function watch(root){",
+  "var els=[];",
+  'if(root.nodeType===1&&root.classList.contains("reveal")){els.push(root);}',
+  'var found=root.querySelectorAll(".reveal");',
+  "for(var i=0;i<found.length;i++){els.push(found[i]);}",
+  "for(var j=0;j<els.length;j++){",
+  'if(els[j].hasAttribute("data-revealed")){continue;}',
+  "if(io){io.observe(els[j]);}else{show(els[j]);}",
+  "}",
+  "}",
+  "function init(){",
+  'if("IntersectionObserver" in window){',
+  "io=new IntersectionObserver(function(entries){",
+  "for(var i=0;i<entries.length;i++){var e=entries[i];",
+  "if(e.isIntersecting){show(e.target);io.unobserve(e.target);}}",
+  '},{rootMargin:"-80px"});',
+  "}",
+  "watch(document);",
+  'if("MutationObserver" in window){',
+  "new MutationObserver(function(muts){",
+  "for(var i=0;i<muts.length;i++){var added=muts[i].addedNodes;",
+  "for(var j=0;j<added.length;j++){if(added[j].nodeType===1){watch(added[j]);}}}",
+  "}).observe(d,{childList:true,subtree:true});",
+  "}",
+  "}",
+  'if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init);}else{init();}',
+  "})();",
+].join("");
 
 const { about } = portfolioData;
 
