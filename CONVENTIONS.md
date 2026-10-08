@@ -91,6 +91,22 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
   already drifted from `fallbackSiteContent.js` — do not read them as current or copy them as precedent.
 - **`MAINTENANCE_MODE` in `src/config/site.js` replaces the entire homepage** with `MaintenancePage`
   when true. If the site renders as a holding page for no apparent reason, check this first.
+- **Every Supabase read goes through the fetch wrapper in `src/lib/supabase/server.js` — do not remove
+  it.** `/` and `/projects` use no request-time APIs, so Next caches their `fetch` calls "indefinitely"
+  by default (stored in `.next/cache/fetch-cache` as `revalidate=31536000`, one year, and restored between
+  builds). Without the wrapper's `next: { revalidate: 60 }` the site serves database content from days ago.
+  Consequence to know: an edit made straight in Supabase shows up within about a minute; an edit made in
+  `/admin` shows immediately because the Server Actions call `revalidatePath`. A new public page that shows
+  database content must be added to those `revalidatePath` calls, or it will lag behind admin edits.
+- **Scroll reveals are driven by an inline script in `src/app/layout.js`, not by React.** It adds `.js` to
+  `<html>` (which hides every `.reveal`) once per document load, and uses a MutationObserver to reveal
+  `.reveal` nodes added later by client-side navigation. If a page renders blank until reload, check that
+  first. Test navigation between pages by clicking links, not only by loading each URL directly — a direct
+  load always works.
+- **Vercel Production deploys `master`, not `main`** (measured 2026-10-08: GitHub deployment records mark
+  commits that exist only on `master` as `Production`, and a push to `master` is what shipped them).
+  GitHub's default branch is also `master`; `main` is a stale duplicate and `master_backup` is a snapshot.
+  If that is ever changed, update this line and the Git section above together.
 
 ---
 
