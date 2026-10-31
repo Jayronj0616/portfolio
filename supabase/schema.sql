@@ -492,3 +492,25 @@ where slug in (
 -- If schema.sql already ran once with the old seed (which included a
 -- "booking-system" row), remove it -- it's excluded from the portfolio.
 delete from projects where slug = 'booking-system';
+
+-- RONIN, Jayron's personal assistant. Rendered by RoninSpotlight above
+-- the project grid, never as a card, and never linked: it reads his own
+-- inbox, so live_url and github_url stay null and the spotlight ignores
+-- them anyway. 'building' because memory and voice still wait on Azure
+-- OpenAI. Safe to run on its own against the live database.
+insert into projects (slug, title, description, tags, live_url, github_url, cover_image, images, sort_order, status, company, role)
+values (
+  'ronin',
+  'RONIN',
+  'A personal assistant that watches my repositories, inbox, calendar and deployed sites, works out what is actually worth telling me, and stays quiet otherwise. It runs every day on my own machine. Memory and voice are built and tested against a stand-in, and go live once Azure OpenAI is switched on.',
+  array['Next.js', 'TypeScript', 'Postgres + pgvector', 'Prisma', 'Azure OpenAI'],
+  null,
+  null,
+  null,
+  '{}',
+  0,
+  'building',
+  null,
+  null
+)
+on conflict (slug) do nothing;
