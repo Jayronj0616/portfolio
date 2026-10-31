@@ -65,15 +65,26 @@ body {
    in opposite directions read as one shape changing, like the old WebGL
    blob did. Only `transform` is animated, so once each blurred layer is
    painted the browser just moves it on the compositor -- no per-frame
-   repaint, no JavaScript. */
+   repaint, no JavaScript.
+
+   It sits behind the photo, not the copy: centred over the text column it
+   took the muted paragraph under 3:1 contrast. On phones the photo stacks
+   below the text, so the glow moves down with it. */
 .hero-glow {
   position: absolute;
-  left: 60%;
-  top: 50%;
-  width: min(40rem, 110vw);
+  left: 50%;
+  top: 80%;
+  width: min(34rem, 100vw);
   aspect-ratio: 1;
   translate: -50% -50%;
   pointer-events: none;
+}
+
+@media (min-width: 64rem) {
+  .hero-glow {
+    left: 78%;
+    top: 50%;
+  }
 }
 
 .hero-glow::before,
@@ -202,6 +213,7 @@ body {
   .hero-glow::before,
   .hero-glow::after {
     animation: none;
+    will-change: auto;
   }
 
   .card-hover:hover,

@@ -26,7 +26,10 @@ export default function Hero({ about, experience, projectsCount }) {
             <span className="text-accent">holds up in production.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
+          {/* Darker than --muted on purpose: this paragraph sits on the
+              hero's purple mesh and glow, where muted grey measured as low
+              as 3.5:1. At 70% foreground the worst spot is about 6:1. */}
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/70">
             {about.bio}
           </p>
 
