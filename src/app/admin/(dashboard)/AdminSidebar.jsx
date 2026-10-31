@@ -2,11 +2,12 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Gauge, Mail, FolderKanban, Quote, FileText, LogOut } from "lucide-react";
+import { Gauge, BarChart3, Mail, FolderKanban, Quote, FileText, LogOut } from "lucide-react";
 import { adminLogout } from "@/app/admin/actions";
 
 const NAV = [
   { href: "/admin/overview", label: "Overview", icon: Gauge },
+  { href: "/admin/analytics", label: "All projects", icon: BarChart3 },
   { href: "/admin/messages", label: "Inquiries", icon: Mail },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/testimonials", label: "Testimonials", icon: Quote },
