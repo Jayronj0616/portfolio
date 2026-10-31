@@ -17,7 +17,9 @@ and is deployed on Vercel.
 **Stack:** Next.js 16 App Router (Turbopack) on React 19, **JavaScript, not TypeScript** — `.js`/`.jsx`
 throughout, with `jsconfig.json` for the `@/` alias. Tailwind CSS v4 (no config file; theme tokens are
 CSS variables in `src/app/globals.css`). Supabase JS for data. Server Actions for every write. Also
-framer-motion (the `Reveal` wrapper), lucide-react (icons), and react-three-fiber (the hero blob only).
+lucide-react (icons). Scroll reveals and the hero glow are plain CSS (`.reveal`, `.hero-glow`), not a
+library. `three` and `@react-three/*` are still in `package.json` from the old hero blob but nothing
+imports them (measured 2026-10-31); removing them means regenerating the lockfile -- see the trap below.
 
 ---
 

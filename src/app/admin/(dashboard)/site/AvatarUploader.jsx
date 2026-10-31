@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef } from "react";
+import { useActionState, useRef, useState } from "react";
 import { ImageOff, Upload } from "lucide-react";
 import { uploadAvatar } from "./actions";
 
@@ -25,7 +25,12 @@ async function shrinkPhoto(file) {
     const canvas = document.createElement("canvas");
     canvas.width = Math.round(bitmap.width * scale);
     canvas.height = Math.round(bitmap.height * scale);
-    canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const ctx = canvas.getContext("2d");
+    // JPEG has no transparency: without a fill, see-through areas of a PNG
+    // or WebP come out black.
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
 
     const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.85));
     if (!blob) return file;
@@ -38,7 +43,14 @@ async function shrinkPhoto(file) {
 
 export default function AvatarUploader({ initialUrl }) {
   const [state, formAction, pending] = useActionState(uploadAvatar, initialState);
+  // Covers the gap between picking a file and the upload starting, while
+  // the photo is being shrunk; `pending` only turns on once it is sent.
+  // It blocks the label (so the picker can't reopen), never the input:
+  // a disabled input is left out of the submitted form, and React would
+  // not have re-enabled it yet by the time requestSubmit() runs.
+  const [preparing, setPreparing] = useState(false);
   const formRef = useRef(null);
+  const busy = pending || preparing;
   const currentUrl = state.status === "success" ? state.url : initialUrl;
 
   return (
@@ -54,9 +66,14 @@ export default function AvatarUploader({ initialUrl }) {
 
       <div>
         <form ref={formRef} action={formAction}>
-          <label className="flex w-fit cursor-pointer items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm text-muted transition hover:border-accent/40 hover:text-accent">
+          <label
+            aria-disabled={busy || undefined}
+            className={`flex w-fit cursor-pointer items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm text-muted transition hover:border-accent/40 hover:text-accent ${
+              busy ? "pointer-events-none opacity-60" : ""
+            }`}
+          >
             <Upload size={14} />
-            {pending ? "Uploading..." : "Change photo"}
+            {busy ? "Uploading..." : "Change photo"}
             <input
               type="file"
               name="file"
@@ -67,11 +84,19 @@ export default function AvatarUploader({ initialUrl }) {
                 const input = e.currentTarget;
                 const file = input.files?.[0];
                 if (file) {
-                  const small = await shrinkPhoto(file);
-                  if (small !== file) {
-                    const files = new DataTransfer();
-                    files.items.add(small);
-                    input.files = files.files;
+                  setPreparing(true);
+                  try {
+                    const small = await shrinkPhoto(file);
+                    if (small !== file) {
+                      const files = new DataTransfer();
+                      files.items.add(small);
+                      input.files = files.files;
+                    }
+                  } catch {
+                    // A browser that can't swap the file (no DataTransfer)
+                    // still uploads the original rather than nothing.
+                  } finally {
+                    setPreparing(false);
                   }
                 }
                 formRef.current?.requestSubmit();
