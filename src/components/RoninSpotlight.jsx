@@ -23,7 +23,7 @@ const STAGES = [
       "repo-x · 3 unpushed commits",
       "inbox · 38 new, 2 from people",
       "site-y · up, certificate fine",
-      "calendar · nothing new",
+      "jobs · 3 new matches",
     ],
     gate: { icon: Filter, label: "Worth saying?" },
   },

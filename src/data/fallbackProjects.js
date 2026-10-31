@@ -132,7 +132,7 @@ export const fallbackProjects = [
     slug: "ronin",
     title: "RONIN",
     description:
-      "A personal assistant that watches my repositories, inbox, calendar and deployed sites, works out what is actually worth telling me, and stays quiet otherwise. It runs every day on my own machine. Memory and voice are built and tested against a stand-in, and go live once Azure OpenAI is switched on.",
+      "A personal assistant that watches my repositories, inbox and deployed sites, works out what is actually worth telling me, and stays quiet otherwise. It runs every day on my own machine. Memory and voice are built and tested against a stand-in, and go live once Azure OpenAI is switched on.",
     tags: ["Next.js", "TypeScript", "Postgres + pgvector", "Prisma", "Azure OpenAI"],
     live_url: null,
     github_url: null,
