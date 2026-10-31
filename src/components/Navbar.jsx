@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const LINKS = [
@@ -13,7 +13,28 @@ const LINKS = [
 
 export default function Navbar({ about }) {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
   const initials = about.name.slice(0, 2).toUpperCase();
+
+  // Highlights the link for whichever section crosses the middle of the
+  // viewport. #top is watched too, though it has no link, so scrolling
+  // back up to the hero clears the highlight instead of leaving the
+  // last section lit.
+  useEffect(() => {
+    const sections = ["#top", ...LINKS.map((link) => link.href)]
+      .map((href) => document.querySelector(href))
+      .filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
@@ -30,7 +51,8 @@ export default function Navbar({ about }) {
             <a
               key={link.href}
               href={link.href}
-              className="rounded-full px-3.5 py-1.5 transition hover:bg-surface-2 hover:text-foreground"
+              aria-current={active === link.href ? "location" : undefined}
+              className="rounded-full px-3.5 py-1.5 transition hover:bg-surface-2 hover:text-foreground aria-[current]:bg-surface-2 aria-[current]:text-foreground"
             >
               {link.label}
             </a>
@@ -71,7 +93,8 @@ export default function Navbar({ about }) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="-mx-2 flex min-h-11 items-center rounded-lg px-2 transition hover:bg-surface-2 hover:text-foreground"
+                aria-current={active === link.href ? "location" : undefined}
+                className="-mx-2 flex min-h-11 items-center rounded-lg px-2 transition hover:bg-surface-2 hover:text-foreground aria-[current]:text-foreground aria-[current]:font-medium"
               >
                 {link.label}
               </a>
