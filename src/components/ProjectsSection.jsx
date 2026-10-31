@@ -2,14 +2,18 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
+import RoninSpotlight, { RONIN_SLUG } from "@/components/RoninSpotlight";
 
 // Only the first HOMEPAGE_LIMIT projects (by sort_order) show here --
 // the rest are one click away on /projects. Bump this to show more
-// without touching the rest of the page.
+// without touching the rest of the page. RONIN is shown above the grid
+// in its own panel and never counts towards the limit.
 const HOMEPAGE_LIMIT = 3;
 
 export default function ProjectsSection({ projects }) {
-  const featured = projects.slice(0, HOMEPAGE_LIMIT);
+  const ronin = projects.find((project) => project.slug === RONIN_SLUG);
+  const cards = projects.filter((project) => project.slug !== RONIN_SLUG);
+  const featured = cards.slice(0, HOMEPAGE_LIMIT);
 
   return (
     <section id="work" className="border-b border-border py-24">
@@ -27,6 +31,8 @@ export default function ProjectsSection({ projects }) {
           </p>
         </Reveal>
 
+        {ronin && <RoninSpotlight project={ronin} />}
+
         {/* grid-cols-1 -> sm:grid-cols-3 (no 2-column step): with exactly
             HOMEPAGE_LIMIT (3) cards, a 2-column stage strands the third
             card alone in its own row with a large empty gap next to it.
@@ -42,7 +48,7 @@ export default function ProjectsSection({ projects }) {
           ))}
         </div>
 
-        {projects.length > HOMEPAGE_LIMIT && (
+        {cards.length > HOMEPAGE_LIMIT && (
           <Reveal className="mt-10 flex justify-center">
             <Link
               href="/projects"
