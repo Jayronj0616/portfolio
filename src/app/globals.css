@@ -61,6 +61,69 @@ body {
     radial-gradient(45% 50% at 50% 100%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%);
 }
 
+/* The hero's drifting glow. Two blurred, irregular shapes turning slowly
+   in opposite directions read as one shape changing, like the old WebGL
+   blob did. Only `transform` is animated, so once each blurred layer is
+   painted the browser just moves it on the compositor -- no per-frame
+   repaint, no JavaScript. */
+.hero-glow {
+  position: absolute;
+  left: 60%;
+  top: 50%;
+  width: min(40rem, 110vw);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.hero-glow::before,
+.hero-glow::after {
+  content: "";
+  position: absolute;
+  filter: blur(48px);
+  will-change: transform;
+}
+
+.hero-glow::before {
+  inset: 0;
+  border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
+  background: radial-gradient(
+    circle at 38% 38%,
+    color-mix(in srgb, var(--accent-2) 55%, transparent),
+    color-mix(in srgb, var(--accent) 32%, transparent) 55%,
+    transparent 72%
+  );
+  opacity: 0.6;
+  animation: hero-glow-a 18s ease-in-out infinite alternate;
+}
+
+.hero-glow::after {
+  inset: 14%;
+  border-radius: 60% 40% 35% 65% / 55% 60% 40% 45%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 50%, transparent),
+    transparent 70%
+  );
+  opacity: 0.55;
+  animation: hero-glow-b 13s ease-in-out infinite alternate;
+}
+
+@keyframes hero-glow-a {
+  to {
+    transform: rotate(140deg) scale(1.08) translate(3%, -2%);
+  }
+}
+
+@keyframes hero-glow-b {
+  from {
+    transform: translate(-4%, 3%);
+  }
+  to {
+    transform: rotate(-120deg) translate(4%, -3%) scale(0.94);
+  }
+}
+
 .glass {
   background: var(--glass);
   backdrop-filter: blur(16px);
@@ -134,6 +197,11 @@ body {
   .js .reveal {
     transform: none;
     transition: opacity 0.2s linear 0s;
+  }
+
+  .hero-glow::before,
+  .hero-glow::after {
+    animation: none;
   }
 
   .card-hover:hover,

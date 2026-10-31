@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import Scene3D from "@/components/Scene3D";
 import HeroReveal from "@/components/HeroReveal";
 
 const DEFAULT_AVATAR = "/images/pogi.jpg";
@@ -14,7 +13,10 @@ export default function Hero({ about, experience, projectsCount }) {
 
   return (
     <section id="top" className="relative overflow-hidden bg-mesh">
-      <Scene3D />
+      {/* Pure CSS stand-in for the old three.js blob, which shipped 819KB
+          of JavaScript and rendered WebGL every frame for a background. See
+          .hero-glow in globals.css. */}
+      <div className="hero-glow -z-10" aria-hidden="true" />
       <div className="bg-grid pointer-events-none absolute inset-0 -z-10" />
 
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-28 sm:py-36 lg:grid-cols-[1.3fr_1fr] lg:items-center">
