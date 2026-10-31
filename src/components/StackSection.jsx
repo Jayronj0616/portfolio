@@ -3,50 +3,42 @@ import Reveal from "@/components/Reveal";
 
 const ICONS = { Layout, Server, Database, Wrench };
 
+// One row per group rather than a grid of boxes: the content is a list
+// of names, and a table-like layout lets the eye run down the groups and
+// across the tools without four card borders in the way.
 export default function StackSection({ stacks }) {
   return (
     <section id="stack" className="border-b border-border py-24">
       <div className="mx-auto max-w-5xl px-6">
         <Reveal>
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            Toolkit
-          </span>
-          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-            Tools &amp; technologies
-          </h2>
+          <h2 className="text-3xl font-bold sm:text-4xl">Tools &amp; technologies</h2>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {stacks.map((group, i) => {
-            const Icon = ICONS[group.icon] ?? Layout;
-            return (
-              <Reveal
-                key={group.name}
-                delay={Math.min(i, 4) * 0.06}
-                className="card-hover rounded-2xl border border-border bg-surface p-6"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent-soft text-accent">
-                    <Icon size={17} />
-                  </span>
-                  <h3 className="font-mono text-xs uppercase tracking-wide text-muted">
+        <Reveal>
+          <dl className="mt-10 divide-y divide-border border-y border-border">
+            {stacks.map((group) => {
+              const Icon = ICONS[group.icon] ?? Layout;
+              return (
+                <div
+                  key={group.name}
+                  className="grid gap-3 py-6 sm:grid-cols-[13rem_1fr] sm:items-baseline sm:gap-8"
+                >
+                  <dt className="flex items-center gap-2.5 text-sm font-semibold">
+                    <Icon size={16} className="shrink-0 text-accent" aria-hidden="true" />
                     {group.name}
-                  </h3>
+                  </dt>
+                  <dd>
+                    <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[0.95rem] text-foreground">
+                      {group.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </dd>
                 </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full bg-surface-2 px-2.5 py-1 text-sm text-foreground"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
+              );
+            })}
+          </dl>
+        </Reveal>
       </div>
     </section>
   );
