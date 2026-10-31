@@ -1,4 +1,5 @@
 import { FileText } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import { getSiteContent } from "@/lib/data";
 import AdminPageHeader from "../AdminPageHeader";
 import AvatarUploader from "./AvatarUploader";
@@ -7,6 +8,8 @@ import SiteForm from "./SiteForm";
 export const dynamic = "force-dynamic";
 
 export default async function AdminSitePage() {
+  await requireAdmin();
+
   const { about, experience, education, stacks, certifications } =
     await getSiteContent();
 
