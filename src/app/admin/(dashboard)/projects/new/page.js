@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { ArrowLeft, FolderKanban } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import Reveal from "@/components/Reveal";
 import AdminPageHeader from "../../AdminPageHeader";
 import ProjectForm from "../ProjectForm";
 import { createProject } from "../actions";
 
-export default function NewProjectPage() {
+export default async function NewProjectPage() {
+  await requireAdmin();
+
   return (
     <div>
       <Reveal>
