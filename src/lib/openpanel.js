@@ -36,6 +36,10 @@ async function opFetch(path, params) {
   try {
     const res = await fetch(url, {
       cache: "no-store",
+      // A stalled connection would otherwise hold the whole page until the
+      // platform kills the function; the catch below turns the abort into
+      // null, so the card just says "No data yet".
+      signal: AbortSignal.timeout(5000),
       headers: {
         "openpanel-client-id": process.env.OPENPANEL_API_CLIENT_ID,
         "openpanel-client-secret": process.env.OPENPANEL_API_CLIENT_SECRET,
