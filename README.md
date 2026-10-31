@@ -21,7 +21,7 @@ redeploy.
 - [Next.js](https://nextjs.org) 16 (App Router) on React 19, plain JavaScript
 - Tailwind CSS v4 (theme tokens are CSS variables in `src/app/globals.css`)
 - Supabase (Postgres and Storage); Server Actions for every write
-- framer-motion, lucide-react, react-three-fiber (hero blob only)
+- lucide-react for icons; scroll reveals and the hero glow are plain CSS
 - Deployed on Vercel
 
 ## Getting started
