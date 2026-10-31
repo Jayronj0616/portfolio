@@ -7,10 +7,7 @@ export default function TestimonialsSection({ testimonials }) {
     <section className="border-b border-border py-24">
       <div className="mx-auto max-w-5xl px-6">
         <Reveal>
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            Feedback
-          </span>
-          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">What people say</h2>
+          <h2 className="text-3xl font-bold sm:text-4xl">What people say</h2>
         </Reveal>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">

@@ -35,9 +35,7 @@ export default function ContactSection({ about }) {
             </span>
             <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
               Let&apos;s build something{" "}
-              <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
-                together.
-              </span>
+              <span className="text-accent">together.</span>
             </h2>
             <p className="mt-4 text-muted">
               Have a role, a project, or an idea in mind? Send a message and
