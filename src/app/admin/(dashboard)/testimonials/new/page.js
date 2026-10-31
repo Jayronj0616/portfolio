@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { ArrowLeft, Quote } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import Reveal from "@/components/Reveal";
 import AdminPageHeader from "../../AdminPageHeader";
 import TestimonialForm from "../TestimonialForm";
 import { createTestimonial } from "../actions";
 
-export default function NewTestimonialPage() {
+export default async function NewTestimonialPage() {
+  await requireAdmin();
+
   return (
     <div>
       <Reveal>

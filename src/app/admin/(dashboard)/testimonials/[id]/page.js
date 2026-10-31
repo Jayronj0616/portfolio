@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Quote } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import Reveal from "@/components/Reveal";
 import AdminPageHeader from "../../AdminPageHeader";
@@ -19,6 +20,8 @@ async function getTestimonial(id) {
 }
 
 export default async function EditTestimonialPage({ params }) {
+  await requireAdmin();
+
   const { id } = await params;
   const testimonial = await getTestimonial(id);
   if (!testimonial) notFound();
