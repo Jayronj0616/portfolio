@@ -38,9 +38,10 @@ const DistortedBlob = ({ mouse }) => {
 // Everything that pulls in three.js lives in this file so the parent can
 // load it on demand. Nothing here decides *whether* the blob runs --
 // Scene3D owns that, and only mounts this once the answer is yes.
-export default function Scene3DCanvas({ mouse }) {
+export default function Scene3DCanvas({ mouse, paused = false }) {
   return (
     <Canvas
+      frameloop={paused ? "never" : "always"}
       camera={{ position: [0, 0, 4], fov: 45 }}
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: true }}
