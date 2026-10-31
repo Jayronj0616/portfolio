@@ -54,7 +54,7 @@ export default function ProjectsSection({ projects }) {
               href="/projects"
               className="flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-accent/40 hover:text-accent"
             >
-              View all {projects.length} projects <ArrowRight size={16} />
+              View all {cards.length} projects <ArrowRight size={16} />
             </Link>
           </Reveal>
         )}
