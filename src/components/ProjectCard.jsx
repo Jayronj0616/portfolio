@@ -245,6 +245,8 @@ export default function ProjectCard({ project, index, featured = false }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track("project_live_click")}
+                data-track="project_live_click"
+                data-project={project.slug}
                 className="flex items-center gap-1.5 font-medium text-accent transition hover:brightness-125"
               >
                 Live site <ExternalLink size={14} />
@@ -263,6 +265,8 @@ export default function ProjectCard({ project, index, featured = false }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track("project_github_click")}
+                data-track="project_github_click"
+                data-project={project.slug}
                 className="flex items-center gap-1.5 text-muted transition hover:text-foreground"
               >
                 <Github size={14} /> Code
