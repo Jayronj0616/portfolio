@@ -1,0 +1,96 @@
+<h2>Your "All projects" page in /admin — which layout feels right?</h2>
+<p class="subtitle">Numbers are made up, just to show the shape. Click the one you like (or tell me what to mix).</p>
+
+<style>
+  .m { font-family: system-ui, sans-serif; font-size: 13px; color: inherit; }
+  .m .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .m .tile { flex: 1 1 120px; border: 1px solid rgba(128,128,128,.35); border-radius: 8px; padding: 10px; }
+  .m .tile b { display: block; font-size: 20px; margin-top: 4px; }
+  .m .lbl { font-size: 11px; opacity: .65; text-transform: uppercase; letter-spacing: .04em; }
+  .m .up { color: #16a34a; font-size: 11px; } .m .down { color: #dc2626; font-size: 11px; }
+  .m .pcard { flex: 1 1 200px; border: 1px solid rgba(128,128,128,.35); border-radius: 8px; padding: 10px; }
+  .m .pcard h4 { margin: 0 0 6px; font-size: 14px; display: flex; justify-content: space-between; }
+  .m .badge { font-size: 10px; padding: 1px 6px; border-radius: 99px; background: rgba(22,163,74,.15); color: #16a34a; }
+  .m .badge.b { background: rgba(234,179,8,.15); color: #b45309; }
+  .m .spark { height: 28px; display: flex; align-items: flex-end; gap: 2px; margin: 6px 0; }
+  .m .spark i { flex: 1; background: rgba(99,102,241,.55); border-radius: 2px; }
+  .m table { width: 100%; border-collapse: collapse; }
+  .m td, .m th { text-align: left; padding: 6px 4px; border-bottom: 1px solid rgba(128,128,128,.2); }
+  .m th { font-size: 11px; opacity: .65; font-weight: 600; }
+  .m .bar { height: 10px; background: rgba(99,102,241,.55); border-radius: 3px; }
+  .m .funnel div { margin: 3px 0; padding: 4px 8px; border-radius: 4px; background: rgba(99,102,241,.18); }
+</style>
+
+<div class="options">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Project cards</h3>
+      <p>One card per project, busiest first. Quick glance: who's getting visitors, trending up or down.</p>
+      <div class="mockup"><div class="mockup-header">/admin/projects-analytics</div><div class="mockup-body m">
+        <div class="row" style="margin-bottom:10px">
+          <div class="tile"><span class="lbl">Visitors, all projects (7d)</span><b>412</b><span class="up">▲ 18% vs last week</span></div>
+          <div class="tile"><span class="lbl">Portfolio leads (7d)</span><b>3</b><span class="up">▲ 2</span></div>
+        </div>
+        <div class="row">
+          <div class="pcard"><h4>Portfolio <span class="badge">Live</span></h4><span class="lbl">Visitors 7d</span> <b>164</b> <span class="up">▲ 22%</span>
+            <div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:80%"></i><i style="height:100%"></i></div>
+            <span class="lbl">Top source:</span> LinkedIn</div>
+          <div class="pcard"><h4>Lapse <span class="badge">Live</span></h4><span class="lbl">Visitors 7d</span> <b>98</b> <span class="up">▲ 9%</span>
+            <div class="spark"><i style="height:50%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:60%"></i><i style="height:65%"></i><i style="height:55%"></i><i style="height:75%"></i></div>
+            <span class="lbl">Docs uploaded:</span> 14</div>
+          <div class="pcard"><h4>PayrollPro <span class="badge">Live</span></h4><span class="lbl">Visitors 7d</span> <b>61</b> <span class="down">▼ 5%</span>
+            <div class="spark"><i style="height:70%"></i><i style="height:60%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:55%"></i><i style="height:45%"></i><i style="height:50%"></i></div>
+            <span class="lbl">Payroll runs:</span> 4</div>
+          <div class="pcard"><h4>Caffeine Co. <span class="badge b">Building</span></h4><span class="lbl">Visitors 7d</span> <b>12</b> <span class="up">▲ 3</span>
+            <div class="spark"><i style="height:10%"></i><i style="height:20%"></i><i style="height:15%"></i><i style="height:30%"></i><i style="height:20%"></i><i style="height:40%"></i><i style="height:35%"></i></div>
+            <span class="lbl">Top source:</span> Direct</div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Comparison table</h3>
+      <p>Every project in one table you can sort. Denser, better once you have lots of projects.</p>
+      <div class="mockup"><div class="mockup-header">/admin/projects-analytics</div><div class="mockup-body m">
+        <table>
+          <tr><th>Project</th><th>Visitors 7d</th><th></th><th>Change</th><th>Top source</th><th>Key action 7d</th></tr>
+          <tr><td>Portfolio</td><td>164</td><td style="width:30%"><div class="bar" style="width:100%"></div></td><td class="up">▲ 22%</td><td>LinkedIn</td><td>3 contact forms</td></tr>
+          <tr><td>Lapse</td><td>98</td><td><div class="bar" style="width:60%"></div></td><td class="up">▲ 9%</td><td>Google</td><td>14 docs uploaded</td></tr>
+          <tr><td>PayrollPro</td><td>61</td><td><div class="bar" style="width:37%"></div></td><td class="down">▼ 5%</td><td>Direct</td><td>4 payroll runs</td></tr>
+          <tr><td>BUGS Auto</td><td>48</td><td><div class="bar" style="width:29%"></div></td><td class="up">▲ 12%</td><td>Facebook</td><td>—</td></tr>
+          <tr><td>AgentPro</td><td>29</td><td><div class="bar" style="width:18%"></div></td><td class="down">▼ 2%</td><td>Direct</td><td>—</td></tr>
+          <tr><td>Caffeine Co.</td><td>12</td><td><div class="bar" style="width:7%"></div></td><td class="up">▲ 3</td><td>Direct</td><td>—</td></tr>
+        </table>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Leads first, then projects</h3>
+      <p>Top half answers "is my portfolio bringing clients?" with the funnel. Bottom half is the project table from B.</p>
+      <div class="mockup"><div class="mockup-header">/admin/projects-analytics</div><div class="mockup-body m">
+        <div class="row">
+          <div class="tile" style="flex:2"><span class="lbl">Portfolio lead funnel (7d)</span>
+            <div class="funnel" style="margin-top:6px">
+              <div style="width:100%">164 visitors</div>
+              <div style="width:45%">74 opened a project</div>
+              <div style="width:22%">31 clicked Live site / GitHub</div>
+              <div style="width:12%">9 clicked CV</div>
+              <div style="width:6%; white-space:nowrap">3 sent a message</div>
+            </div></div>
+          <div class="tile"><span class="lbl">Most-clicked projects</span>
+            <div style="margin-top:6px">1. Lapse — 12<br>2. BUGS Auto — 8<br>3. PayrollPro — 6</div></div>
+        </div>
+        <div class="placeholder" style="margin-top:10px">+ project comparison table (same as B)</div>
+      </div></div>
+    </div>
+  </div>
+
+</div>
