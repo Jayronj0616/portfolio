@@ -1,6 +1,7 @@
 import "server-only";
 import crypto from "crypto";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const ADMIN_COOKIE = "admin_session";
 
@@ -48,4 +49,12 @@ export async function isAdminAuthenticated() {
   const value = cookieStore.get(ADMIN_COOKIE)?.value;
   if (!value) return false;
   return timingSafeStringEqual(value, token);
+}
+
+// Call first in every admin page, before any read. The dashboard layout
+// redirects too, but a layout does not stop its page from running or from
+// appearing in the RSC payload of a logged-out request that asks for it
+// (Next's authentication guide, "Layouts and auth checks").
+export async function requireAdmin() {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
 }
