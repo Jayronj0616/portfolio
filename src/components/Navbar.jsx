@@ -17,13 +17,11 @@ export default function Navbar({ about }) {
   const initials = about.name.slice(0, 2).toUpperCase();
 
   // Highlights the link for whichever section crosses the middle of the
-  // viewport. #top is watched too, though it has no link, so scrolling
-  // back up to the hero clears the highlight instead of leaving the
-  // last section lit.
+  // viewport. Every section is watched, including the ones with no link
+  // (the hero, Certifications), so reaching one of those clears the
+  // highlight instead of leaving the previous section lit.
   useEffect(() => {
-    const sections = ["#top", ...LINKS.map((link) => link.href)]
-      .map((href) => document.querySelector(href))
-      .filter(Boolean);
+    const sections = document.querySelectorAll("section[id]");
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
