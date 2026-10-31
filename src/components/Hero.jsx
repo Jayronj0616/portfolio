@@ -19,15 +19,9 @@ export default function Hero({ about, experience, projectsCount }) {
 
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-28 sm:py-36 lg:grid-cols-[1.3fr_1fr] lg:items-center">
         <HeroReveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.15em] text-accent">
-            {about.role} — Philippines
-          </span>
-
-          <h1 className="mt-6 text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
+          <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-balance sm:text-6xl">
             I build software that{" "}
-            <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
-              holds up in production.
-            </span>
+            <span className="text-accent">holds up in production.</span>
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
@@ -51,6 +45,8 @@ export default function Hero({ about, experience, projectsCount }) {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border pt-6 font-mono text-xs text-muted">
+            <span className="text-foreground">{about.role}, Philippines</span>
+            <span aria-hidden="true">/</span>
             <span>{projectsCount} projects</span>
             <span aria-hidden="true">/</span>
             <span>{experience.length} companies</span>

@@ -2,30 +2,31 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
+import RoninSpotlight, { RONIN_SLUG } from "@/components/RoninSpotlight";
 
 // Only the first HOMEPAGE_LIMIT projects (by sort_order) show here --
 // the rest are one click away on /projects. Bump this to show more
-// without touching the rest of the page.
+// without touching the rest of the page. RONIN is shown above the grid
+// in its own panel and never counts towards the limit.
 const HOMEPAGE_LIMIT = 3;
 
 export default function ProjectsSection({ projects }) {
-  const featured = projects.slice(0, HOMEPAGE_LIMIT);
+  const ronin = projects.find((project) => project.slug === RONIN_SLUG);
+  const cards = projects.filter((project) => project.slug !== RONIN_SLUG);
+  const featured = cards.slice(0, HOMEPAGE_LIMIT);
 
   return (
     <section id="work" className="border-b border-border py-24">
       <div className="mx-auto max-w-5xl px-6">
         <Reveal className="flex items-end justify-between gap-4">
-          <div>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-              Selected work
-            </span>
-            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Projects</h2>
-          </div>
+          <h2 className="text-3xl font-bold sm:text-4xl">Selected work</h2>
           <p className="hidden max-w-xs text-sm text-muted sm:block">
             Full-stack systems built for real operational logic, not just
             demos.
           </p>
         </Reveal>
+
+        {ronin && <RoninSpotlight project={ronin} />}
 
         {/* grid-cols-1 -> sm:grid-cols-3 (no 2-column step): with exactly
             HOMEPAGE_LIMIT (3) cards, a 2-column stage strands the third
@@ -42,13 +43,13 @@ export default function ProjectsSection({ projects }) {
           ))}
         </div>
 
-        {projects.length > HOMEPAGE_LIMIT && (
+        {cards.length > HOMEPAGE_LIMIT && (
           <Reveal className="mt-10 flex justify-center">
             <Link
               href="/projects"
               className="flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-accent/40 hover:text-accent"
             >
-              View all {projects.length} projects <ArrowRight size={16} />
+              View all {cards.length} projects <ArrowRight size={16} />
             </Link>
           </Reveal>
         )}

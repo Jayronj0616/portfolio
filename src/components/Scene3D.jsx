@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useSyncExternalStore } from "react";
+import { useRef, useEffect, useState, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 
 // three.js, @react-three/fiber and drei are ~860KB of client JavaScript
@@ -32,7 +32,22 @@ function getServerSnapshot() {
 
 export default function Scene3D() {
   const mouse = useRef({ x: 0, y: 0 });
+  const containerRef = useRef(null);
+  const [onScreen, setOnScreen] = useState(true);
   const enabled = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  // The blob animates every frame, and without this it keeps doing so
+  // for the whole visit even once the hero has scrolled out of view.
+  useEffect(() => {
+    if (!enabled) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setOnScreen(entry.isIntersecting);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [enabled]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -50,10 +65,11 @@ export default function Scene3D() {
 
   return (
     <div
+      ref={containerRef}
       className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       aria-hidden="true"
     >
-      <Scene3DCanvas mouse={mouse} />
+      <Scene3DCanvas mouse={mouse} paused={!onScreen} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
+import RoninSpotlight, { RONIN_SLUG } from "@/components/RoninSpotlight";
 import Footer from "@/components/Footer";
 import PageViewTracker from "@/components/PageViewTracker";
 import { getProjects, getSiteContent } from "@/lib/data";
@@ -27,6 +28,8 @@ export default async function ProjectsPage() {
     getProjects(),
     getSiteContent(),
   ]);
+  const ronin = projects.find((project) => project.slug === RONIN_SLUG);
+  const cards = projects.filter((project) => project.slug !== RONIN_SLUG);
 
   return (
     <>
@@ -52,19 +55,16 @@ export default async function ProjectsPage() {
       <main>
         <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-5xl px-6">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-              Everything I&apos;ve shipped
-            </span>
-            <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-              All projects
-            </h1>
+            <h1 className="text-3xl font-bold sm:text-4xl">All projects</h1>
             <p className="mt-3 max-w-xl text-sm text-muted">
               {projects.length} projects, live SaaS products to in-house
               tools shown by screenshot only.
             </p>
 
+            {ronin && <RoninSpotlight project={ronin} />}
+
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project, index) => (
+              {cards.map((project, index) => (
                 <ProjectCard key={project.slug} project={project} index={index} />
               ))}
             </div>

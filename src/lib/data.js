@@ -46,7 +46,12 @@ export async function getSiteContent() {
   if (error || !data) return fallbackSiteContent;
 
   return {
-    about: data.about ?? fallbackSiteContent.about,
+    // `approach` was added after the live row existed, so a row saved
+    // before then has no such key and gets the seed list. Once the key is
+    // saved from /admin -- even as [] -- the row's own value wins.
+    about: data.about
+      ? { approach: fallbackSiteContent.about.approach, ...data.about }
+      : fallbackSiteContent.about,
     experience: data.experience?.length
       ? data.experience
       : fallbackSiteContent.experience,

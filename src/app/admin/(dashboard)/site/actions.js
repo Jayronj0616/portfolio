@@ -29,7 +29,17 @@ export async function saveSiteContent(_prevState, formData) {
     return { status: "error", error: "Supabase isn't configured." };
   }
 
+  // The upsert below replaces the whole `about` object, and the avatar is
+  // not a field on this form (AvatarUploader saves it on its own). Without
+  // carrying the existing one over, every save of this form wiped it.
+  const { data: existing } = await supabase
+    .from("site_settings")
+    .select("about")
+    .eq("id", "main")
+    .maybeSingle();
+
   const about = {
+    ...(existing?.about?.avatar && { avatar: existing.about.avatar }),
     name: String(formData.get("name") || "").trim(),
     role: String(formData.get("role") || "").trim(),
     bio: String(formData.get("bio") || "").trim(),
@@ -56,6 +66,13 @@ export async function saveSiteContent(_prevState, formData) {
   let stacks;
   let certifications;
   try {
+    // A tab opened before this field existed posts no "approach" at all;
+    // keep what is saved rather than failing a save that used to work.
+    // With nothing saved either, the key stays absent so the seed list
+    // still applies (see getSiteContent).
+    about.approach = formData.has("approach")
+      ? parseJsonArray(formData.get("approach"), "How I work")
+      : existing?.about?.approach;
     experience = parseJsonArray(formData.get("experience"), "Experience");
     education = parseJsonArray(formData.get("education"), "Education");
     stacks = parseJsonArray(formData.get("stacks"), "Stacks");

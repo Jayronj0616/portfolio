@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { ExternalLink, Github, Code2, Lock, X, Expand, ChevronLeft, ChevronRight } from "lucide-react";
@@ -27,6 +27,26 @@ export default function ProjectCard({ project, index, featured = false }) {
   const scrollerRef = useRef(null);
   const dialogRef = useRef(null);
   const triggerRef = useRef(null);
+  // Descriptions are clamped so a row of cards scans at a glance; the
+  // toggle only appears when the clamp actually cut something off.
+  const descriptionRef = useRef(null);
+  const descriptionId = useId();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isClamped, setIsClamped] = useState(false);
+
+  // Measured only while collapsed: expanding removes the clamp, so a
+  // measurement then would always say "nothing hidden" and take the
+  // "Show less" button away with it.
+  useEffect(() => {
+    if (isExpanded) return;
+    const el = descriptionRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      setIsClamped(el.scrollHeight > el.clientHeight + 1);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isExpanded]);
 
   const track = (eventType) => {
     logAnalyticsEvent(eventType, { projectSlug: project.slug });
@@ -186,9 +206,26 @@ export default function ProjectCard({ project, index, featured = false }) {
             </p>
           )}
 
-          <p className="mt-3 flex-1 break-words text-sm leading-relaxed text-muted">
-            {project.description}
-          </p>
+          <div className="mt-3 flex-1">
+            <p
+              ref={descriptionRef}
+              id={descriptionId}
+              className={`break-words text-sm leading-relaxed text-muted ${isExpanded ? "" : "line-clamp-4"}`}
+            >
+              {project.description}
+            </p>
+            {isClamped && (
+              <button
+                type="button"
+                onClick={() => setIsExpanded((v) => !v)}
+                aria-expanded={isExpanded}
+                aria-controls={descriptionId}
+                className="mt-1.5 rounded text-sm font-medium text-accent transition hover:brightness-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                {isExpanded ? "Show less" : "Read more"}
+              </button>
+            )}
+          </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
             {(project.tags ?? []).slice(0, 4).map((tag) => (
