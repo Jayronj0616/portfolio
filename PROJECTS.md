@@ -6,6 +6,9 @@ data is `supabase/schema.sql` (once Supabase is connected) or
 `src/data/fallbackProjects.js` (used until then) — update both when a
 status changes here.
 
+Visitor and usage tracking for each project (OpenPanel) is tracked separately in
+[`docs/analytics.md`](docs/analytics.md).
+
 | Project | Status | Live URL | GitHub | Notes |
 |---|---|---|---|---|
 | Airline System | 🟡 Building | — | github.com/Jayronj0616/airline-system | Personal project. Repo is actually Laravel 10/PHP/MySQL, not the React/Node stack previously listed. No live URL yet. |
