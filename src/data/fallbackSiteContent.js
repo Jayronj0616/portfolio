@@ -12,6 +12,22 @@ export const fallbackSiteContent = {
     bio: "I design and ship full-stack systems end-to-end — from the database schema to a live deployment. Right now that means building AI-powered tools with Azure OpenAI at Accenture, and shipping SaaS products of my own as a freelancer: a multi-admin lending platform, a voice-driven payroll system, a real estate booking site. I care less about how a demo looks and more about whether it holds up once real people are using it.",
     cvLink: "/files/CV_JAYRONJAVIER.pdf",
     avatar: "/images/pogi.jpg",
+    // The About section's "How I work" list. Each claim here has to stay
+    // true -- see PRODUCT.md's Evidence on Hand before adding one.
+    approach: [
+      {
+        title: "Built to be used, not demoed",
+        body: "Lending, payroll, a car dealership: several of the systems on this page are run by real businesses day to day, not just shown in a demo.",
+      },
+      {
+        title: "Schema to deployment, one person",
+        body: "On freelance work I design the database, write the server and the interface, and ship it. The person you talk to is the person who built it.",
+      },
+      {
+        title: "Straight about status",
+        body: "If something is still in progress, or can only be shown by screenshot because a client runs it in-house, the page says so. No placeholder links.",
+      },
+    ],
     socials: {
       github: "https://github.com/Jayronj0616",
       linkedin: "https://www.linkedin.com/in/jayronjavier/",

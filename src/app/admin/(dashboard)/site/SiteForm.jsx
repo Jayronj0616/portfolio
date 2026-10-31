@@ -127,6 +127,24 @@ export default function SiteForm({
 
       <section className="space-y-2">
         <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+          How I work (JSON)
+        </h2>
+        <p className="text-xs text-muted">
+          Array of {"{ title, body }"}, shown in the About section. Three
+          reads best. An empty array leaves just the heading and your
+          current roles.
+        </p>
+        <textarea
+          name="approach"
+          defaultValue={JSON.stringify(about.approach ?? [], null, 2)}
+          rows={10}
+          spellCheck={false}
+          className={jsonClass}
+        />
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
           Experience (JSON)
         </h2>
         <p className="text-xs text-muted">

@@ -66,6 +66,13 @@ export async function saveSiteContent(_prevState, formData) {
   let stacks;
   let certifications;
   try {
+    // A tab opened before this field existed posts no "approach" at all;
+    // keep what is saved rather than failing a save that used to work.
+    // With nothing saved either, the key stays absent so the seed list
+    // still applies (see getSiteContent).
+    about.approach = formData.has("approach")
+      ? parseJsonArray(formData.get("approach"), "How I work")
+      : existing?.about?.approach;
     experience = parseJsonArray(formData.get("experience"), "Experience");
     education = parseJsonArray(formData.get("education"), "Education");
     stacks = parseJsonArray(formData.get("stacks"), "Stacks");
