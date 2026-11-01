@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useOpenPanel } from "@openpanel/nextjs";
 import { Mail, Send } from "lucide-react";
 import { FaGithub, FaLinkedin, FaWhatsapp, FaFacebook } from "react-icons/fa";
 import { SiViber } from "react-icons/si";
@@ -23,6 +24,16 @@ export default function ContactSection({ about }) {
     initialState
   );
   const links = SOCIAL_LINKS(about.socials).filter((l) => l.href);
+  // useOpenPanel() returns a fresh object each render, but its track is
+  // one module-level function, so depending on it does not re-fire.
+  const { track } = useOpenPanel();
+
+  // Each submit returns a new state object, so this fires once per
+  // successful send. track() is a no-op when the tracker isn't loaded
+  // (no client ID, or blocked); no form contents are sent.
+  useEffect(() => {
+    if (state.status === "success") track("contact_submitted");
+  }, [state, track]);
 
   return (
     <section id="contact" className="py-24">

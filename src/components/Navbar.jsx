@@ -60,12 +60,16 @@ export default function Navbar({ about }) {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href={about.cvLink}
+            data-track="cv_click"
+            data-location="navbar"
             className="rounded-full border border-border px-4 py-2 text-sm font-medium transition hover:border-accent/40 hover:text-accent"
           >
             Resume
           </a>
           <a
             href="#contact"
+            data-track="contact_cta_click"
+            data-location="navbar"
             className="btn-primary rounded-full px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5"
           >
             Contact Me
@@ -100,6 +104,8 @@ export default function Navbar({ about }) {
             <a
               href={about.cvLink}
               onClick={() => setOpen(false)}
+              data-track="cv_click"
+              data-location="mobile_menu"
               className="-mx-2 flex min-h-11 items-center rounded-lg px-2 transition hover:bg-surface-2 hover:text-foreground"
             >
               Resume
@@ -107,6 +113,8 @@ export default function Navbar({ about }) {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
+              data-track="contact_cta_click"
+              data-location="mobile_menu"
               className="btn-primary mt-3 flex min-h-11 items-center justify-center rounded-full px-4 text-center text-sm font-semibold text-white"
             >
               Contact Me

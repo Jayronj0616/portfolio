@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { portfolioData } from "@/data/portfolioData";
 import { getSiteUrl } from "@/lib/siteUrl";
+import AnalyticsScript from "@/components/AnalyticsScript";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -107,6 +108,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-full" suppressHydrationWarning>
         {children}
+        <AnalyticsScript />
       </body>
     </html>
   );

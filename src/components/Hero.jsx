@@ -43,6 +43,8 @@ export default function Hero({ about, experience, projectsCount }) {
             </a>
             <a
               href="#contact"
+              data-track="contact_cta_click"
+              data-location="hero"
               className="rounded-full border border-border px-6 py-3 text-sm font-semibold transition hover:border-accent/40 hover:text-accent"
             >
               Let&apos;s talk
