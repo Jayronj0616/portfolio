@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FolderKanban, Plus, Pencil, ExternalLink, Github } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import { getProjects } from "@/lib/data";
 import Reveal from "@/components/Reveal";
 import AdminPageHeader from "../AdminPageHeader";
@@ -14,6 +15,8 @@ const STATUS_STYLE = {
 };
 
 export default async function AdminProjectsPage() {
+  await requireAdmin();
+
   const projects = await getProjects();
 
   return (

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Gauge, Eye, CalendarDays, Mail, FolderKanban, ArrowRight } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import { getProjects } from "@/lib/data";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import Reveal from "@/components/Reveal";
@@ -41,6 +42,8 @@ function formatRelative(iso) {
 }
 
 export default async function AdminOverviewPage() {
+  await requireAdmin();
+
   const [analytics, projects, { messages, total: totalMessages }] =
     await Promise.all([
       getAnalyticsOverview(),

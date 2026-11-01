@@ -1,4 +1,5 @@
 import { Mail, Inbox, Clock, TrendingUp } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import Reveal from "@/components/Reveal";
 import AdminPageHeader from "../AdminPageHeader";
@@ -62,6 +63,8 @@ function computeStats(messages) {
 }
 
 export default async function AdminMessagesPage() {
+  await requireAdmin();
+
   const { messages, error } = await getMessages();
   const stats = computeStats(messages);
 

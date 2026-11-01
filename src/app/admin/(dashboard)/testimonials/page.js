@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Quote, Plus, Pencil } from "lucide-react";
+import { requireAdmin } from "@/lib/adminAuth";
 import { getTestimonials } from "@/lib/data";
 import Reveal from "@/components/Reveal";
 import AdminPageHeader from "../AdminPageHeader";
@@ -8,6 +9,8 @@ import DeleteTestimonialButton from "./DeleteTestimonialButton";
 export const dynamic = "force-dynamic";
 
 export default async function AdminTestimonialsPage() {
+  await requireAdmin();
+
   const testimonials = await getTestimonials();
 
   return (
