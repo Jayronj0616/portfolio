@@ -493,6 +493,14 @@ where slug in (
 -- "booking-system" row), remove it -- it's excluded from the portfolio.
 delete from projects where slug = 'booking-system';
 
+-- Caffeine Co.'s deployment still loads, but its Supabase project no longer
+-- exists (the host stopped resolving in DNS, checked 2026-11-01), so the
+-- menu, login and orders cannot work. Unlink it until it has a backend
+-- again. Already applied to the live database on 2026-11-01; the seed above
+-- still carries the old URL, and `on conflict do nothing` never touches an
+-- existing row, so this update is what applies it on a fresh database.
+update projects set live_url = null where slug = 'caffeine-co';
+
 -- RONIN, Jayron's personal assistant. Rendered by RoninSpotlight above
 -- the project grid, never as a card, and never linked: it reads his own
 -- inbox, so live_url and github_url stay null and the spotlight ignores

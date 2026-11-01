@@ -97,7 +97,10 @@ export const fallbackProjects = [
     description:
       "A coffee shop ordering platform with a luxury 'Artisan Cream & Espresso' aesthetic — customer ordering plus a full admin console (dashboard, POS, inventory, sales, accounts). Built with React and Tailwind CSS, backed directly by Supabase (Postgres, Auth, Storage) with no separate server.",
     tags: ["React", "Vite", "Supabase", "Tailwind CSS"],
-    live_url: "https://caffeine-co-smoky.vercel.app/",
+    // The deployment still loads, but its Supabase project no longer exists
+    // (the host stopped resolving in DNS, checked 2026-11-01), so the menu,
+    // login and orders cannot work. Unlinked until it has a backend again.
+    live_url: null,
     github_url: "https://github.com/Jayronj0616/caffeine_co",
     cover_image: "/images/coffeeshop/Screenshot 2026-02-13 111127.png",
     status: "building",
