@@ -416,10 +416,10 @@ values
   ),
   (
     'bugs-auto-quality-cars',
-    'BUGS Auto Quality Cars',
+    'BUGS Quality Cars',
     'A dealership platform built for a real automotive client: a public storefront for browsing inventory, estimating monthly payments, and sending inquiries, plus an admin dashboard for vehicles, photos, financing, and leads. Live in production with the dealership''s actual inventory -- Postgres RLS is the final word on every row, so anonymous visitors can read published vehicles but can''t write to anything, and every customer submission is validated and rate-limited server-side before it reaches the CRM.',
     array['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
-    'https://bugs-auto-quality-cars.vercel.app',
+    'https://bugs-quality-cars.vercel.app',
     'https://github.com/Jayronj0616/bugs-auto-quality-cars',
     '/images/bugs-auto/BUGS.png',
     array['/images/bugs-auto/BUGS.png'],
@@ -500,6 +500,18 @@ delete from projects where slug = 'booking-system';
 -- still carries the old URL, and `on conflict do nothing` never touches an
 -- existing row, so this update is what applies it on a fresh database.
 update projects set live_url = null where slug = 'caffeine-co';
+
+-- The dealership dropped "Auto" from its name and its canonical domain is now
+-- bugs-quality-cars.vercel.app (the old one still serves the same site). The
+-- slug stays as it is: it is the row's key and the OpenPanel mapping's key.
+-- Same `on conflict do nothing` reasoning as above, so this is what applies
+-- the rename on a database that already has the row.
+update projects
+set title = 'BUGS Quality Cars',
+    live_url = 'https://bugs-quality-cars.vercel.app'
+where slug = 'bugs-auto-quality-cars'
+  and (title = 'BUGS Auto Quality Cars'
+       or live_url = 'https://bugs-auto-quality-cars.vercel.app');
 
 -- RONIN, Jayron's personal assistant. Rendered by RoninSpotlight above
 -- the project grid, never as a card, and never linked: it reads his own

@@ -17,7 +17,7 @@ This table and `src/config/openpanel.js` must agree. When a project gets wired, 
 | Lending System | `lending-system` | — | — | 3 | not started | — |
 | PayrollPro | `payrollpro` | — | — | 3 | not started | — |
 | AgentPro | `agentpro` | — | — | 3 | not started | — |
-| BUGS Auto Quality Cars | `bugs-auto-quality-cars` | — | — | 3 | not started | — |
+| BUGS Quality Cars | `bugs-auto-quality-cars` | — | — | 3 | not started | — |
 
 Status: **not started** (no tracker code) → **wired** (code merged, client ID not yet set in Vercel
 Production) → **live** (events arriving). Status as of 2026-10-31.

@@ -32,7 +32,7 @@ export const TRACKED_PROJECTS = [
   { slug: "agentpro", name: "AgentPro", projectId: null, keyEvent: null },
   {
     slug: "bugs-auto-quality-cars",
-    name: "BUGS Auto Quality Cars",
+    name: "BUGS Quality Cars",
     projectId: null,
     keyEvent: null,
   },

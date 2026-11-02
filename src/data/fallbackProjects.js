@@ -25,11 +25,11 @@ export const fallbackProjects = [
   },
   {
     slug: "bugs-auto-quality-cars",
-    title: "BUGS Auto Quality Cars",
+    title: "BUGS Quality Cars",
     description:
       "A dealership platform built for a real automotive client: a public storefront for browsing inventory, estimating monthly payments, and sending inquiries, plus an admin dashboard for vehicles, photos, financing, and leads. Live in production with the dealership's actual inventory — Postgres RLS is the final word on every row, so anonymous visitors can read published vehicles but can't write to anything, and every customer submission is validated and rate-limited server-side before it reaches the CRM.",
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
-    live_url: "https://bugs-auto-quality-cars.vercel.app",
+    live_url: "https://bugs-quality-cars.vercel.app",
     github_url: "https://github.com/Jayronj0616/bugs-auto-quality-cars",
     cover_image: "/images/bugs-auto/BUGS.png",
     status: "live",
