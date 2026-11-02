@@ -1,3 +1,4 @@
+import { adminPath } from "@/lib/adminPath";
 import Link from "next/link";
 import { FolderKanban, Plus, Pencil, ExternalLink, Github } from "lucide-react";
 import { requireAdmin } from "@/lib/adminAuth";
@@ -28,7 +29,7 @@ export default async function AdminProjectsPage() {
         description={'Shown on the site under "Selected work."'}
         action={
           <Link
-            href="/admin/projects/new"
+            href={adminPath("/projects/new")}
             className="btn-primary flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5"
           >
             <Plus size={16} />
@@ -82,7 +83,7 @@ export default async function AdminProjectsPage() {
 
               <div className="flex shrink-0 items-center gap-1">
                 <Link
-                  href={`/admin/projects/${project.id}`}
+                  href={adminPath(`/projects/${project.id}`)}
                   aria-label={`Edit ${project.title}`}
                   className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-accent"
                 >

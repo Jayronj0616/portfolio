@@ -1,3 +1,4 @@
+import { adminPath } from "@/lib/adminPath";
 import Link from "next/link";
 import { ArrowLeft, FolderKanban } from "lucide-react";
 import { requireAdmin } from "@/lib/adminAuth";
@@ -13,7 +14,7 @@ export default async function NewProjectPage() {
     <div>
       <Reveal>
         <Link
-          href="/admin/projects"
+          href={adminPath("/projects")}
           className="flex w-fit items-center gap-1.5 text-sm text-muted transition hover:text-foreground"
         >
           <ArrowLeft size={14} />

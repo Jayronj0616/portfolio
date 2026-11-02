@@ -1,5 +1,6 @@
 "use server";
 
+import { adminPath } from "@/lib/adminPath";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
@@ -98,7 +99,7 @@ export async function saveSiteContent(_prevState, formData) {
   revalidatePath("/");
   revalidatePath("/projects");
   revalidatePath("/admin/site");
-  redirect("/admin/site");
+  redirect(adminPath("/site"));
 }
 
 export async function uploadAvatar(_prevState, formData) {

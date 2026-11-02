@@ -1,5 +1,6 @@
 "use server";
 
+import { adminPath } from "@/lib/adminPath";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
@@ -34,7 +35,7 @@ export async function createTestimonial(_prevState, formData) {
 
   revalidatePath("/");
   revalidatePath("/admin/testimonials");
-  redirect("/admin/testimonials");
+  redirect(adminPath("/testimonials"));
 }
 
 export async function updateTestimonial(id, _prevState, formData) {
@@ -58,7 +59,7 @@ export async function updateTestimonial(id, _prevState, formData) {
 
   revalidatePath("/");
   revalidatePath("/admin/testimonials");
-  redirect("/admin/testimonials");
+  redirect(adminPath("/testimonials"));
 }
 
 export async function deleteTestimonial(formData) {
@@ -74,5 +75,5 @@ export async function deleteTestimonial(formData) {
 
   revalidatePath("/");
   revalidatePath("/admin/testimonials");
-  redirect("/admin/testimonials");
+  redirect(adminPath("/testimonials"));
 }

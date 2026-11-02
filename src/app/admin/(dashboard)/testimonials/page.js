@@ -1,3 +1,4 @@
+import { adminPath } from "@/lib/adminPath";
 import Link from "next/link";
 import { Quote, Plus, Pencil } from "lucide-react";
 import { requireAdmin } from "@/lib/adminAuth";
@@ -22,7 +23,7 @@ export default async function AdminTestimonialsPage() {
         description="The section disappears from the site until at least one row exists here."
         action={
           <Link
-            href="/admin/testimonials/new"
+            href={adminPath("/testimonials/new")}
             className="btn-primary flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5"
           >
             <Plus size={16} />
@@ -66,7 +67,7 @@ export default async function AdminTestimonialsPage() {
 
               <div className="flex shrink-0 items-center gap-1">
                 <Link
-                  href={`/admin/testimonials/${t.id}`}
+                  href={adminPath(`/testimonials/${t.id}`)}
                   aria-label={`Edit testimonial from ${t.name}`}
                   className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-accent"
                 >

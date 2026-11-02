@@ -1,5 +1,6 @@
 "use server";
 
+import { adminPath } from "@/lib/adminPath";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
@@ -67,7 +68,7 @@ export async function createProject(_prevState, formData) {
   revalidatePath("/");
   revalidatePath("/projects");
   revalidatePath("/admin/projects");
-  redirect("/admin/projects");
+  redirect(adminPath("/projects"));
 }
 
 export async function updateProject(id, _prevState, formData) {
@@ -97,7 +98,7 @@ export async function updateProject(id, _prevState, formData) {
   revalidatePath("/");
   revalidatePath("/projects");
   revalidatePath("/admin/projects");
-  redirect("/admin/projects");
+  redirect(adminPath("/projects"));
 }
 
 export async function deleteProject(formData) {
@@ -114,7 +115,7 @@ export async function deleteProject(formData) {
   revalidatePath("/");
   revalidatePath("/projects");
   revalidatePath("/admin/projects");
-  redirect("/admin/projects");
+  redirect(adminPath("/projects"));
 }
 
 export async function uploadProjectImage(_prevState, formData) {

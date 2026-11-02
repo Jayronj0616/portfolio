@@ -1,3 +1,4 @@
+import { adminPath } from "@/lib/adminPath";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Quote } from "lucide-react";
@@ -32,7 +33,7 @@ export default async function EditTestimonialPage({ params }) {
     <div>
       <Reveal>
         <Link
-          href="/admin/testimonials"
+          href={adminPath("/testimonials")}
           className="flex w-fit items-center gap-1.5 text-sm text-muted transition hover:text-foreground"
         >
           <ArrowLeft size={14} />
