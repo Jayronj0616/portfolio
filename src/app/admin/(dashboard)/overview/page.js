@@ -1,3 +1,4 @@
+import { adminPath } from "@/lib/adminPath";
 import Link from "next/link";
 import { Gauge, Eye, CalendarDays, Mail, FolderKanban, ArrowRight } from "lucide-react";
 import { requireAdmin } from "@/lib/adminAuth";
@@ -119,7 +120,7 @@ export default async function AdminOverviewPage() {
             Recent inquiries
           </h2>
           <Link
-            href="/admin/messages"
+            href={adminPath("/messages")}
             className="flex items-center gap-1 text-sm text-accent transition hover:brightness-125"
           >
             View all

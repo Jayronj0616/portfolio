@@ -1,17 +1,18 @@
 "use client";
 
+import { adminPath } from "@/lib/adminPath";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Gauge, BarChart3, Mail, FolderKanban, Quote, FileText, LogOut } from "lucide-react";
 import { adminLogout } from "@/app/admin/actions";
 
 const NAV = [
-  { href: "/admin/overview", label: "Overview", icon: Gauge },
-  { href: "/admin/analytics", label: "All projects", icon: BarChart3 },
-  { href: "/admin/messages", label: "Inquiries", icon: Mail },
-  { href: "/admin/projects", label: "Projects", icon: FolderKanban },
-  { href: "/admin/testimonials", label: "Testimonials", icon: Quote },
-  { href: "/admin/site", label: "Site text", icon: FileText },
+  { href: adminPath("/overview"), label: "Overview", icon: Gauge },
+  { href: adminPath("/analytics"), label: "All projects", icon: BarChart3 },
+  { href: adminPath("/messages"), label: "Inquiries", icon: Mail },
+  { href: adminPath("/projects"), label: "Projects", icon: FolderKanban },
+  { href: adminPath("/testimonials"), label: "Testimonials", icon: Quote },
+  { href: adminPath("/site"), label: "Site text", icon: FileText },
 ];
 
 export default function AdminSidebar({ name }) {

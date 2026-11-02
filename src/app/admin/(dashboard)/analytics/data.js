@@ -1,3 +1,4 @@
+import { adminPath } from "@/lib/adminPath";
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { getProjects } from "@/lib/data";
@@ -31,7 +32,7 @@ export async function getAllProjectsAnalytics() {
   // The dashboard layout redirects, but a layout's check does not stop this
   // page from running or from appearing in the RSC payload of a logged-out
   // request (Next's authentication guide). Check next to the data.
-  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+  if (!(await isAdminAuthenticated())) redirect(adminPath("/login"));
 
   const configured = isOpenPanelReadConfigured();
   const projects = await getProjects();

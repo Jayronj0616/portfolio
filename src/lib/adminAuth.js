@@ -2,6 +2,7 @@ import "server-only";
 import crypto from "crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { adminPath } from "@/lib/adminPath";
 
 export const ADMIN_COOKIE = "admin_session";
 
@@ -56,5 +57,5 @@ export async function isAdminAuthenticated() {
 // appearing in the RSC payload of a logged-out request that asks for it
 // (Next's authentication guide, "Layouts and auth checks").
 export async function requireAdmin() {
-  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+  if (!(await isAdminAuthenticated())) redirect(adminPath("/login"));
 }

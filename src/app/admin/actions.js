@@ -1,5 +1,6 @@
 "use server";
 
+import { adminPath } from "@/lib/adminPath";
 import { redirect } from "next/navigation";
 import {
   verifyAdminPassword,
@@ -22,10 +23,10 @@ export async function adminLogin(_prevState, formData) {
   }
 
   await createAdminSession();
-  redirect("/admin/overview");
+  redirect(adminPath("/overview"));
 }
 
 export async function adminLogout() {
   await clearAdminSession();
-  redirect("/admin/login");
+  redirect(adminPath("/login"));
 }

@@ -45,6 +45,7 @@ The database schema is in `supabase/schema.sql`.
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public anon key (read-only via RLS) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only key used by Server Actions for writes |
 | `ADMIN_PASSWORD` | Password for the `/admin` login |
+| `NEXT_PUBLIC_ADMIN_PATH` | Optional. Private URL for the dashboard instead of `/admin` (then `/admin` returns 404). Inlined at build time, so set it in Vercel and redeploy |
 | `NEXT_PUBLIC_SITE_URL` | Optional. Site origin for canonical URLs, Open Graph, robots and sitemap |
 
 ## Scripts

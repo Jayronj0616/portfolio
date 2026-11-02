@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { OpenPanelComponent } from "@openpanel/nextjs";
+import { ADMIN_BASE } from "@/lib/adminPath";
 
 const clientId = process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID;
 
@@ -18,7 +19,7 @@ const clientId = process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID;
 export default function AnalyticsScript() {
   const pathname = usePathname();
 
-  if (!clientId || pathname?.startsWith("/admin")) return null;
+  if (!clientId || pathname?.startsWith(ADMIN_BASE)) return null;
 
   return (
     <OpenPanelComponent

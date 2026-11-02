@@ -100,6 +100,13 @@ full CRUD instead, the template is `src/app/admin/(dashboard)/testimonials/`.
   Consequence to know: an edit made straight in Supabase shows up within about a minute; an edit made in
   `/admin` shows immediately because the Server Actions call `revalidatePath`. A new public page that shows
   database content must be added to those `revalidatePath` calls, or it will lag behind admin edits.
+- **The dashboard's public URL is not `/admin` in production.** The files live in `src/app/admin/`, but
+  `NEXT_PUBLIC_ADMIN_PATH` (set in Vercel, never committed: the repo is public) maps a private slug onto them
+  via a rewrite in `next.config.mjs`, and `src/proxy.js` makes the real `/admin` return 404. Rules that follow:
+  every link or `redirect()` into the dashboard uses `adminPath()` from `src/lib/adminPath.js`, never a
+  literal `/admin/...`; `revalidatePath` is the one exception and keeps `/admin/...` because it takes the
+  internal route; and the slug must never go in `robots.js`, a doc or a commit. It is inlined at build time,
+  so changing it needs a redeploy. Unset, everything is plain `/admin`, which is what local dev uses.
 - **Scroll reveals are driven by an inline script in `src/app/layout.js`, not by React.** It adds `.js` to
   `<html>` (which hides every `.reveal`) once per document load, and uses a MutationObserver to reveal
   `.reveal` nodes added later by client-side navigation. If a page renders blank until reload, check that
